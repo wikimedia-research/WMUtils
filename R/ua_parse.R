@@ -16,7 +16,7 @@ ua_parse <- function(user_agents, fields = c("device","os","browser","browser_ma
   user_agents[is.na(user_agents)] <- ""
   
   #Run
-  returned_UAs <- rpy(x = user_agents, script = file.path(find.package("WMUtils"),"ua_parse.py"))  
+  returned_UAs <- rpy(x = user_agents, script = file.path(find.package("WMUtils"),"ua_parse.py"))
   
   #Handle NULLs
   returned_UAs <- lapply(returned_UAs, function(x){

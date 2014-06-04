@@ -45,5 +45,5 @@ rpy(x, script, ...)
 }
 
 \seealso{
-\code{\link{rpy_df}} or \code{\link{rpy_vec}} for conversion of the results into useful classes, and \code\link{ua_parse} for \code{rpy} being used.
+\code{\link{rpy_df}} or \code{\link{rpy_vec}} for conversion of the results into useful classes, and \code{\link{ua_parse}} for \code{rpy} being used.
 }
