@@ -7,7 +7,7 @@ geo_tz <- function(ips){
   results <- rpy(x = ips, script = file.path(find.package("WMUtils"),"geoip.py"), type = "tz", file = city_file)
   
   #Handle NULLs
-  tzs <- lapply(results, function(x){
+  tzs <- unlist(lapply(results, function(x){
     
     if(is.null(x)){
       
@@ -18,7 +18,7 @@ geo_tz <- function(ips){
       return(x)
     }
     
-  })
+  }))
   
   #Return
   return(tzs)
