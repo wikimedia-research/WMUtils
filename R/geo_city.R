@@ -20,6 +20,6 @@ geo_city <- function(ips){
   })
   
   #Return
-  return(results)
+  return(cities)
   
 }
