@@ -1,7 +1,7 @@
 rpy <- function(x, script, ...){
   
   #Create input/output files
-  dir_path <- paste("/tmp/ua_", make.names(Sys.time()), sep = "")
+  dir_path <- paste("/tmp/rpy_", make.names(Sys.time()), sep = "")
   dir.create(dir_path)
   input_path <- file.path(dir_path, "input.json")
   output_path <- file.path(dir_path, "output.json")
@@ -15,8 +15,8 @@ rpy <- function(x, script, ...){
   #Return results
   results <- fromJSON(output_path)
   
-  #Remove files
-  file.remove(input_path,output_path,dir_path)
+  #Remove folder
+  dir_remove(dir_path)
   
   #Return
   return(results)
