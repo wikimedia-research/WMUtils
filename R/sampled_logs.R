@@ -3,10 +3,9 @@ sampled_logs <- function(date){
   #Construct file address
   origin_path <- paste("/a/squid/archive/sampled/sampled-1000.tsv.log-",date,".gz", sep = "")
   #Create a new, temp directory, move the file there and unzip
-  dir_path <- paste("/tmp/sampled_log", make.names(Sys.time()), sep = "")
+  dir_path <- dir_construct("sampled_log")
   destination_path <- file.path(dir_path,"dailydata.tsv")
   output_path <- file.path(dir_path,"processed_data.tsv")
-  dir.create(dir_path)
   file.copy(from = origin_path, to = file.path(dir_path,"dailydata.tsv.gz"), overwrite = TRUE)
   system(paste("gunzip",file.path(dir_path,"dailydata.tsv.gz")))
   
@@ -26,7 +25,7 @@ sampled_logs <- function(date){
                                       "lang", "x_analytics"))
   
   #Kill source files
-  dir_remove(dir_path)
+  dir_remove(dir_pat)
   
   #Return
   return(data)

@@ -1,4 +1,4 @@
-dir_remove(path){
+dir_remove <- function(path){
   
   system(paste("rm -r", path))
   

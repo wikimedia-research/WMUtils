@@ -1,8 +1,7 @@
 rpy <- function(x, script, ...){
   
   #Create input/output files
-  dir_path <- paste("/tmp/rpy_", make.names(Sys.time()), sep = "")
-  dir.create(dir_path)
+  dir_path <- dir_construct("rpy_")
   input_path <- file.path(dir_path, "input.json")
   output_path <- file.path(dir_path, "output.json")
   
