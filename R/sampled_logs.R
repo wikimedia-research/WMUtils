@@ -25,7 +25,7 @@ sampled_logs <- function(date){
                                       "lang", "x_analytics"))
   
   #Kill source files
-  dir_remove(dir_pat)
+  dir_remove(dir_path)
   
   #Return
   return(data)
