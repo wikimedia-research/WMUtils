@@ -21,7 +21,7 @@ def parse_ua(x):
         UA_results = uap.Parse(x[i])
         
         #Limit to things we care about
-        output_list[i] = {'device': UA_results['device']['family'],'os': UA_results['os']['family'], 'browser': UA_results['user_agent']['family'], 'browser_version': UA_results['user_agent']['major'], 'browser_major': UA_results['user_agent']['minor']}
+        output_list[i] = {'device': UA_results['device']['family'],'os': UA_results['os']['family'], 'browser': UA_results['user_agent']['family'], 'browser_major': UA_results['user_agent']['major'], 'browser_minor': UA_results['user_agent']['minor']}
     
     #And return
     return output_list

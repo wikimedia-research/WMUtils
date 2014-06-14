@@ -3,10 +3,21 @@ ua_parse <- function(user_agents, fields = c("device","os","browser","browser_ma
   #Check arguments
   fields <- match.arg(arg = fields, choices = c("device","os","browser","browser_major","browser_minor"),
                       several.ok = TRUE)
+  
   if(!is.vector(user_agents)){
     
     stop("This requires a vector of user agents")
     
+  }
+  
+  #Handle big objects
+  if(length(user_agents) > 2000000){
+    
+    #If it's bigger than 2m, split and recursively call
+    uas <- split(user_agents, ceiling(seq_along(user_agents)/2000000))
+    ua_results <- lapply(uas, ua_parse, fields = fields)
+    ua_results <- do.call("rbind",ua_results)
+    return(ua_results)
   }
   
   #Convert
