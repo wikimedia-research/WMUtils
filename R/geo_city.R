@@ -1,5 +1,13 @@
 geo_city <- function(ips){
   
+  #Handle big vectors
+  if(length(ips) > 2000000){
+    
+    ips <- split(ips, ceiling(seq_along(ips)/2000000))
+    results <- unlist(lapply(ips, geo_city))
+    return(results)
+  }
+  
   #Where do we look for the file?
   city_file <- "/usr/share/GeoIP/GeoIPCity.dat"
   
