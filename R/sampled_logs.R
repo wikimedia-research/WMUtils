@@ -1,7 +1,8 @@
-sampled_logs <- function(date){
+sampled_logs <- function(date, filtered = FALSE){
   
   #Construct file address
   origin_path <- paste("/a/squid/archive/sampled/sampled-1000.tsv.log-",date,".gz", sep = "")
+  
   #Create a new, temp directory, move the file there and unzip
   dir_path <- dir_construct("sampled_log")
   destination_path <- file.path(dir_path,"dailydata.tsv")
@@ -26,6 +27,42 @@ sampled_logs <- function(date){
   
   #Kill source files
   dir_remove(dir_path)
+  
+  #Filtering, if needed
+  if(filtered){
+    
+    #Iconv
+    for(i in seq_along(data)){
+      
+      #I bloody hate having to run a write-loop over a non-primitive object, but short of adding
+      #Plyr as another dependency to take advantage of colwise, that's just how it's going to work.
+      data[,i] <- iconv(x = data[,i], to = "UTF-8")
+      
+    }
+    
+    #Get rid of non text/html types
+    data <- data[data$mime_type %in% c("text/html; charset=UTF-8",
+                                       "text/html; charset=utf-8",
+                                       "text/html; charset=iso-8859-1",
+                                       "text/html; charset=ISO-8859-1",
+                                       "text/html"),]
+    
+    #Identify non-SSH hits
+    non_ssh <- !grepl(x = data$squid, pattern = "ssh", perl = TRUE)
+    
+    #Identify completed requests
+    completed <- grepl(x = data$status_code, pattern = "(200|304)", perl = TRUE)
+    
+    #Identify requests to sites we care about
+    desired_sites <- grepl(x = data$URL, pattern = "(mediawiki|((commons|meta|species)\\.(m\\.)?wikimedia)|(wik(tionary|isource|ibooks|ivoyage|iversity|iquote|inews|ipedia|idata)))", perl = TRUE, ignore.case = TRUE)
+    
+    #Identify requests to content directories
+    content_dirs <- grepl(x = data$URL, pattern = "(/\\?title=|/wiki\\?curid=|/sr-ec/|/w/|/wiki/|/zh/|/zh-tw/|/zh-cn/|/zh-hant/|/zh-mo/|/zh-hans/|/zh-hk/|/sr/|/zh-sg/|/sr-hl/|/sr-el/)", perl = TRUE, ignore.case = TRUE)
+    
+    #Limit to matches of all of those things.
+    data <- data[non_ssh & completed & desired_sites & content_dirs,]
+    
+  }
   
   #Return
   return(data)
