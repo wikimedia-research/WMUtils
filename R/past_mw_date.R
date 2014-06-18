@@ -1,4 +1,4 @@
-past_mw_date <- function(date = NULL, offset, full_timestamp = TRUE){
+past_mw_date <- function(date = NULL, offset, full_timestamp = FALSE){
   
   if(is.null(date)){
     
@@ -21,7 +21,7 @@ past_mw_date <- function(date = NULL, offset, full_timestamp = TRUE){
   date <- gsub(x = as.character(date), pattern = "-", replacement = "")
   
   #Do we need a full timestamp?
-  if(full_time){
+  if(full_timestamp){
     
     date <- paste(date, "000000", sep = "")
     
