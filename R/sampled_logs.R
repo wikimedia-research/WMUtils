@@ -51,7 +51,7 @@ sampled_logs <- function(date, filtered = FALSE){
     non_ssh <- !grepl(x = data$squid, pattern = "ssh", perl = TRUE)
     
     #Identify completed requests
-    completed <- grepl(x = data$status_code, pattern = "(200|304)", perl = TRUE)
+    completed <- grepl(x = data$status_code, pattern = "(20(0|4|6)|304)", perl = TRUE)
     
     #Identify requests to sites we care about
     desired_sites <- grepl(x = data$URL, pattern = "(mediawiki|((commons|meta|species)\\.(m\\.)?wikimedia)|(wik(tionary|isource|ibooks|ivoyage|iversity|iquote|inews|ipedia|idata)))", perl = TRUE, ignore.case = TRUE)
