@@ -57,7 +57,7 @@ sampled_logs <- function(date, filtered = FALSE){
     desired_sites <- grepl(x = data$URL, pattern = "(mediawiki|((commons|meta|species)\\.(m\\.)?wikimedia)|(wik(tionary|isource|ibooks|ivoyage|iversity|iquote|inews|ipedia|idata)))", perl = TRUE, ignore.case = TRUE)
     
     #Identify requests to content directories
-    content_dirs <- grepl(x = data$URL, pattern = "(/\\?title=|/wiki\\?curid=|/sr-ec/|/w/|/wiki/|/zh/|/zh-tw/|/zh-cn/|/zh-hant/|/zh-mo/|/zh-hans/|/zh-hk/|/sr/|/zh-sg/|/sr-hl/|/sr-el/)", perl = TRUE, ignore.case = TRUE)
+    content_dirs <- grepl(x = data$URL, pattern = "(/\\?title=|/wiki\\?curid=|/sr-(ec|hl|el)/|/w/|/wiki/|/zh/|/zh-(tw|cn|hant|mo|hans|hk|sg)/|/sr/)", perl = TRUE, ignore.case = TRUE)
     
     #Limit to matches of all of those things.
     data <- data[non_ssh & completed & desired_sites & content_dirs,]
