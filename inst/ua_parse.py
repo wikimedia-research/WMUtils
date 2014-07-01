@@ -6,16 +6,14 @@ import sys
 def parse_ua(x):
     
     #Check type
-    if(isinstance(x,list)):
-        obj_length = len(x)
-    else:
-        obj_length = 1
+    if not(isinstance(x,list)):
+        x = [x]
         
     #Construct output list, same length as the input list
-    output_list = range(obj_length)
+    output_list = range(len(x))
     
     #For each entry in the input list, 
-    for i in range(obj_length):
+    for i in range(len(x)):
         
         #Retrieve the UA results
         UA_results = uap.Parse(x[i])

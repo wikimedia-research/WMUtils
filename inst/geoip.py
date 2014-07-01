@@ -2,6 +2,15 @@ import pygeoip
 import sys
 import json
 
+#List checking
+def listcheck(x):
+  
+  if not(isinstance(x,list)):
+    x = [x]
+    
+  return x
+  
+
 #Define country function
 def country(x):
   
@@ -9,16 +18,13 @@ def country(x):
   geo = pygeoip.GeoIP(filename = sys.argv[4], flags = 1)
   
   #Check type
-  if(isinstance(x,list)):
-    obj_length = len(x)
-  else:
-      obj_length = 1
+  x = listcheck(x)
   
   #Construct output list
-  output_list = range(obj_length)
+  output_list = range(len(x))
     
   #For each entry in the input list, retrieve the country code and add it to the output object
-  for i in range(obj_length):
+  for i in range(len(x)):
   
     output_list[i] = geo.country_code_by_addr(x[i])
   
@@ -32,16 +38,13 @@ def city(x):
   geo = pygeoip.GeoIP(filename = sys.argv[4], flags = 1)
   
   #Check type
-  if(isinstance(x,list)):
-    obj_length = len(x)
-  else:
-      obj_length = 1
+  x = listcheck(x)
   
   #Construct output list
-  output_list = range(obj_length)
-    
+  output_list = range(len(x))
+  
   #For each entry in the input list, retrieve the country code and add it to the output object
-  for i in range(obj_length):
+  for i in range(len(x)):
   
     output_list[i] = geo.record_by_addr(x[i])
   
@@ -55,16 +58,13 @@ def tz_city(x):
   geo = pygeoip.GeoIP(filename = sys.argv[4], flags = 1)
   
   #Check type
-  if(isinstance(x,list)):
-    obj_length = len(x)
-  else:
-      obj_length = 1
+  x = listcheck(x)
   
   #Construct output list
-  output_list = range(obj_length)
-    
+  output_list = range(len(x))
+  
   #For each entry in the input list, retrieve the country code and add it to the output object
-  for i in range(obj_length):
+  for i in range(len(x)):
   
     output_list[i] = geo.time_zone_by_addr(x[i])
   
