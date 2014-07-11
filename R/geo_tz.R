@@ -28,6 +28,9 @@ geo_tz <- function(ips){
     
   }))
   
+  #Remove names
+  names(tzs) <- NULL
+  
   #Return
   return(tzs)
 }
