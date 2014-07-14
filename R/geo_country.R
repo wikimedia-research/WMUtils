@@ -13,7 +13,7 @@ geo_country <- function(ips){
   
   
   #Call rpy
-  results <- rpy(x = ips, script = file.path(find.package("WMUtils"),"geoip.py"), type = "country", file = country_file)
+  results <- rpy(x = ips, script = file.path(find.package("WMUtils"),"geoip.py"), type = "country", file = "/usr/share/GeoIP/GeoIP.dat", ipv6 = "/usr/share/GeoIP//GeoIPv6.dat")
   
   #Return
   return(results)

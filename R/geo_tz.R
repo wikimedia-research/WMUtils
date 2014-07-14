@@ -8,11 +8,8 @@ geo_tz <- function(ips){
     return(results)
   }
   
-  #Where do we look for the file?
-  city_file <- "/usr/share/GeoIP/GeoIPCity.dat"
-  
   #Call rpy
-  results <- rpy(x = ips, script = file.path(find.package("WMUtils"),"geoip.py"), type = "tz", file = city_file)
+  results <- rpy(x = ips, script = file.path(find.package("WMUtils"),"geoip.py"), type = "tz", file = "/usr/share/GeoIP/GeoIPCity.dat", ip6 = "/usr/share/GeoIP/GeoLiteCityv6.dat")
   
   #Handle NULLs
   tzs <- unlist(lapply(results, function(x){

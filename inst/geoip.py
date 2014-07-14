@@ -1,6 +1,7 @@
 import pygeoip
 import sys
 import json
+import re
 
 #List checking
 def listcheck(x):
@@ -14,8 +15,9 @@ def listcheck(x):
 #Define country function
 def country(x):
   
-  #Read in file, storing in memory for speed
-  geo = pygeoip.GeoIP(filename = sys.argv[4], flags = 1)
+  #Read in files, storing in memory for speed
+  ip4_geo = pygeoip.GeoIP(filename = sys.argv[4], flags = 1)
+  ip6_geo = pygeoip.GeoIP(filename = sys.argv[5], flags = 1)
   
   #Check type
   x = listcheck(x)
@@ -26,7 +28,13 @@ def country(x):
   #For each entry in the input list, retrieve the country code and add it to the output object
   for i in range(len(x)):
   
-    output_list[i] = geo.country_code_by_addr(x[i])
+    if(bool(re.search(":",x[i]))):
+    
+      output_list[i] = ip6_geo.country_code_by_addr(x[i])
+      
+    else:
+      
+      output_list[i] = ip4_geo.country_code_by_addr(x[i])
   
   #Return
   return output_list
@@ -34,8 +42,9 @@ def country(x):
 #Define city function
 def city(x):
   
-  #Read in file, storing in memory for speed
-  geo = pygeoip.GeoIP(filename = sys.argv[4], flags = 1)
+  #Read in files, storing in memory for speed
+  ip4_geo = pygeoip.GeoIP(filename = sys.argv[4], flags = 1)
+  ip6_geo = pygeoip.GeoIP(filename = sys.argv[5], flags = 1)
   
   #Check type
   x = listcheck(x)
@@ -46,7 +55,13 @@ def city(x):
   #For each entry in the input list, retrieve the country code and add it to the output object
   for i in range(len(x)):
   
-    output_list[i] = geo.record_by_addr(x[i])
+    if(bool(re.search(":",x[i]))):
+    
+      output_list[i] = ip6_geo.record_by_addr(x[i])
+      
+    else:
+      
+      output_list[i] = ip4_geo.record_by_addr(x[i])
   
   #Return
   return output_list
@@ -55,7 +70,8 @@ def city(x):
 def tz_city(x):
   
   #Read in file, storing in memory for speed
-  geo = pygeoip.GeoIP(filename = sys.argv[4], flags = 1)
+  ip4_geo = pygeoip.GeoIP(filename = sys.argv[4], flags = 1)
+  ip6_geo = pygeoip.GeoIP(filename = sys.argv[5], flags = 1)
   
   #Check type
   x = listcheck(x)
@@ -66,7 +82,13 @@ def tz_city(x):
   #For each entry in the input list, retrieve the country code and add it to the output object
   for i in range(len(x)):
   
-    output_list[i] = geo.time_zone_by_addr(x[i])
+    if(bool(re.search(":",x[i]))):
+    
+      output_list[i] = ip6_geo.time_zone_by_addr(x[i])
+      
+    else:
+      
+      output_list[i] = ip4_geo.time_zone_by_addr(x[i])
   
   #Return
   return output_list
