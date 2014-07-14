@@ -15,7 +15,7 @@ geo_city <- function(ips){
   results <- rpy(x = ips, script = file.path(find.package("WMUtils"),"geoip.py"), type = "city", file = city_file)
   
   #Extract city
-  cities <- lapply(results, function(x){
+  cities <- unlist(lapply(results, function(x){
     
     if(is.null(x$city)){
       
@@ -25,7 +25,7 @@ geo_city <- function(ips){
       
       return(x$city)
     }
-  })
+  }))
   
   #Return
   return(cities)
