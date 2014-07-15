@@ -3,16 +3,16 @@ global_query <- function(query, project_type = "all"){
   #Construct the query
   if(!project_type == "all"){
     
-    query <- paste("SELECT wiki FROM wiki_info WHERE code =",project_type)#
+    info_query <- paste("SELECT wiki FROM wiki_info WHERE code =",project_type)#
     
   } else {
     
-    query <- "SELECT wiki FROM wiki_info"
+    info_query <- "SELECT wiki FROM wiki_info"
     
   }
   
   #Run query
-  wikis <- mysql_query(query = query, db = "staging")$wiki
+  wikis <- mysql_query(query = info_query, db = "staging")$wiki
   
   #Instantiate progress bar and note environment
   env <- environment()
