@@ -37,7 +37,7 @@ global_query <- function(query, project_type = "all"){
     #Return
     return(data)
     
-  }, query = "SHOW TABLES;")
+  }, query = query)
   cat("\n")
   
   #Bind it into a single df
