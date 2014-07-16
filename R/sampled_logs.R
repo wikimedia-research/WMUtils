@@ -42,7 +42,7 @@ sampled_logs <- function(date, filtered = FALSE){
   destination_path <- file.path(dir_path,"dailydata.tsv")
   output_path <- file.path(dir_path,"processed_data.tsv")
   file.copy(from = origin_path, to = file.path(dir_path,"dailydata.tsv.gz"), overwrite = TRUE)
-  system(paste("gunzip",file.path(dir_path,"dailydata.tsv.gz")))
+  interned <- system(paste("gunzip",file.path(dir_path,"dailydata.tsv.gz")))
   
   #Awk the hell out of it
   system(paste(paste("awk -v OUTPUTFILE='",output_path, "' -f", sep = ""), file.path(find.package("WMUtils"), "sampled_log_sanitiser.awk"), destination_path))
