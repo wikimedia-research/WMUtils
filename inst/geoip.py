@@ -29,12 +29,17 @@ def country(x):
   for i in range(len(x)):
   
     if(bool(re.search(":",x[i]))):
-    
-      output_list[i] = ip6_geo.country_code_by_addr(x[i])
-      
+      try:
+        output_list[i] = ip6_geo.country_code_by_addr(x[i])
+      except:
+        output_list[i] = ""
+        
     else:
       
-      output_list[i] = ip4_geo.country_code_by_addr(x[i])
+      try:
+        output_list[i] = ip4_geo.country_code_by_addr(x[i])
+      except:
+        output_list[i] = ""
   
   #Return
   return output_list
@@ -56,12 +61,17 @@ def city(x):
   for i in range(len(x)):
   
     if(bool(re.search(":",x[i]))):
-    
-      output_list[i] = ip6_geo.record_by_addr(x[i])
-      
+      try:
+        output_list[i] = ip6_geo.record_by_addr(x[i])
+      except:
+        output_list[i] = ""
+        
     else:
       
-      output_list[i] = ip4_geo.record_by_addr(x[i])
+      try:
+        output_list[i] = ip4_geo.record_by_addr(x[i])
+      except:
+        output_list[i] = ""
   
   #Return
   return output_list
@@ -83,12 +93,15 @@ def tz_city(x):
   for i in range(len(x)):
   
     if(bool(re.search(":",x[i]))):
-    
-      output_list[i] = ip6_geo.time_zone_by_addr(x[i])
-      
+      try:
+        output_list[i] = ip6_geo.time_zone_by_addr(x[i])
+      except:
+        output_list[i]
     else:
-      
-      output_list[i] = ip4_geo.time_zone_by_addr(x[i])
+      try:
+        output_list[i] = ip4_geo.time_zone_by_addr(x[i])
+      except:
+        output_list[i] = ""
   
   #Return
   return output_list
