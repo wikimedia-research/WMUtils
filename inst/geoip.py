@@ -32,14 +32,14 @@ def country(x):
       try:
         output_list[i] = ip6_geo.country_code_by_addr(x[i])
       except:
-        output_list[i] = ""
+        output_list[i] = "Invalid"
         
     else:
       
       try:
         output_list[i] = ip4_geo.country_code_by_addr(x[i])
       except:
-        output_list[i] = ""
+        output_list[i] = "Invalid"
   
   #Return
   return output_list
