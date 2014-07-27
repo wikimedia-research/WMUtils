@@ -9,10 +9,6 @@ geo_country <- function(ips){
     return(results)
   }
   
-  #Where do we look for the file?
-  country_file <- "/usr/share/GeoIP/GeoIP.dat"
-  
-  
   #Call rpy
   results <- rpy(x = ips, script = file.path(find.package("WMUtils"),"geoip.py"), type = "country", file = "/usr/share/GeoIP/GeoIP.dat", ipv6 = "/usr/share/GeoIP//GeoIPv6.dat")
   
