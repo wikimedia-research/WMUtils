@@ -5,6 +5,7 @@ geo_city <- function(ips){
     
     ips <- split(ips, ceiling(seq_along(ips)/2000000))
     results <- unlist(lapply(ips, geo_city))
+    names(results) <- NULL
     return(results)
   }
   
