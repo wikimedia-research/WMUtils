@@ -1,4 +1,4 @@
-sampled_logs <- function(date, filtered = FALSE, parsed_agents = FALSE, geo_country = FALSE, gc = TRUE){
+sampled_logs <- function(date, filtered = FALSE, parsed_agents = FALSE, geo_country = FALSE, collect = TRUE){
   
   #Construct file address
   origin_path <- paste("/a/squid/archive/sampled/sampled-1000.tsv.log-",date,".gz", sep = "")
@@ -77,10 +77,12 @@ sampled_logs <- function(date, filtered = FALSE, parsed_agents = FALSE, geo_coun
   }
   
   #Explicit garbage collection?
-  if(gc){
+  if(collect){
     
+    gc(verbose = FALSE)
     
   }
+  
   #Return
   return(data)
   
