@@ -79,6 +79,7 @@ sampled_logs <- function(date, filtered = FALSE, parsed_agents = FALSE, geo_coun
   #Explicit garbage collection?
   if(collect){
     
+    rmall(envir = environment(), except = c("data"))
     gc(verbose = FALSE)
     
   }

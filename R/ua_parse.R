@@ -1,3 +1,18 @@
+#' @title User agent parsing
+#' 
+#' @description
+#' \code{ua_parse} acts as a connector to \href{https://github.com/tobie/ua-parser}{tobie's ua-parser},
+#' consuming a vector of user agents and returning a data frame, with each field (see 'arguments') as a distinct column.
+#' This can be usefully parsed by \code{\link{rpy_df}} or \code{\link{rpy_vec}} to handle the NULL entries
+#' that result from R's interpretation of Python's 'None' type, and turn it into a more useful object than
+#' an endlessly long list.
+#' 
+#' @param user_agents A vector of unparsed user agents
+#' @param fields The elements you'd like to return. Options are "device" (the device code, when known),
+#' "os" (the operating system, when known), "browser" (the browser), "browser_major" (the major version of the browser)
+#' and browser_minor (the minor version of the browser)
+#' 
+#' @author Oliver Keyes <okeyes@@wikimedia.org>
 ua_parse <- function(user_agents, fields = c("device","os","browser","browser_major","browser_minor")){
   
   #Check arguments
@@ -6,7 +21,7 @@ ua_parse <- function(user_agents, fields = c("device","os","browser","browser_ma
   
   if(!is.vector(user_agents)){
     
-    stop("This requires a vector of user agents")
+    stop("This requires a vector")
     
   }
   
