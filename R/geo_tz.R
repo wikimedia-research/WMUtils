@@ -9,14 +9,14 @@ geo_tz <- function(ips){
   }
   
   #Call rpy
-  results <- rpy(x = ips, script = file.path(find.package("WMUtils"),"geoip.py"), type = "tz", file = "/usr/share/GeoIP/GeoIPCity.dat", ip6 = "/usr/share/GeoIP/GeoLiteCityv6.dat")
+  results <- rpy(x = ips, script = file.path(find.package("WMUtils"),"geo_tz.py")
   
   #Handle NULLs
   tzs <- unlist(lapply(results, function(x){
     
     if(is.null(x)){
       
-      return("")
+      return("Invalid")
       
     } else {
       

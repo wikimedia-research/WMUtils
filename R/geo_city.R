@@ -10,19 +10,25 @@ geo_city <- function(ips){
   }
   
   #Call rpy
-  results <- rpy(x = ips, script = file.path(find.package("WMUtils"),"geoip.py"), type = "city", file = "/usr/share/GeoIP/GeoIPCity.dat", ip6 = "/usr/share/GeoIP/GeoLiteCityv6.dat")
+  results <- rpy(x = ips, script = file.path(find.package("WMUtils"),"geo_city.py"))
   
   #Extract city
   cities <- unlist(lapply(results, function(x){
     
+    if(is.null(x)){
+      
+      return("Invalid")
+      
+    }
+    
     if(is.null(x$city)){
       
-      return("NA")
+      return("Invalid")
       
-    } else {
-      
-      return(x$city)
     }
+    
+    return(x$city)
+    
   }))
   
   #Return
