@@ -7,7 +7,7 @@ rpy_df <- function(list, stringsAsFactors = FALSE, ...){
       
       if(is.null(x[[i]]) == TRUE){
         
-        x[[i]] <- "NA"
+        x[[i]] <- NA
       }
     }
     

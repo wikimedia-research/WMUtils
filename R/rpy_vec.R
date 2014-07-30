@@ -7,7 +7,7 @@ rpy_vec <- function(list){
       
       if(is.null(x[[i]]) == TRUE){
         
-        x[[i]] <- "NA"
+        x[[i]] <- NA
       }
     }
     

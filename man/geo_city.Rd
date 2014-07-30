@@ -3,7 +3,7 @@
 \title{
 City-level geolocation}
 \description{
-%%  ~~ A concise (1-5 lines) description of what the function does. ~~
+
 }
 \usage{
 geo_city(ips)
@@ -14,7 +14,7 @@ A vector of IP addresses.
 }
 }
 \details{
-\code{geo_country} geolocates IP addresses to the city level, providing the English-language name for that city. It uses (in order) \href{http://dev.maxmind.com/geoip/}{MaxMind's binary geolocation database} and \href{https://github.com/maxmind/GeoIP2-python}{the associated Python API}, with \code{\link{rpy}} as a connector. The Python API is required for it to work - the only other limitation is that it cannot (yet) handle IPv6 IPs, and that accuracy \href{http://www.maxmind.com/en/city_accuracy}{varies on a per-country basis.}
+\code{geo_country} geolocates IP addresses to the city level, providing the English-language name for that city. It uses (in order) \href{http://dev.maxmind.com/geoip/}{MaxMind's binary geolocation database} and \href{https://github.com/maxmind/GeoIP2-python}{the associated Python API}, with \code{\link{rpy}} as a connector. The Python API is required for it to work - the only other limitation is that accuracy \href{http://www.maxmind.com/en/city_accuracy}{varies on a per-country basis.} NULL or non-country responses from the API will be replaced with the string "Invalid".
 }
 
 \seealso{

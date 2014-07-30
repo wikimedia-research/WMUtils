@@ -9,7 +9,7 @@ rpy <- function(x, script, ...){
   cat(toJSON(x = x), file = input_path)
   
   #Run script
-  system(paste("python", script, input_path, output_path, ...))
+  system(paste("python", script, "-i", input_path, "-o", output_path, ...))
   
   #Return results
   results <- fromJSON(output_path)
