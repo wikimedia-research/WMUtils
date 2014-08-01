@@ -10,10 +10,6 @@
 #' @param gc whether you want a silent garbage collection performed. FALSE by default.
 #' 
 #' @author Oliver Keyes <okeyes@@wikimedia.org>
-#' 
-#' @seealso
-#' \code{\link{geo_country}} for country-level identification and \code{\link{geo_tz}} for
-#' tzdata-compatible timezone identification
 
 rmall <- function(envir, except, gc = FALSE){
   

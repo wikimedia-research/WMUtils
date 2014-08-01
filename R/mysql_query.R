@@ -1,3 +1,19 @@
+#'@title
+#'query wrapper for analytics-store.eqiad.wmnet
+#'
+#'@description
+#'\code{mysql_query} is a simple wrapper around RMySQL that allows a useR to query the dbs on
+#'analytics-store.eqiad.wmnet
+#'
+#'@param query the SQL query you want to run
+#'
+#'@param db the db name you want to run the query against
+#'
+#'@author Oliver Keyes <okeyes@@wikimedia.org>
+#'
+#'@seealso \code{\link{global_query}} for querying all "production" databases in analytics-store with a common query.
+#'@export
+
 mysql_query <- function(query, db){
   
   #Open connection to the MySQL DB
