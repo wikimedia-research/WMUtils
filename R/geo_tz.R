@@ -27,7 +27,7 @@ geo_tz <- function(ips){
   }
   
   #Call rpy
-  results <- rpy(x = ips, script = file.path(find.package("WMUtils"),"geo_tz.py")
+  results <- rpy(x = ips, script = file.path(find.package("WMUtils"),"geo_tz.py"))
   
   #Handle NULLs
   tzs <- unlist(lapply(results, function(x){
