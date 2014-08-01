@@ -5,7 +5,7 @@
 #'handling NULL values along the way.
 #'
 #'@param list the list you want converted into a data.frame.
-#'@param whether you want character columns to be converted into factors. This is set as false by default because
+#'@param stringsAsFactors whether you want character columns to be converted into factors. This is set as false by default because
 #'factors have almost never been the right answer to a problem.
 #'@param ... any further parameters you want to push through to data.frame.
 #'

@@ -1,3 +1,19 @@
+#'@title
+#'global SQL queries for analytics-store.eqiad.wmnet
+#'
+#'@description
+#'\code{global_query} is a simple wrapper around RMySQL that allows a useR to send a query to all production
+#'dbs on analytics-store.eqiad.wmnet, joining the results from each query into a single object.
+#'
+#'@param query the SQL query you want to run
+#'
+#'@param project_type what class of wiki (wikisource, wiktionary..) you want to run against. Set to "all" by default.
+#'
+#'@author Oliver Keyes <okeyes@@wikimedia.org>
+#'
+#'@seealso \code{\link{mysql_query}} for querying an individual db
+#'@export
+
 global_query <- function(query, project_type = "all"){
   
   #Construct the query

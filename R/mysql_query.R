@@ -12,6 +12,8 @@
 #'@author Oliver Keyes <okeyes@@wikimedia.org>
 #'
 #'@seealso \code{\link{global_query}} for querying all "production" databases in analytics-store with a common query.
+#'
+#'@import RMySQL
 #'@export
 
 mysql_query <- function(query, db){

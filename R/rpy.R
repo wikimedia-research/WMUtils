@@ -4,9 +4,11 @@
 #'@description
 #'\code{rpy} seamlessly moves R objects into Python environments, runs a script of your choice over them, and pulls the results back in.
 #'
-#'@param query the SQL query you want to run
+#'@param x the R object to transfer to python
 #'
-#'@param db the db name you want to run the query against
+#'@param script the file location of the Python script.
+#'
+#'@param ... any other arguments to pass to the Python script
 #'
 #'@details
 #'There's a fairly common scenario for R programmers: you're writing your code, and suddenly realise that what
@@ -39,12 +41,13 @@
 #'The only other thing to realise is that the Python script must read the input file in as a JSON object,
 #'and write the output as a JSON object, since that's the mutually-understood format that's used to communicate
 #'between the two languages.
-}
+#'
 #'@author Oliver Keyes <okeyes@@wikimedia.org>
 #'
 #'@seealso
 #'\code{\link{rpy_df}} or \code{\link{rpy_vec}} for conversion of the results into useful classes,
 #'and \code{\link{ua_parse}} for \code{rpy} being used.
+#'@import RJSONIO
 #'@export
 
 rpy <- function(x, script, ...){

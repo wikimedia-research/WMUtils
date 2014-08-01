@@ -1,0 +1,8 @@
+export(geo_city)
+export(global_query)
+export(mysql_query)
+export(rpy)
+export(rpy_vec)
+import(RJSONIO)
+import(RMySQL)
+import(plyr)

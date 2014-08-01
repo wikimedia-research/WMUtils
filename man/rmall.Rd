@@ -1,0 +1,26 @@
+\name{rmall}
+\alias{rmall}
+\title{sanitise environments for garbage collection}
+\usage{
+rmall(envir, except, gc = FALSE)
+}
+\arguments{
+  \item{envir}{the environment you want the sanitising
+  performed on}
+
+  \item{except}{any objects you want preserved from that
+  environment}
+
+  \item{gc}{whether you want a silent garbage collection
+  performed. FALSE by default.}
+}
+\description{
+\code{rmall} sanitises environments, removing every object
+in a specified environment other than those noted in
+\code{except}, and then (if desired) performs explicit and
+silent garbage collection.
+}
+\author{
+Oliver Keyes <okeyes@wikimedia.org>
+}
+
