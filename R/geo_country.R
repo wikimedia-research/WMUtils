@@ -30,6 +30,9 @@ geo_country <- function(ips){
   #Call rpy
   results <- rpy(x = ips, script = file.path(find.package("WMUtils"),"geo_country.py"))
   
+  #Mark invalid results
+  results[results %in% c("EU","AP","A1","A2","O1", "")] <- "Invalid"
+  
   #Return
   return(results)
 }
