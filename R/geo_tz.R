@@ -46,6 +46,9 @@ geo_tz <- function(ips){
   #Remove names
   names(tzs) <- NULL
   
+  #Mark remaining invalid entriees
+  tzs[tzs == ""] <- "Invalid"
+  
   #Return
   return(tzs)
 }
