@@ -19,7 +19,7 @@ global_query <- function(query, project_type = "all"){
   #Construct the query
   if(!project_type == "all"){
     
-    info_query <- paste("SELECT wiki FROM wiki_info WHERE code =",project_type)
+    info_query <- paste("SELECT wiki FROM wiki_info WHERE code = '",project_type,"'", sep = "")
     
   } else {
     
