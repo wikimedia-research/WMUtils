@@ -15,6 +15,7 @@
 #'
 #'@seealso \code{\link{geo_city}} for city-level identification and \code{\link{geo_tz}}
 #'for tzdata-compatible timezone identification
+#'@export
 
 geo_country <- function(ips){
   

@@ -16,6 +16,9 @@
 #'
 #'@seealso \code{\link{geo_city}} for city-level identification and \code{\link{geo_country}}
 #'for country-level identification
+#'
+#'@export
+
 geo_tz <- function(ips){
   
   #Handle big vectors

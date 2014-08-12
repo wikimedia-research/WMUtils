@@ -14,6 +14,8 @@
 #' 
 #' @author Oliver Keyes <okeyes@@wikimedia.org>
 #' 
+#' @export
+
 ua_parse <- function(user_agents, fields = c("device","os","browser","browser_major","browser_minor")){
   
   #Check arguments

@@ -10,6 +10,7 @@
 #'@param ... any further parameters you want to push through to data.frame.
 #'
 #'@author Oliver Keyes <okeyes@@wikimedia.org>
+#'@export
 
 rpy_df <- function(list, stringsAsFactors = FALSE, ...){
 
