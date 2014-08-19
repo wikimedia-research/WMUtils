@@ -1,3 +1,4 @@
+#'@export
 sampled_logs <- function(date, filtered = FALSE, parsed_agents = FALSE, geo_country = FALSE, collect = TRUE){
   
   #Construct file address
