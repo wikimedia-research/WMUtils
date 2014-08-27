@@ -34,29 +34,11 @@ geo_city <- function(ips){
   #Call rpy
   results <- rpy(x = ips, script = file.path(find.package("WMUtils"),"geo_city.py"))
   
-  #Extract city
-  cities <- unlist(lapply(results, function(x){
-    
-    if(is.null(x)){
-      
-      return("Invalid")
-      
-    }
-    
-    if(is.null(x$city)){
-      
-      return("Invalid")
-      
-    }
-    
-    return(x$city)
-    
-  }))
-  
-  #Handle invalids
-  cities[cities == ""] <- "Invalid"
+  #Extract city and handle invalid results
+  results <- results$city
+  results[is.na(results)] <- "Invalid"
   
   #Return
-  return(cities)
+  return(results)
   
 }

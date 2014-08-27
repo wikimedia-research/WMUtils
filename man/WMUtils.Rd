@@ -43,8 +43,7 @@ identified user agents, poke Oliver, since he's a maintainer on the repository.
 both geodata retrieval and user agent parsing are dependent on Python libraries, so this
 also contains a R-to-Python-to-R connector, \code{\link{rpy}}. This allows you to pipe
 R objects into Python, run an arbitrary Python script over them, and pipe the results back into
-R. It comes with two convenience functions for handling the results - \code{\link{py_df}} and
-\code{\link{rpy_vec}}.
+R.
 }
 \author{
 Oliver Keyes <okeyes@wikimedia.org>

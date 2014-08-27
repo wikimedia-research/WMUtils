@@ -23,8 +23,7 @@ into a Python script's stdin into another R script's stdin, you opt for the latt
 
 rpy allows you to avoid this pain. Instead, you simply call rpy, providing the name of the R object you want
 transferred to Python, and the Python script you want to run over it. The script then chugs away,
-and the results are returned as a list. The helper functions \code{\link{rpy_df}} and \code{\link{rpy_vec}}
-can be used to turn this list into objects of other classes.
+and the results are returned as an appropriate R object.
 }
 \section{integrating with a Python script}{
 
@@ -50,9 +49,5 @@ between the two languages.
 }
 \author{
 Oliver Keyes <okeyes@wikimedia.org>
-}
-\seealso{
-\code{\link{rpy_df}} or \code{\link{rpy_vec}} for conversion of the results into useful classes,
-and \code{\link{ua_parse}} for \code{rpy} being used.
 }
 

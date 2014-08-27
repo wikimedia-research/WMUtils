@@ -33,26 +33,9 @@ geo_tz <- function(ips){
   #Call rpy
   results <- rpy(x = ips, script = file.path(find.package("WMUtils"),"geo_tz.py"))
   
-  #Handle NULLs
-  tzs <- unlist(lapply(results, function(x){
-    
-    if(is.null(x)){
-      
-      return("Invalid")
-      
-    } else {
-      
-      return(x)
-    }
-    
-  }))
-  
-  #Remove names
-  names(tzs) <- NULL
-  
-  #Mark remaining invalid entriees
-  tzs[tzs == ""] <- "Invalid"
+  #Mark invalid entriees
+  results[is.na(results)] <- "Invalid"
   
   #Return
-  return(tzs)
+  return(results)
 }

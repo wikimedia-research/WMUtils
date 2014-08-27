@@ -1,11 +1,9 @@
 #' @title User agent parsing
 #' 
 #' @description
-#' \code{ua_parse} acts as a connector to \href{https://github.com/tobie/ua-parser}{tobie's ua-parser},
-#' consuming a vector of user agents and returning a data frame, with each field (see 'arguments') as a distinct column.
-#' This can be usefully parsed by \code{\link{rpy_df}} or \code{\link{rpy_vec}} to handle the NULL entries
-#' that result from R's interpretation of Python's 'None' type, and turn it into a more useful object than
-#' an endlessly long list.
+#' \code{ua_parse} acts as a connector to
+#' \href{https://github.com/tobie/ua-parser}{tobie's ua-parser}, consuming a vector of user agents
+#' and returning a data frame, with each field (see 'arguments') as a distinct column.
 #' 
 #' @param user_agents A vector of unparsed user agents
 #' @param fields The elements you'd like to return. Options are "device" (the device code, when known),
@@ -38,34 +36,14 @@ ua_parse <- function(user_agents, fields = c("device","os","browser","browser_ma
     return(ua_results)
   }
   
-  #Convert
-  user_agents <- iconv(user_agents, to = "UTF-8")
-  
   #Handle NAs
   user_agents[is.na(user_agents)] <- ""
   
   #Run
   returned_UAs <- rpy(x = user_agents, script = file.path(find.package("WMUtils"),"ua_parse.py"))
   
-  #Handle NULLs
-  returned_UAs <- lapply(returned_UAs, function(x){
-    
-    for(i in seq_along(x)){
-      
-      if(is.null(x[[i]]) == TRUE){
-        
-        x[[i]] <- "Other"
-      }
-    }
-    
-    return(x)
-  })
-  
-  #Convert into a data frame
-  parsed_uas <- data.frame(matrix(unlist(returned_UAs), nrow = length(returned_UAs), byrow = TRUE), stringsAsFactors = FALSE)
-  
-  #Rename
-  names(parsed_uas) <- names(returned_UAs[[1]])
+  #Handle NAs
+  returned_UAs[is.na(returned_UAs)] <- "Other"
   
   #Limit
   parsed_uas <- parsed_uas[,fields]

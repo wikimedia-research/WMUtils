@@ -14,11 +14,9 @@ ua_parse(user_agents, fields = c("device", "os", "browser", "browser_major",
 and browser_minor (the minor version of the browser)}
 }
 \description{
-\code{ua_parse} acts as a connector to \href{https://github.com/tobie/ua-parser}{tobie's ua-parser},
-consuming a vector of user agents and returning a data frame, with each field (see 'arguments') as a distinct column.
-This can be usefully parsed by \code{\link{rpy_df}} or \code{\link{rpy_vec}} to handle the NULL entries
-that result from R's interpretation of Python's 'None' type, and turn it into a more useful object than
-an endlessly long list.
+\code{ua_parse} acts as a connector to
+\href{https://github.com/tobie/ua-parser}{tobie's ua-parser}, consuming a vector of user agents
+and returning a data frame, with each field (see 'arguments') as a distinct column.
 }
 \author{
 Oliver Keyes <okeyes@wikimedia.org>

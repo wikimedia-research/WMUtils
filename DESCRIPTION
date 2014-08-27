@@ -7,6 +7,6 @@ Author: Oliver Keyes
 Maintainer: Oliver Keyes <okeyes@wikimedia.org>
 Description: Geolocation, user agent parsing and more!
 License: MIT + file LICENSE
-Depends: RJSONIO,
+Depends: jsonlite,
          RMySQL
 BugReports: https://github.com/Ironholds/WMUtils/issues
