@@ -34,5 +34,6 @@
 #'@author Oliver Keyes <okeyes@@wikimedia.org>
 #'@docType package
 #'@name WMUtils
+#'@import RMySQL
 #'@aliases WMUtils WMUtils-package
 NULL

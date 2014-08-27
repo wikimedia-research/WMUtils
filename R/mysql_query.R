@@ -15,7 +15,6 @@
 #'analytics-store.eqiad.wmnet with a common query, \code{\link{mw_strptime}} for converting
 #'MediaWiki timestamps into POSIXlt timestamps.
 #'
-#'@importFrom RMySQL dbConnect dbGetQuery dbDisconnect
 #'@export
 
 mysql_query <- function(query, db){
