@@ -11,9 +11,11 @@
 #'
 #'@author Oliver Keyes <okeyes@@wikimedia.org>
 #'
-#'@seealso \code{\link{global_query}} for querying all "production" databases in analytics-store with a common query.
+#'@seealso \code{\link{global_query}} for querying all "production" databases in
+#'analytics-store.eqiad.wmnet with a common query, \code{\link{mw_strptime}} for converting
+#'MediaWiki timestamps into POSIXlt timestamps.
 #'
-#'@import RMySQL
+#'@importFrom RMySQL dbConnect dbGetQuery dbDisconnect
 #'@export
 
 mysql_query <- function(query, db){

@@ -53,21 +53,24 @@
 rpy <- function(x, script, ...){
   
   #Create input/output files
-  dir_path <- dir_construct("rpy_")
-  input_path <- file.path(dir_path, "input.json")
-  output_path <- file.path(dir_path, "output.json")
+  input_file <- tempfile(fileext = ".json")
+  output_file <- tempfile(fileext = ".json")
   
   #Write to input
-  cat(toJSON(x = x), file = input_path)
+  cat(toJSON(x = x), file = input_file)
   
   #Run script
-  system(paste("python", script, "-i", input_path, "-o", output_path, ...))
+  system(paste("python", script, "-i", input_file, "-o", output_file, ...))
   
   #Return results
-  results <- fromJSON(output_path)
+  results <- fromJSON(output_file)
   
-  #Remove folder
-  dir_remove(dir_path)
+  #Remove files
+  suppressWarnings(expr = {
+    
+    file.remove(input_file,output_file)
+    
+  })
   
   #Return
   return(results)

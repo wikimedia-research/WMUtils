@@ -18,6 +18,7 @@ dbs on analytics-store.eqiad.wmnet, joining the results from each query into a s
 Oliver Keyes <okeyes@wikimedia.org>
 }
 \seealso{
-\code{\link{mysql_query}} for querying an individual db
+\code{\link{mysql_query}} for querying an individual db, \code{\link{mw_strptime}}
+for converting MediaWiki timestamps into POSIXlt timestamps.
 }
 

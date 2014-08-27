@@ -1,89 +1,78 @@
+#'@title
+#'Retrieve data from the sampled logs
+#'
+#'@description
+#'\code{sampled_logs} reads in and parses data from the 1:1000 sampled RequestLogs
+#'on stat1002.
+#'
+#'@param date the year/month/day of the log file you want.
+#'
+#'@details
+#'It does what it says on the tin; pass in a date (formatted as '20140601' or equivalent)
+#'and it will retrieve the sampled requestlogs for that day. One caveat worth noting is that
+#'the daily dumps are not truncated at precisely the stroke of midnight; for the example,
+#'you can expect to see some of the logs from 20140602 and be missing some from the 1st,
+#'which will be in 20140531. Slight fuzziness around date ranges may be necessary to get all the
+#'traffic you want.
+#'
+#'@author Oliver Keyes <okeyes@@wikimedia.org>
+#'
+#'@seealso
+#'\code{\link{log_strptime}} for handling the log timestamp format and \code{\link{hive_query}}
+#'for querying the unsampled RequestLogs.
+#'@return a data.frame containing the sampled logs of the days you asked for
 #'@export
-sampled_logs <- function(date, filtered = FALSE, parsed_agents = FALSE, geo_country = FALSE, collect = TRUE){
+sampled_logs <- function(date){
   
   #Construct file address
   origin_path <- paste("/a/squid/archive/sampled/sampled-1000.tsv.log-",date,".gz", sep = "")
   
-  #Specify directory/path variables
-  dir_path <- dir_construct("sampled_log")
-  destination_path <- file.path(dir_path,"dailydata.tsv")
-  output_path <- file.path(dir_path,"processed_data.tsv")
+  #Create temp file
+  output_file <- tempfile()
+  save_file <- paste(output_file,".gz", sep = "")
   
-  #Move file to the temp directory, unzip
-  if(!file.copy(from = origin_path, to = file.path(dir_path,"dailydata.tsv.gz"), overwrite = TRUE)){
+  #Copy file to save_file and unzip
+  if(!file.copy(from = origin_path, to = save_file, overwrite = TRUE)){
     
-    stop("The file for ", date, " could not be found")
+    warning("The file for ", date, " could not be found")
     return(NULL)
     
   }
-  interned <- system(paste("gunzip",file.path(dir_path,"dailydata.tsv.gz")))
+  system(paste("gunzip", save_file))
   
-  #Awk the hell out of it, suppressing warnings (any problems can be handled more usefully by the tryCatch below)
-  suppressWarnings(expr = {
-    
-    system(paste(paste("awk -v OUTPUTFILE='",output_path, "' -f", sep = ""), file.path(find.package("WMUtils"), "sampled_log_sanitiser.awk"), destination_path), intern = TRUE)
-  
-  })
-  
-  #Read it in
+  #Read in
   tryCatch(expr = {
-    data <- read.delim(file = output_path, sep = "\t", header = FALSE,
-                        as.is = TRUE, quote = "",
-                        col.names = c("squid","sequence_no",
-                                      "timestamp", "servicetime",
-                                      "ip_address", "status_code",
-                                      "reply_size", "request_method",
-                                      "URL", "squid_status",
-                                      "mime_type", "referer",
-                                      "x_forwarded", "user_agent",
-                                      "lang", "x_analytics"))
-  }, warning = function(e){
+    data <- read.delim(output_file, as.is = TRUE,
+                       quote = "",
+                       col.names = c("squid","sequence_no",
+                                     "timestamp", "servicetime",
+                                     "ip_address", "status_code",
+                                     "reply_size", "request_method",
+                                     "URL", "squid_status",
+                                     "mime_type", "referer",
+                                     "x_forwarded", "user_agent",
+                                     "lang", "x_analytics"))
+  }, error = function(e){
     
-    #Stop, with error
-    stop(paste("The file for", date, "could not be read in. See ?sampled_logs for potential causes"))
+    #Warn and return a NULL
+    warning(paste("The file for", date, "could not be read in. See ?sampled_logs for potential causes"))
     
-    #Delete directory
-    dir_remove(dir_path)
+    #Remove temp files, if they still exist
+    suppressWarnings(expr = {
+      try(expr = {file.remove(output_file, save_file)},
+          silent = TRUE)
+    })
     
     #Return null
     return(NULL)}
   )
   
-  #If it didn't error out...still remove the directory and its contents. We don't need it any more and it's a space-hog
-  dir_remove(dir_path)
-  
-  #Filtering, if needed
-  if(filtered){
-    
-    data <- pv_filter(data = data)
-    
-  }
-  
-  #UA parsing, if needed
-  if(parsed_agents){
-    
-    data <- cbind(data, ua_parse(user_agents = data$user_agent))
-    
-  }
-  
-  #Geolocation, if needed
-  if(geo_country){
-    
-    #Pass through x_forwardeds
-    data$ip_address[!data$x_forwarded == "-"] <- data$x_forwarded[!data$x_forwarded == "-"]
-    
-    #Geolocate
-    data$country <- geo_country(ips = data$ip_address)
-    
-  }
-  
-  #Explicit garbage collection?
-  if(collect){
-    
-    rmall(envir = environment(), except = c("data"))
-    gc(verbose = FALSE)
-    
-  }
+  #If it didn't error out, remove temp files, if they still exist.
+  #Do so quietly.
+  suppressWarnings(expr = {
+    try(expr = {file.remove(output_file, save_file)},
+        silent = TRUE)
+  })
   
   #Return
   return(data)
