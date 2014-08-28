@@ -37,6 +37,7 @@ ua_parse <- function(user_agents, fields = c("device","os","browser","browser_ma
   }
   
   #Handle NAs
+  user_agents <- iconv(user_agents, to = "UTF-8")
   user_agents[is.na(user_agents)] <- ""
   
   #Run
@@ -46,8 +47,8 @@ ua_parse <- function(user_agents, fields = c("device","os","browser","browser_ma
   returned_UAs[is.na(returned_UAs)] <- "Other"
   
   #Limit
-  parsed_uas <- parsed_uas[,fields]
+  returned_UAs <- returned_UAs[,fields]
   
   #Return
-  return(parsed_uas)
+  return(returned_UAs)
 }
