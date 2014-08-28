@@ -56,7 +56,7 @@ rpy <- function(x, script, ...){
   cat(toJSON(x = x), file = input_file)
   
   #Run script
-  system(paste("python", script, "-i", input_file, "-o", output_file, ...))
+  ignore <- system(command = paste("python", script, "-i", input_file, "-o", output_file, ...))
   
   #Return results
   results <- fromJSON(output_file)
@@ -64,7 +64,8 @@ rpy <- function(x, script, ...){
   #Remove files
   suppressWarnings(expr = {
     
-    file.remove(input_file,output_file)
+    warnings <- try(expr = {file.remove(output_file, input_file)},
+                    silent = TRUE)
     
   })
   
