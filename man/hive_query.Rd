@@ -6,9 +6,9 @@
 hive_query(query, ...)
 }
 \arguments{
-\item{query}{a .hql file containing a valid query}
+\item{query}{a query, or the location of a .hql file containing a query.}
 
-\item{...}{other arguments to pass to read.delim}
+\item{...}{other arguments to pass to read.delim.}
 }
 \value{
 a data.frame containing the results of the query.
