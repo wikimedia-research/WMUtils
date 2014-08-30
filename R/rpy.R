@@ -59,7 +59,18 @@ rpy <- function(x, script, ...){
   ignore <- system(command = paste("python", script, "-i", input_file, "-o", output_file, ...))
   
   #Return results
-  results <- fromJSON(output_file)
+  tryCatch(expr = {
+    
+    results <- fromJSON(x = output_file)
+    
+  }, error = function(e){
+    
+    warning("Data returned from the Python script could not be read in. Error in python?
+             Full error: ", e)
+    
+    results <- NULL
+    
+  })
   
   #Remove files
   suppressWarnings(expr = {
