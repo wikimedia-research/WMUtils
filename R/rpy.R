@@ -61,7 +61,7 @@ rpy <- function(x, script, ...){
   #Return results
   tryCatch(expr = {
     
-    results <- fromJSON(x = output_file)
+    results <- fromJSON(txt = output_file)
     
   }, error = function(e){
     
