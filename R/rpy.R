@@ -50,7 +50,11 @@ rpy <- function(x, script, ...){
   
   #Create input/output files
   input_file <- tempfile(fileext = ".json")
-  output_file <- tempfile(fileext = ".json")
+  output_file <- tempfile(fileext = ".json")  
+  
+  #Handle NAs
+  x <- iconv(x, to = "UTF-8",sub = "")
+  x[is.na(x)] <- ""
   
   #Write to input
   cat(toJSON(x = x), file = input_file)

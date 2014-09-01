@@ -34,11 +34,7 @@ ua_parse <- function(user_agents, fields = c("device","os","browser","browser_ma
     ua_results <- lapply(uas, ua_parse, fields = fields)
     ua_results <- do.call("rbind",ua_results)
     return(ua_results)
-  }
-  
-  #Handle NAs
-  user_agents <- iconv(user_agents, to = "UTF-8")
-  user_agents[is.na(user_agents)] <- ""
+  }  
   
   #Run
   returned_UAs <- rpy(x = user_agents, script = file.path(find.package("WMUtils"),"ua_parse.py"))
