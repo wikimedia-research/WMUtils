@@ -25,12 +25,16 @@ mysql_query <- function(query, db){
                    dbname = db)
   
   #Query
-  output <- dbGetQuery(con, query)
+  to_fetch <- dbSendQuery(con, query)
   
-  #Kill connection
+  #Retrieve data
+  data <- fetch(to_fetch, -1)
+  
+  #End and disconnect
+  dbClearResult(dbListResults(con)[[1]])
   dbDisconnect(con)
   
   #Return output
-  return(output)
+  return(data)
   
 }
