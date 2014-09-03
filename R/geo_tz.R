@@ -30,6 +30,9 @@ geo_tz <- function(ips){
     return(results)
   }
   
+  #Handle invalid IPs
+  ips[nchar(ips) > 39] <- ""
+  
   #Call rpy
   results <- rpy(x = ips, script = file.path(find.package("WMUtils"),"geo_tz.py"))
   
