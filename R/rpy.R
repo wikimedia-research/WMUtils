@@ -46,43 +46,33 @@
 #'@importFrom jsonlite toJSON fromJSON
 #'@export
 
-rpy <- function(x, script, ...){
+rpy <- function(x, script, conduit = "text", ...){
+  
+  #Select appropriate functions
+  rpy_funs <- rpy_selector(conduit)
   
   #Create input/output files
-  input_file <- tempfile(fileext = ".json")
-  output_file <- tempfile(fileext = ".json")  
+  input_file <- tempfile(fileext = rpy_funs$ending)
+  output_file <- tempfile(fileext = rpy_funs$ending)  
   
-  #Handle NAs
-  x <- iconv(x, to = "UTF-8",sub = "")
-  x[is.na(x)] <- ""
-  
-  #Write to input
-  cat(toJSON(x = x), file = input_file)
+  #Write out
+  rpy_funs$write(object = x, filename = input_file)
   
   #Run script
   ignore <- system(command = paste("python", script, "-i", input_file, "-o", output_file, ...))
   
-  #Return results
-  tryCatch(expr = {
+  #Error if it failed
+  if(ignore){
     
-    results <- fromJSON(txt = output_file)
-    
-  }, error = function(e){
-    
-    warning("Data returned from the Python script could not be read in. Error in python?
-             Full error: ", e)
-    
-    results <- NULL
-    
-  })
+    warning("The Python script could not be run")
+    return(NULL)
+  }
+  
+  #Grab results
+  results <- rpy_funs$read(filename = output_file)
   
   #Remove files
-  suppressWarnings(expr = {
-    
-    warnings <- try(expr = {file.remove(output_file, input_file)},
-                    silent = TRUE)
-    
-  })
+  file.remove(output_file, input_file)
   
   #Return
   return(results)

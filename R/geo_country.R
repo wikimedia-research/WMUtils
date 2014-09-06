@@ -26,13 +26,14 @@ geo_country <- function(ips){
     results <- unlist(lapply(ips, geo_country))
     names(results) <- NULL
     return(results)
+    
   }
   
   #Handle invalid IPs
   ips[nchar(ips) > 39] <- ""
   
   #Call rpy
-  results <- rpy(x = ips, script = file.path(find.package("WMUtils"),"geo_country.py"))
+  results <- rpy(x = ips, script = file.path(find.package("WMUtils"),"geo_country.py"), conduit = "text")
   
   #Mark invalid results
   results[results %in% c("EU","AP","A1","A2","O1", "")] <- "Invalid"
