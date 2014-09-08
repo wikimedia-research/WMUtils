@@ -1,17 +1,19 @@
 #'@title
-#'query wrapper for analytics-store.eqiad.wmnet
+#'Wrapper for querying the R&D MySQL instances
 #'
 #'@description
 #'\code{mysql_query} is a simple wrapper around RMySQL that allows a useR to query the dbs on
-#'analytics-store.eqiad.wmnet
+#'analytics-store.eqiad.wmnet.
 #'
-#'@param query the SQL query you want to run
+#'@param query the SQL query you want to run.
 #'
-#'@param db the db name you want to run the query against
+#'@param db the db name you want to run the query against.
+#'
+#'@return A data.frame containing the results of the query.
 #'
 #'@author Oliver Keyes <okeyes@@wikimedia.org>
 #'
-#'@seealso \code{\link{global_query}} for querying all "production" databases in
+#'@seealso \code{\link{global_query}} for querying multiple "production" databases in
 #'analytics-store.eqiad.wmnet with a common query, \code{\link{mw_strptime}} for converting
 #'MediaWiki timestamps into POSIXlt timestamps.
 #'
