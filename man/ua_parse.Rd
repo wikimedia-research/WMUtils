@@ -3,8 +3,8 @@
 \alias{ua_parse}
 \title{User agent parsing}
 \usage{
-ua_parse(user_agents, fields = c("device", "os", "browser", "browser_major",
-  "browser_minor"))
+ua_parse(user_agents, fields = c("device", "os", "browser", "minor_version",
+  "major_version"))
 }
 \arguments{
 \item{user_agents}{A vector of unparsed user agents}

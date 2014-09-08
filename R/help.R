@@ -14,6 +14,8 @@
 #'allows you to query a single database on \code{analytics-store.eqiad.wmnet}, while
 #'\code{\link{global_query}} allows you to run over multiple databases. Either way,
 #'\code{\link{mw_strptime}} turns the timestamp format used in our DB into POSIXlt timestamps.
+#'And once you're done processing, use \code{\link{mysql_write}} to stream the results up to
+#'the databases again.
 #'
 #'@section Geodata:
 #'Thanks to a nice python library, pygeoip, we have an easy API to access geographic data
@@ -23,10 +25,10 @@
 #'@section User agents:
 #'Our user-agent parsing, which use's \href{https://code.google.com/p/pygeoip/}{tobie's ua-parser},
 #'is in Python. It's also now in R thanks to \code{\link{ua_parse}}. If you run into incorrectly
-#'identified user agents, poke Oliver, since he's a maintainer on the repository.
+#'identified user agents, poke Oliver, since he's a maintainer on the ua-parser repository.
 #'
 #'@section Language integration:
-#'both geodata retrieval and user agent parsing are dependent on Python libraries, so this
+#'Both geodata retrieval and user agent parsing are dependent on Python libraries, so this
 #'also contains a R-to-Python-to-R connector, \code{\link{rpy}}. This allows you to pipe
 #'R objects into Python, run an arbitrary Python script over them, and pipe the results back into
 #'R.

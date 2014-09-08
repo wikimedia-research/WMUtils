@@ -47,7 +47,8 @@ json_write <- function(object, filename){
 tsv_read <- function(filename){
   
   #Read from TSV
-  results <- read.delim(file = filename, as.is = TRUE)
+  results <- read.delim(file = filename, as.is = TRUE,
+                        header = FALSE)
   
   #Return
   return(results)
@@ -59,7 +60,7 @@ tsv_write <- function(object, filename){
   #Write out a TSV
   write.table(object, file = filename,
               quote = TRUE, row.names = FALSE,
-              sep = "\t")
+              col.names = FALSE, sep = "\t")
   
   #Return true
   return(TRUE)

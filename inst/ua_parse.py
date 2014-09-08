@@ -1,5 +1,5 @@
 from ua_parser import user_agent_parser as uap
-import json
+import csv
 import argparse
 
 #Set up argparse
@@ -8,37 +8,39 @@ parser.add_argument("-i", type = str, help = "The input JSON file", required = T
 parser.add_argument("-o", type = str, help = "The output JSON file", required = True, dest = "output")
 args = parser.parse_args()
 
-#Function for parsing incoming lists of UAs and throwing them into another list
-def parse_ua(x):
-    
-    #Check type
-    if not(isinstance(x,list)):
-        x = [x]
-        
-    #Construct output list
-    output_list = []
-    
-    #For each entry in the input list, 
-    for entry in x:
-        
-        #Retrieve the UA results
-        UA_results = uap.Parse(entry)
-        
-        #Limit to things we care about
-        output_list.append({'device': UA_results['device']['family'],'os': UA_results['os']['family'], 'browser': UA_results['user_agent']['family'], 'browser_major': UA_results['user_agent']['major'], 'browser_minor': UA_results['user_agent']['minor']})
-    
-    #And return
-    return output_list
+#Create object to iterate over
+ua_list = []
 
-#Import object
-json_data = open(args.input)
-data = json.load(json_data, strict = False)
-json_data.close()
+#Open connection
+file_con = open(name = "test.tsv", mode = "r")
+tsv_reader = csv.reader(file_con, delimiter="\t")
 
-#Parse it and convert it back
-parsed_data = json.dumps(parse_ua(data))
+#Read in, handling invalid rows as we go
+for line in tsv_reader:
+  try:
+    ua_list.append(line[0])
+  except:
+    ua_list.append("")
 
-#Write it
-file = open(args.output, 'w')
-file.write(parsed_data)
-file.close()
+#Close
+file_con.close()
+
+#Construct output list
+output_list = []
+
+#For each entry in the input list, 
+for entry in ua_list:
+    
+    #Retrieve the UA results
+    UA_results = uap.Parse(entry)
+    UA_results = {'device': UA_results['device']['family'],'os': UA_results['os']['family'], 'browser': UA_results['user_agent']['family'], 'browser_major': UA_results['user_agent']['major'], 'browser_minor': UA_results['user_agent']['minor']}
+    
+    #Limit to things we care about
+    output_list.append(UA_results.values())
+
+
+#Write out
+output_file = open(name = args.output, mode = "w")
+tsv_writer = csv.writer(output_file, delimiter="\t")
+tsv_writer.writerows(output_list)
+output_file.close()

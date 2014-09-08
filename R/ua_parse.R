@@ -14,17 +14,7 @@
 #' 
 #' @export
 
-ua_parse <- function(user_agents, fields = c("device","os","browser","browser_major","browser_minor")){
-  
-  #Check arguments
-  fields <- match.arg(arg = fields, choices = c("device","os","browser","browser_major","browser_minor"),
-                      several.ok = TRUE)
-  
-  if(!is.vector(user_agents)){
-    
-    stop("This requires a vector")
-    
-  }
+ua_parse <- function(user_agents, fields = c("device","os","browser","minor_version","major_version")){
   
   #Handle big objects
   if(length(user_agents) > 2000000){
@@ -37,14 +27,15 @@ ua_parse <- function(user_agents, fields = c("device","os","browser","browser_ma
   }  
   
   #Run
-  returned_UAs <- rpy(x = user_agents, script = file.path(find.package("WMUtils"),"ua_parse.py"))
+  parsed_agents <- rpy(x = user_agents, script = file.path(find.package("WMUtils"),"ua_parse.py"), conduit = "tsv")
   
-  #Handle NAs
-  returned_UAs[is.na(returned_UAs)] <- "Other"
+  #Handle NAs and name
+  parsed_agents[is.na(parsed_agents)] <- "Other"
+  names(parsed_agents) <- c("device","minor_version","major_version","os","browser")
   
   #Limit
-  returned_UAs <- returned_UAs[,fields]
+  parsed_agents <- parsed_agents[,fields]
   
   #Return
-  return(returned_UAs)
+  return(parsed_agents)
 }
