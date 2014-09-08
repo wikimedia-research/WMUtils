@@ -8,6 +8,9 @@ geo_city(ips)
 \arguments{
 \item{ips}{a vector of IP addresses}
 }
+\value{
+a vector of city names. NULL or invalid responses from the API will be replaced with the string "Invalid".
+}
 \description{
 \code{geo_city} geolocates IPv4 and IPv6 addresses to provide city-level results, providing
 the English-language name for that city. It uses (in order)
@@ -16,8 +19,6 @@ the English-language name for that city. It uses (in order)
 \code{\link{rpy}} as a connector. The Python API is required for it to work - the only other
 limitation is that accuracy
 \href{http://www.maxmind.com/en/city_accuracy}{varies on a per-country basis}.
-
-NULL or non-country responses from the API will be replaced with the string "Invalid".
 }
 \author{
 Oliver Keyes <okeyes@wikimedia.org>

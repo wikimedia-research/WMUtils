@@ -8,6 +8,9 @@ geo_tz(ips)
 \arguments{
 \item{ips}{a vector of IP addresses}
 }
+\value{
+a vector of tzdata zones. NULL or invalid responses from the API will be replaced with the string "Invalid".
+}
 \description{
 \code{geo_tz} returns the timezone, in a tzdata-compliant format, associated with an IPv4 IP
 address. This can then be used to (for example) localise server-side timestamps. It uses
@@ -16,7 +19,6 @@ address. This can then be used to (for example) localise server-side timestamps.
 \code{\link{rpy}} as a connector. The Python API is required for it to work - the only other
 limitation is that accuracy
 \href{http://www.maxmind.com/en/city_accuracy}{varies on a per-country basis}.
-NULL or non-country responses from the API will be replaced with the string "Invalid".
 }
 \author{
 Oliver Keyes <okeyes@wikimedia.org>

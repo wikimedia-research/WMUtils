@@ -39,7 +39,7 @@ for entry in ip_list:
   if(bool(re.search(":",entry))):
     
     try:
-      output.append(ip6_geo.record_by_addr(entry)+"\n")
+      output.append(ip6_geo.record_by_addr(entry)['city']+"\n")
     except:
       output.append("Invalid\n")
   
@@ -47,7 +47,7 @@ for entry in ip_list:
   else:
     
     try:
-      output.append(ip4_geo.record_by_addr(entry)+"\n")
+      output.append(ip4_geo.record_by_addr(entry)['city']+"\n")
     except:
       output.append("Invalid\n")
 

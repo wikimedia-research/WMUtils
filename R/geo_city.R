@@ -10,9 +10,10 @@
 #'limitation is that accuracy
 #'\href{http://www.maxmind.com/en/city_accuracy}{varies on a per-country basis}.
 #'
-#'NULL or non-country responses from the API will be replaced with the string "Invalid".
 #'
 #'@param ips a vector of IP addresses
+#'
+#'@return a vector of city names. NULL or invalid responses from the API will be replaced with the string "Invalid".
 #'
 #'@author Oliver Keyes <okeyes@@wikimedia.org>
 #'
@@ -37,9 +38,9 @@ geo_city <- function(ips){
   #Call rpy
   results <- rpy(x = ips, script = file.path(find.package("WMUtils"),"geo_city.py"))
   
-  #Extract city and handle invalid results
-  results <- results$city
+  #Handle invalid results
   results[is.na(results)] <- "Invalid"
+  results[results == ""] <- "Invalid"
   
   #Return
   return(results)

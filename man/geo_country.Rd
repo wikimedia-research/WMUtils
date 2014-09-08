@@ -8,13 +8,15 @@ geo_country(ips)
 \arguments{
 \item{ips}{a vector of IP addresses}
 }
+\value{
+a vector of country names. NULL or invalid responses from the API will be replaced with the string "Invalid".
+}
 \description{
 \code{geo_country} geolocates IP addresses to the country level, providing the
 \href{https://en.wikipedia.org/wiki/ISO_3166-2}{ISO 3166-2} code for the resulting country.
 It uses (in order) \href{http://dev.maxmind.com/geoip/}{MaxMind's binary geolocation database}
 and \href{https://github.com/maxmind/GeoIP2-python}{the associated Python API}, with
-\code{\link{rpy}} as a connector. The Python API is required for it to work. NULL or
-non-country responses from the API will be replaced with the string "Invalid".
+\code{\link{rpy}} as a connector. The Python API is required for it to work.
 }
 \author{
 Oliver Keyes <okeyes@wikimedia.org>

@@ -6,10 +6,11 @@
 #'\href{https://en.wikipedia.org/wiki/ISO_3166-2}{ISO 3166-2} code for the resulting country.
 #'It uses (in order) \href{http://dev.maxmind.com/geoip/}{MaxMind's binary geolocation database}
 #'and \href{https://github.com/maxmind/GeoIP2-python}{the associated Python API}, with
-#'\code{\link{rpy}} as a connector. The Python API is required for it to work. NULL or
-#'non-country responses from the API will be replaced with the string "Invalid".
+#'\code{\link{rpy}} as a connector. The Python API is required for it to work.
 #'
 #'@param ips a vector of IP addresses
+#'
+#'@return a vector of country names. NULL or invalid responses from the API will be replaced with the string "Invalid".
 #'
 #'@author Oliver Keyes <okeyes@@wikimedia.org>
 #'
@@ -36,6 +37,7 @@ geo_country <- function(ips){
   results <- rpy(x = ips, script = file.path(find.package("WMUtils"),"geo_country.py"), conduit = "text")
   
   #Mark invalid results
+  results[is.na(results)] <- "Invalid"
   results[results %in% c("EU","AP","A1","A2","O1", "")] <- "Invalid"
   
   #Return
