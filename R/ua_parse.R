@@ -16,6 +16,9 @@
 
 ua_parse <- function(user_agents, fields = c("device","os","browser","minor_version","major_version")){
   
+  #Sanitise
+  user_agents <- gsub(x = user_agents, pattern = "\"", replacement = "")
+  
   #Handle big objects
   if(length(user_agents) > 2000000){
     
