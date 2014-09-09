@@ -48,7 +48,7 @@ tsv_read <- function(filename){
   
   #Read from TSV
   results <- read.delim(file = filename, as.is = TRUE,
-                        header = FALSE)
+                        header = FALSE, blank.lines.skip = FALSE)
   
   #Return
   return(results)
