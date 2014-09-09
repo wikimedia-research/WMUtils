@@ -12,7 +12,7 @@ args = parser.parse_args()
 ua_list = []
 
 #Open connection
-file_con = open(name = "test.tsv", mode = "r")
+file_con = open(name = args.input, mode = "r")
 tsv_reader = csv.reader(file_con, delimiter="\t")
 
 #Read in, handling invalid rows as we go
