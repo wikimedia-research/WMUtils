@@ -12,15 +12,20 @@
 #'@return a data.frame containing the results of the query.
 #'
 #'@export
-hive_query <- function(query, ...){
+hive_query <- function(query, to_file = FALSE, file = NULL, ...){
   
-  #Create temp file
-  temp_file <- tempfile(pattern = "file", fileext = ".tsv")
+  #If the user wants it passed straight to R...
+  if(!to_file){
+    
+    #Create temp file
+    file <- tempfile(pattern = "file", fileext = ".tsv")
+  
+  }
   
   #Run query
-  if(grepl(x = query, pattern = "hql")){
+  if(grepl(x = query, pattern = "\\.hql$")){
     
-    system(paste("export HADOOP_HEAPSIZE=1024 && hive -f", query, ">", temp_file))
+    system(paste("export HADOOP_HEAPSIZE=1024 && hive -f", query, ">", file))
     
   } else {
     
@@ -28,19 +33,24 @@ hive_query <- function(query, ...){
     #quoting problems, and run that
     query_file <- tempfile(fileext = ".hql")
     cat(query, file = query_file)
-    system(paste("export HADOOP_HEAPSIZE=1024 && hive -f", query_file, ">", temp_file))
+    system(paste("export HADOOP_HEAPSIZE=1024 && hive -f", query_file, ">", file))
     
   }
   
-  #Read in data
-  data <- read.delim(file = temp_file, header = TRUE, as.is = TRUE, quote = "", ...)
+  #If the user wanted the data provided..
+  if(!to_file){
+    
+    #Read in data
+    data <- read.delim(file = temp_file, header = TRUE, as.is = TRUE, quote = "", ...)
+    
+    #Remove temp file
+    file.remove(temp_file)
+    
+    #Return data
+    return(data)
+  }
   
-  #Remove temp file
-  suppressWarnings(expr = {
-    try(expr = {file.remove(temp_file)},
-        silent = TRUE)
-  })
+  #Otherwise, return TRUE
+  return(TRUE)
   
-  #Return data
-  return(data)
 }
