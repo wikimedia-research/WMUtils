@@ -9,7 +9,7 @@ sampled_logs(date)
 \item{date}{the year/month/day of the log file you want.}
 }
 \value{
-a data.frame containing the sampled logs of the days you asked for
+a data.frame containing the sampled logs of the day you asked for.
 }
 \description{
 \code{sampled_logs} reads in and parses data from the 1:1000 sampled RequestLogs
