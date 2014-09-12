@@ -31,6 +31,7 @@ geo_country <- function(ips){
   }
   
   #Handle invalid IPs
+  ips <- iconv(ips, to = "UTF-8")
   ips[nchar(ips) > 39] <- ""
   
   #Call rpy
