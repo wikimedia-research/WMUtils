@@ -20,7 +20,7 @@
 #'@seealso
 #'\code{\link{log_strptime}} for handling the log timestamp format and \code{\link{hive_query}}
 #'for querying the unsampled RequestLogs.
-#'@return a data.frame containing the sampled logs of the days you asked for
+#'@return a data.frame containing the sampled logs of the day you asked for.
 #'@export
 sampled_logs <- function(date){
   
