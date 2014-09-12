@@ -41,38 +41,19 @@ sampled_logs <- function(date){
   system(paste("gunzip", save_file))
   
   #Read in
-  tryCatch(expr = {
-    data <- read.delim(output_file, as.is = TRUE,
-                       quote = "",
-                       col.names = c("squid","sequence_no",
-                                     "timestamp", "servicetime",
-                                     "ip_address", "status_code",
-                                     "reply_size", "request_method",
-                                     "URL", "squid_status",
-                                     "mime_type", "referer",
-                                     "x_forwarded", "user_agent",
-                                     "lang", "x_analytics"))
-  }, error = function(e){
-    
-    #Warn and return a NULL
-    warning(paste("The file for", date, "could not be read in. See ?sampled_logs for potential causes"))
-    
-    #Remove temp files, if they still exist
-    suppressWarnings(expr = {
-      try(expr = {file.remove(output_file, save_file)},
-          silent = TRUE)
-    })
-    
-    #Return null
-    return(NULL)}
-  )
+  data <- read.delim(output_file, as.is = TRUE,
+                     quote = "",
+                     col.names = c("squid","sequence_no",
+                                   "timestamp", "servicetime",
+                                   "ip_address", "status_code",
+                                   "reply_size", "request_method",
+                                   "URL", "squid_status",
+                                   "mime_type", "referer",
+                                   "x_forwarded", "user_agent",
+                                   "lang", "x_analytics"))
   
-  #If it didn't error out, remove temp files, if they still exist.
-  #Do so quietly.
-  suppressWarnings(expr = {
-    try(expr = {file.remove(output_file, save_file)},
-        silent = TRUE)
-  })
+  #Remove temp file
+  file.remove(output_file)
   
   #Return
   return(data)
