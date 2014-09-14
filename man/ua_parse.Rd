@@ -3,15 +3,15 @@
 \alias{ua_parse}
 \title{User agent parsing}
 \usage{
-ua_parse(user_agents, fields = c("device", "os", "browser", "minor_version",
-  "major_version"))
+ua_parse(user_agents, fields = c("device", "os", "browser", "major_version",
+  "minor_version"))
 }
 \arguments{
 \item{user_agents}{A vector of unparsed user agents}
 
 \item{fields}{The elements you'd like to return. Options are "device" (the device code, when known),
-"os" (the operating system, when known), "browser" (the browser), "browser_major" (the major version of the browser)
-and browser_minor (the minor version of the browser)}
+"os" (the operating system, when known), "browser" (the browser), "major_version" (the major version of the browser)
+and minor_version (the minor version of the browser)}
 }
 \description{
 \code{ua_parse} acts as a connector to
