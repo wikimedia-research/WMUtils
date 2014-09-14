@@ -3,15 +3,20 @@
 \alias{hive_query}
 \title{Run a query against the WMF hive instance}
 \usage{
-hive_query(query, ...)
+hive_query(query, file = NULL, ...)
 }
 \arguments{
 \item{query}{a query, or the location of a .hql file containing a query.}
 
+\item{file}{a file name. If this is provided, the results of the query will be written straight
+there, and a boolean TRUE returned. If not provided (it's NULL by default), the results of the query
+will be returned as a data.frame}
+
 \item{...}{other arguments to pass to read.delim.}
 }
 \value{
-a data.frame containing the results of the query.
+a data.frame containing the results of the query, or a boolean TRUE if the user has chosen
+to write straight to file.
 }
 \description{
 \code{hive_query} is a simple wrapper around the command line that makes queries

@@ -7,44 +7,47 @@
 #'
 #'@param query a query, or the location of a .hql file containing a query.
 #'
+#'@param file a file name. If this is provided, the results of the query will be written straight
+#'there, and a boolean TRUE returned. If not provided (it's NULL by default), the results of the query
+#'will be returned as a data.frame
 #'@param ... other arguments to pass to read.delim.
 #'
-#'@return a data.frame containing the results of the query.
+#'@return a data.frame containing the results of the query, or a boolean TRUE if the user has chosen
+#'to write straight to file.
 #'
 #'@export
-hive_query <- function(query, to_file = FALSE, file = NULL, ...){
+hive_query <- function(query, file = NULL, ...){
   
   #If the user wants it passed straight to R...
-  if(!to_file){
+  if(is.null(file)){
     
     #Create temp file
     file <- tempfile(pattern = "file", fileext = ".tsv")
+    
+    #Note
+    to_R <- TRUE
   
   }
   
-  #Run query
-  if(grepl(x = query, pattern = "\\.hql$")){
+  #Run query. If the query is /not/ a file, make it one
+  if(!grepl(x = query, pattern = "\\.hql$")){
     
-    system(paste("export HADOOP_HEAPSIZE=1024 && hive -f", query, ">", file))
-    
-  } else {
-    
-    #Otherwise, pipe the query to file to avoid having to deal with [expletive]
-    #quoting problems, and run that
     query_file <- tempfile(fileext = ".hql")
     cat(query, file = query_file)
-    system(paste("export HADOOP_HEAPSIZE=1024 && hive -f", query_file, ">", file))
-    
+    query <- query_file
   }
   
+  #Run
+  system(paste("export HADOOP_HEAPSIZE=1024 && hive -f", query, ">", file))
+  
   #If the user wanted the data provided..
-  if(!to_file){
+  if(to_R){
     
     #Read in data
-    data <- read.delim(file = temp_file, header = TRUE, as.is = TRUE, quote = "", ...)
+    data <- read.delim(file = file, header = TRUE, as.is = TRUE, quote = "", ...)
     
-    #Remove temp file
-    file.remove(temp_file)
+    #Remove the file
+    file.remove(file)
     
     #Return data
     return(data)
