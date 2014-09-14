@@ -10,6 +10,8 @@ rpy(x, script, conduit = "text", ...)
 
 \item{script}{the file location of the Python script.}
 
+\item{conduit}{whether you would like txt, tsv or json as the transfer medium (see "integrating with a Python script)}
+
 \item{...}{any other arguments to pass to the Python script}
 }
 \description{
@@ -32,20 +34,15 @@ along with any further arguments you pass in, as command line arguments to the s
 These can be read with \code{argparse}; the input file is preceded by the command-line argument \code{-i},
 the output file \code{-o}, and any further arguments follow that pattern.
 
-One possible point of confusion is conversion between types; R has one set of data types, Python has another.
-The mapping between R and Python types is:
-\tabular{cll}{
- \tab \strong{R} \tab \strong{Python}\cr
- \tab Data Frame \tab Dictionary\cr
- \tab Vector \tab List\cr
- \tab Named Vector \tab Dictionary\cr
- \tab List \tab List\cr
- \tab Matrix \tab List\cr
- \tab Array \tab Cannot be turned into JSON\cr
-}
-The only other thing to realise is that the Python script must read the input file in as a JSON object,
-and write the output as a JSON object, since that's the mutually-understood format that's used to communicate
-between the two languages.
+The output at the R end comes in one of three formats; a .txt, a .tsv, and a JSON blob.
+
+In all cases the objects come without column names; .txt is most appropriate for a vector, .tsv for a
+vector or data.frame, and JSON for, well, anything - the reason for the existence of non-JSON input/output
+streams is that it allows for per-line processing at the Python end, handling situations where there are
+encoding mismatches between the two languages.
+
+In terms of what rpy accepts coming /back/ from Python: a .txt, a .tsv, or a JSON blob: input and output
+methods are currently paired. In the case of a TSV, blank lines are fine, and a header is not looked for.
 }
 \author{
 Oliver Keyes <okeyes@wikimedia.org>
