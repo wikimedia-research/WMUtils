@@ -44,7 +44,7 @@ hive_query <- function(query, file = NULL, dt = TRUE, ...){
   system(paste("export HADOOP_HEAPSIZE=1024 && hive -f", query, ">", file))
   
   #If the user wanted the data provided..
-  if(to_R){
+  if(exists("to_R")){
     
     #Read in data. Try fread, fall back to read.delim
     tryclass <- try(expr = {
