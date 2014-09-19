@@ -10,13 +10,16 @@
 #'@param file a file name. If this is provided, the results of the query will be written straight
 #'there, and a boolean TRUE returned. If not provided (it's NULL by default), the results of the query
 #'will be returned as a data.frame
+#'
+#'@param dt Whether to return it as a data.table or not.
+#'
 #'@param ... other arguments to pass to read.delim.
 #'
 #'@return a data.frame containing the results of the query, or a boolean TRUE if the user has chosen
 #'to write straight to file.
 #'
 #'@export
-hive_query <- function(query, file = NULL, ...){
+hive_query <- function(query, file = NULL, dt = TRUE, ...){
   
   #If the user wants it passed straight to R...
   if(is.null(file)){
@@ -43,17 +46,35 @@ hive_query <- function(query, file = NULL, ...){
   #If the user wanted the data provided..
   if(to_R){
     
-    #Read in data
-    data <- read.delim(file = file, header = TRUE, as.is = TRUE, quote = "", ...)
+    #Read in data. Try fread, fall back to read.delim
+    tryclass <- try(expr = {
+      
+      data <- fread(input = file, sep = "\t", showProgress = FALSE)
+      
+    }, silent = TRUE)
+    if(class(tryclass) == "try-error"){
+         
+      data <- read.delim(file = file, header = TRUE, as.is = TRUE, quote = "", ...)
+      
+    }
     
     #Remove the file
     file.remove(file)
     
-    #Return data
+    #Make it into an object of the appropriate class, and return
+    if(dt){
+      
+      data <- as.data.table(data)
+      return(data)
+      
+    }
+    
+    data <- as.data.frame(data)
     return(data)
+    
   }
   
-  #Otherwise, return TRUE
+  #If the data should not be provided, return TRUE
   return(TRUE)
   
 }

@@ -3,7 +3,7 @@
 \alias{hive_query}
 \title{Run a query against the WMF hive instance}
 \usage{
-hive_query(query, file = NULL, ...)
+hive_query(query, file = NULL, dt = TRUE, ...)
 }
 \arguments{
 \item{query}{a query, or the location of a .hql file containing a query.}
@@ -11,6 +11,8 @@ hive_query(query, file = NULL, ...)
 \item{file}{a file name. If this is provided, the results of the query will be written straight
 there, and a boolean TRUE returned. If not provided (it's NULL by default), the results of the query
 will be returned as a data.frame}
+
+\item{dt}{Whether to return it as a data.table or not.}
 
 \item{...}{other arguments to pass to read.delim.}
 }

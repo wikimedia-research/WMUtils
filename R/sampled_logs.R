@@ -7,6 +7,12 @@
 #'
 #'@param date the year/month/day of the log file you want.
 #'
+#'@param use_fread whether to use fread. This /can/ be faster, but is inconsistently so, depending
+#'on the contents of the input log file. As such, it's set to FALSE by default.
+#'
+#'@param dt whether to return the sampled logs as a data.table or not. Set to TRUE
+#'by default.
+#'
 #'@details
 #'It does what it says on the tin; pass in a date (formatted as '20140601' or equivalent)
 #'and it will retrieve the sampled requestlogs for that day. One caveat worth noting is that
@@ -22,7 +28,7 @@
 #'for querying the unsampled RequestLogs.
 #'@return a data.frame containing the sampled logs of the day you asked for.
 #'@export
-sampled_logs <- function(date){
+sampled_logs <- function(date, use_fread = FALSE, dt = TRUE){
   
   #Construct file address
   origin_path <- paste("/a/squid/archive/sampled/sampled-1000.tsv.log-",date,".gz", sep = "")
@@ -41,21 +47,49 @@ sampled_logs <- function(date){
   system(paste("gunzip", save_file))
   
   #Read in
-  data <- read.delim(output_file, as.is = TRUE,
-                     quote = "",
-                     col.names = c("squid","sequence_no",
-                                   "timestamp", "servicetime",
-                                   "ip_address", "status_code",
-                                   "reply_size", "request_method",
-                                   "URL", "squid_status",
-                                   "mime_type", "referer",
-                                   "x_forwarded", "user_agent",
-                                   "lang", "x_analytics"))
+  if(use_fread){
+  tryclass <- try(expr = {
+    
+    data <- fread(input = output_file, sep = "\t", showProgress = FALSE, header = FALSE,
+                  colClasses = rep("character", 16))
+    setnames(data, c("squid","sequence_no",
+                     "timestamp", "servicetime",
+                     "ip_address", "status_code",
+                     "reply_size", "request_method",
+                     "URL", "squid_status",
+                     "mime_type", "referer",
+                     "x_forwarded", "user_agent",
+                     "lang", "x_analytics"))
+    
+  }, silent = TRUE)
+  }
+  if(!use_fread || class(tryclass) == "try-error"){
+    
+    data <- read.delim(output_file, as.is = TRUE,
+                       quote = "",
+                       col.names = c("squid","sequence_no",
+                                     "timestamp", "servicetime",
+                                     "ip_address", "status_code",
+                                     "reply_size", "request_method",
+                                     "URL", "squid_status",
+                                     "mime_type", "referer",
+                                     "x_forwarded", "user_agent",
+                                     "lang", "x_analytics"))
+    
+  }
   
   #Remove temp file
   file.remove(output_file)
   
-  #Return
+  #If a data.table is requested, set it
+  if(dt){
+    
+    data <- as.data.table(data)
+    return(data)
+  }
+
+  #Otherwise, data frame
+  data <- as.data.frame(data)
   return(data)
   
 }
