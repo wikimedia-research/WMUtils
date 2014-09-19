@@ -7,9 +7,11 @@
 #'
 #'@param query the SQL query you want to run.
 #'
-#'@param db the db name you want to run the query against.
+#'@param db the name of the database you want to run the query against.
 #'
-#'@return A data.frame containing the results of the query.
+#'@param dt whether to return the results as a data.table. TRUE by default.
+#'
+#'@return A data.frame or data.table containing the results of the query.
 #'
 #'@author Oliver Keyes <okeyes@@wikimedia.org>
 #'
@@ -19,7 +21,7 @@
 #'
 #'@export
 
-mysql_query <- function(query, db){
+mysql_query <- function(query, db, dt = TRUE){
   
   #Open connection to the MySQL DB
   con <- dbConnect(drv = "MySQL",
@@ -36,6 +38,13 @@ mysql_query <- function(query, db){
   dbClearResult(dbListResults(con)[[1]])
   dbDisconnect(con)
   
+  #Return as a data.table, if applicable.
+  if(dt){
+    
+    data <- as.data.table(data)
+    return(data)
+    
+  }
   #Return output
   return(data)
   

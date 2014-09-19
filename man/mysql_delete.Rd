@@ -25,6 +25,6 @@ Oliver Keyes <okeyes@wikimedia.org>
 }
 \seealso{
 \code{\link{mysql_query}} for reading from the same range of databases, \code{\link{mysql_write}}
-for writing to them, or \code\link{mysql_exists} for checking the existence of a table.
+for writing to them, or \code{\link{mysql_exists}} for checking the existence of a table.
 }
 

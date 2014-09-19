@@ -3,15 +3,17 @@
 \alias{mysql_query}
 \title{Wrapper for querying the R&D MySQL instances}
 \usage{
-mysql_query(query, db)
+mysql_query(query, db, dt = TRUE)
 }
 \arguments{
 \item{query}{the SQL query you want to run.}
 
-\item{db}{the db name you want to run the query against.}
+\item{db}{the name of the database you want to run the query against.}
+
+\item{dt}{whether to return the results as a data.table. TRUE by default.}
 }
 \value{
-A data.frame containing the results of the query.
+A data.frame or data.table containing the results of the query.
 }
 \description{
 \code{mysql_query} is a simple wrapper around RMySQL that allows a useR to query the dbs on
