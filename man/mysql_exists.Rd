@@ -14,7 +14,7 @@ mysql_exists(db, table_name)
 A TRUE or FALSE confirming whether the table exists
 }
 \description{
-\code{mysql_write} is a simple wrapper around RMySQL that allows a useR to check table existence in a database on
+\code{mysql_exists} is a simple wrapper around RMySQL that allows a useR to check table existence in a database on
 analytics-store.eqiad.wmnet.
 }
 \author{

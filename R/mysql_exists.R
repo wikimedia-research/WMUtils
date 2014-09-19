@@ -2,7 +2,7 @@
 #'Wrapper for checking the existence of a MySQL table
 #'
 #'@description
-#'\code{mysql_write} is a simple wrapper around RMySQL that allows a useR to check table existence in a database on
+#'\code{mysql_exists} is a simple wrapper around RMySQL that allows a useR to check table existence in a database on
 #'analytics-store.eqiad.wmnet.
 #'
 #'@param db a database

@@ -15,7 +15,8 @@
 #'\code{\link{global_query}} allows you to run over multiple databases. Either way,
 #'\code{\link{mw_strptime}} turns the timestamp format used in our DB into POSIXlt timestamps.
 #'And once you're done processing, use \code{\link{mysql_write}} to stream the results up to
-#'the databases again.
+#'the databases again. Need to update previously written rows? No problem! \code{\link{mysql_delete}}
+#'is the function for you.
 #'
 #'@section Geodata:
 #'Thanks to a nice python library, pygeoip, we have an easy API to access geographic data
@@ -31,7 +32,7 @@
 #'Both geodata retrieval and user agent parsing are dependent on Python libraries, so this
 #'also contains a R-to-Python-to-R connector, \code{\link{rpy}}. This allows you to pipe
 #'R objects into Python, run an arbitrary Python script over them, and pipe the results back into
-#'R.
+#'R, using TSVs, .txts or JSON blobs as the intermediary.
 #'
 #'@author Oliver Keyes <okeyes@@wikimedia.org>
 #'@docType package

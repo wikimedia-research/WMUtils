@@ -1,12 +1,13 @@
 Package: WMUtils
 Type: Package
 Title: Utilities for Wikimedia staffers
-Version: 0.9.6
-Date: 2014-08-28
+Version: 0.9.9
+Date: 2014-09-19
 Author: Oliver Keyes
 Maintainer: Oliver Keyes <okeyes@wikimedia.org>
 Description: Geolocation, user agent parsing and more!
 License: MIT + file LICENSE
 Depends: jsonlite,
-         RMySQL
+         RMySQL,
+         data.table
 BugReports: https://github.com/Ironholds/WMUtils/issues
