@@ -3,12 +3,14 @@
 \alias{global_query}
 \title{global SQL queries for analytics-store.eqiad.wmnet}
 \usage{
-global_query(query, project_type = "all")
+global_query(query, project_type = "all", dt = TRUE)
 }
 \arguments{
 \item{query}{the SQL query you want to run}
 
 \item{project_type}{what class of wiki (wikisource, wiktionary..) you want to run against. Set to "all" by default.}
+
+\item{dt}{whether to return the results as a data.table or not}
 }
 \description{
 \code{global_query} is a simple wrapper around RMySQL that allows a useR to send a query to all production

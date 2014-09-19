@@ -9,13 +9,15 @@
 #'
 #'@param project_type what class of wiki (wikisource, wiktionary..) you want to run against. Set to "all" by default.
 #'
+#'@param dt whether to return the results as a data.table or not
+#'
 #'@author Oliver Keyes <okeyes@@wikimedia.org>
 #'
 #'@seealso \code{\link{mysql_query}} for querying an individual db, \code{\link{mw_strptime}}
 #'for converting MediaWiki timestamps into POSIXlt timestamps.
 #'@export
 
-global_query <- function(query, project_type = "all"){
+global_query <- function(query, project_type = "all", dt = TRUE){
   
   #Construct the query
   if(!project_type == "all"){
@@ -57,8 +59,15 @@ global_query <- function(query, project_type = "all"){
   }, query = query)
   cat("\n")
   
-  #Bind it into a single df
+  #Bind it into a single object
   data <- do.call(what = "rbind", args = data)
+  
+  #Return as a data.table, if requested. Luckily mysql_query's default settings makes this
+  #a lot easier. We don't actually have to do anything.
+  if(!dt){
+    
+    data <- as.data.frame(data)
+  }
   
   #Return
   return(data)
