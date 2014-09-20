@@ -3,10 +3,11 @@
 \alias{sampled_logs}
 \title{Retrieve data from the sampled logs}
 \usage{
-sampled_logs(date, use_fread = FALSE, dt = TRUE)
+sampled_logs(file, use_fread = FALSE, dt = TRUE)
 }
 \arguments{
-\item{date}{the year/month/day of the log file you want.}
+\item{file}{either the full name of a sampled log file, or the year/month/day of the log file you want,
+provided as YYYYMMDD}
 
 \item{use_fread}{whether to use fread. This /can/ be faster, but is inconsistently so, depending
 on the contents of the input log file. As such, it's set to FALSE by default.}

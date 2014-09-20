@@ -5,7 +5,8 @@
 #'\code{sampled_logs} reads in and parses data from the 1:1000 sampled RequestLogs
 #'on stat1002.
 #'
-#'@param date the year/month/day of the log file you want.
+#'@param file either the full name of a sampled log file, or the year/month/day of the log file you want,
+#'provided as YYYYMMDD
 #'
 #'@param use_fread whether to use fread. This /can/ be faster, but is inconsistently so, depending
 #'on the contents of the input log file. As such, it's set to FALSE by default.
@@ -28,10 +29,20 @@
 #'for querying the unsampled RequestLogs.
 #'@return a data.frame containing the sampled logs of the day you asked for.
 #'@export
-sampled_logs <- function(date, use_fread = FALSE, dt = TRUE){
+sampled_logs <- function(file, use_fread = FALSE, dt = TRUE){
   
-  #Construct file address
-  origin_path <- paste("/a/squid/archive/sampled/sampled-1000.tsv.log-",date,".gz", sep = "")
+  #Check whether a file was provided, or a date. If a data, construct a filename
+  if(!grepl(x =  file, pattern = "/")){
+    
+    #Construct file address
+    origin_path <- paste("/a/squid/archive/sampled/sampled-1000.tsv.log-",file,".gz", sep = "")
+    
+  } else {
+    
+    #Otherwise, use the filename provided
+    origin_path <- file
+    
+  }
   
   #Create temp file
   output_file <- tempfile()
@@ -40,7 +51,7 @@ sampled_logs <- function(date, use_fread = FALSE, dt = TRUE){
   #Copy file to save_file and unzip
   if(!file.copy(from = origin_path, to = save_file, overwrite = TRUE)){
     
-    warning("The file for ", date, " could not be found")
+    warning("The file ", origin_path, " could not be found")
     return(NULL)
     
   }
@@ -86,6 +97,7 @@ sampled_logs <- function(date, use_fread = FALSE, dt = TRUE){
     
     data <- as.data.table(data)
     return(data)
+    
   }
 
   #Otherwise, data frame
