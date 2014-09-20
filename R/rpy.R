@@ -56,17 +56,19 @@ rpy <- function(x, script, conduit = "text", ...){
   rpy_funs$write(object = x, filename = input_file)
   
   #Run script
-  ignore <- system(command = paste("python", script, "-i", input_file, "-o", output_file, ...))
-  
-  #Error if it failed
-  if(ignore){
-    
-    warning("The Python script could not be run")
-    return(NULL)
-  }
+  ignore <- system(command = paste("python", script, "-i", input_file, "-o", output_file, ...), intern = TRUE)
   
   #Grab results
-  results <- rpy_funs$read(filename = output_file)
+  tryCatch(expr = {
+    
+    results <- rpy_funs$read(filename = output_file)
+    
+  }, error = function(e){
+    
+    warning("The Python script could not be run: R error message was", e)
+    return(NULL)
+    
+  })
   
   #Remove files
   file.remove(output_file, input_file)
