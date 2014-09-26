@@ -52,7 +52,7 @@ hive_query <- function(query, file = NULL, dt = TRUE, ...){
       data <- fread(input = file, sep = "\t", showProgress = FALSE)
       
     }, silent = TRUE)
-    if(class(tryclass) == "try-error"){
+    if("try-error" %in% class(tryclass)){
          
       data <- read.delim(file = file, header = TRUE, as.is = TRUE, quote = "", ...)
       
