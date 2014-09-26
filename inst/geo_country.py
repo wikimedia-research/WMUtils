@@ -36,7 +36,7 @@ output = []
 for entry in ip_list:
   
   #If it's IPV6, use the 6 method
-  if(bool(re.search(":",entry))):
+  if(re.search(":",entry)):
     
     try:
       output.append(ip6_geo.country_code_by_addr(entry)+"\n")
