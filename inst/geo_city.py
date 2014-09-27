@@ -2,6 +2,7 @@
 import pygeoip
 import re  
 import argparse
+import io_defs
 
 #Set up argparse
 parser = argparse.ArgumentParser(description="City-level geolocation")
@@ -13,21 +14,8 @@ args = parser.parse_args()
 ip4_geo = pygeoip.GeoIP(filename = "/usr/share/GeoIP/GeoIPCity.dat", flags = 1)
 ip6_geo = pygeoip.GeoIP(filename = "/usr/share/GeoIP/GeoLiteCityv6.dat", flags = 1)
 
-#Create object to iterate over
-ip_list = []
-
-#Open connection
-file_con = open(name = args.input, mode = "r")
-
-#Read in, handling invalid rows as we go
-for line in file_con:
-  try:
-    ip_list.append(line)
-  except:
-    ip_list.append("")
-
-#Close
-file_con.close()
+#Read in input
+ip_list = io_defs.generic_input(name = args.input)
 
 #Create output list
 output = []
@@ -52,6 +40,4 @@ for entry in ip_list:
       output.append("Invalid\n")
 
 #Write out
-output_file = open(name = args.output, mode = "w")
-output_file.writelines(output)
-output_file.close()
+generic_output(name = args.output, x = output)
