@@ -1,3 +1,36 @@
+#'@title
+#'namespace name/number matching
+#'
+#'@description
+#'\code{namespace_match} allows you to match namespace names to the appropriate namespace ID numbers, or vice
+#'versa, in any language.
+#'
+#'@param x a vector of namespace names or numbers
+#'
+#'@param code which project's names to use as the basis for the conversion. Set to "enwiki" by default.
+#'
+#'@param language see 'details' - set to NULL by default
+#'
+#'@param project_type see 'details' - set to NULL by default
+#'
+#'@param use_API whether to rebuild the data fresh from the API, or use the version that comes with WMUtils.
+#'note that API rebuilding will update the version stored with WMUtils, but won't work at all on stat1002.
+#'Because there's no internet on stat1002.
+#'
+#'@details
+#'namespace_match takes a vector of namespace ID numbers or namespace names, and matches them to...well, the one
+#'you didn't provide. To do this it relies on a .RData file of the globally used namespace IDs and local names.
+#'
+#'To match your names/IDs with the project you want them localised to, you can provide either \code{code}, which
+#'matches the format used in the \code{wiki_info} table and the NOC lists, or both language and project_type,
+#'where language is the English-language name for the project language, and project_type is "wiki", "wikisource",
+#'or so on, following the format used in the \code{wiki_info} table.
+#'
+#'@seealso
+#'\link{\code{namespace_match_generator}}, the function that (re)generates the dataset. It can be directly
+#'called.
+#'
+#'@export
 namespace_match <- function(x, code = "enwiki", language = NULL, project_type = NULL, use_API = FALSE){
   
   #Do we use the API or not? If so, call namespace_match_generator. If not, read in the .RData
