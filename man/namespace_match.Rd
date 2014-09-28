@@ -36,7 +36,7 @@ where language is the English-language name for the project language, and projec
 or so on, following the format used in the \code{wiki_info} table.
 }
 \seealso{
-\link{\code{namespace_match_generator}}, the function that (re)generates the dataset. It can be directly
+\code{\link{namespace_match_generator}}, the function that (re)generates the dataset. It can be directly
 called.
 }
 

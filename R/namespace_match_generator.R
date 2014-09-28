@@ -3,7 +3,7 @@
 #'
 #'@description
 #'\code{namespace_match_generator} generates a localised list of namespace names and the equivalent IDs,
-#'and saves it to file. This is then used by \link{\code{namespace_match}}
+#'and saves it to file. This is then used by \code{\link{namespace_match}}
 #'
 #'@param to_return whether or not to return the dataset, as well as save it to file.
 #'
@@ -13,7 +13,7 @@
 #'stat1002, for example.
 #'
 #'@seealso
-#'\link{\code{namespace_match}}, which uses the resulting dataset to perform namespace name/ID matching.
+#'\code{\link{namespace_match}}, which uses the resulting dataset to perform namespace name/ID matching.
 #'
 #'@return Either the value TRUE, if to_return is FALSE, or a data.table containing the project dbname,
 #'language name, project type, namespace ID, and localised namespace name.

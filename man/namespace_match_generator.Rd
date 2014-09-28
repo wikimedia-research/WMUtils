@@ -14,7 +14,7 @@ language name, project type, namespace ID, and localised namespace name.
 }
 \description{
 \code{namespace_match_generator} generates a localised list of namespace names and the equivalent IDs,
-and saves it to file. This is then used by \link{\code{namespace_match}}
+and saves it to file. This is then used by \code{\link{namespace_match}}
 }
 \details{
 namespace_match_generator queries the various Wikimedia APIs to build up a dataset of what the localised
@@ -22,6 +22,6 @@ namespace names are on each project. For this reason it needs internet access - 
 stat1002, for example.
 }
 \seealso{
-\link{\code{namespace_match}}, which uses the resulting dataset to perform namespace name/ID matching.
+\code{\link{namespace_match}}, which uses the resulting dataset to perform namespace name/ID matching.
 }
 
