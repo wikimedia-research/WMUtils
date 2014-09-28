@@ -1,3 +1,24 @@
+#'@title
+#'namespace name/number retrieval
+#'
+#'@description
+#'\code{namespace_match_generator} generates a localised list of namespace names and the equivalent IDs,
+#'and saves it to file. This is then used by \link{\code{namespace_match}}
+#'
+#'@param to_return whether or not to return the dataset, as well as save it to file.
+#'
+#'@details
+#'namespace_match_generator queries the various Wikimedia APIs to build up a dataset of what the localised
+#'namespace names are on each project. For this reason it needs internet access - don't bother using it on
+#'stat1002, for example.
+#'
+#'@seealso
+#'\link{\code{namespace_match}}, which uses the resulting dataset to perform namespace name/ID matching.
+#'
+#'@return Either the value TRUE, if to_return is FALSE, or a data.table containing the project dbname,
+#'language name, project type, namespace ID, and localised namespace name.
+#'
+#'@export
 namespace_match_generator <- function(to_return = FALSE){
   
   #Function for retrieving the JSON
