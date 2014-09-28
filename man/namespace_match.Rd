@@ -19,6 +19,9 @@ namespace_match(x, code = "enwiki", language = NULL, project_type = NULL,
 note that API rebuilding will update the version stored with WMUtils, but won't work at all on stat1002.
 Because there's no internet on stat1002.}
 }
+\value{
+a vector containing the IDs or names, whichever you wanted.
+}
 \description{
 \code{namespace_match} allows you to match namespace names to the appropriate namespace ID numbers, or vice
 versa, in any language.

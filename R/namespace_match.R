@@ -30,6 +30,8 @@
 #'\link{\code{namespace_match_generator}}, the function that (re)generates the dataset. It can be directly
 #'called.
 #'
+#'@return a vector containing the IDs or names, whichever you wanted.
+#'
 #'@export
 namespace_match <- function(x, code = "enwiki", language = NULL, project_type = NULL, use_API = FALSE){
   
