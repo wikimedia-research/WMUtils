@@ -12,6 +12,8 @@
 #' 
 #' @author Oliver Keyes <okeyes@@wikimedia.org>
 #' 
+#' @return a data.frame containing the results of the UA parsing, with each field as a column.
+#' 
 #' @export
 
 ua_parse <- function(user_agents, fields = c("device","os","browser","major_version","minor_version")){

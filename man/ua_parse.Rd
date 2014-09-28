@@ -13,6 +13,9 @@ ua_parse(user_agents, fields = c("device", "os", "browser", "major_version",
 "os" (the operating system, when known), "browser" (the browser), "major_version" (the major version of the browser)
 and minor_version (the minor version of the browser)}
 }
+\value{
+a data.frame containing the results of the UA parsing, with each field as a column.
+}
 \description{
 \code{ua_parse} acts as a connector to
 \href{https://github.com/tobie/ua-parser}{tobie's ua-parser}, consuming a vector of user agents

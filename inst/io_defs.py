@@ -1,3 +1,4 @@
+#A generic input function, used by geo_* scripts. It happily handles .txts.
 def generic_input(name):
   
   #Create object
@@ -19,8 +20,10 @@ def generic_input(name):
   #Return
   return output_list
 
+#A generic output function - same as above, on all fronts.
 def generic_output(name, x):
   
+  #Open, write, close
   output_file = open(name = name, mode = "w")
   output_file.writelines(x)
   output_file.close()
