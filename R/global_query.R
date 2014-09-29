@@ -48,6 +48,10 @@ global_query <- function(query, project_type = "all", dt = TRUE){
       #Add the wiki
       data$project <- x
       
+    } else {
+      
+      data <- NULL
+      
     }
     
     #Increment the progress bar
