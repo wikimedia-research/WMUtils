@@ -41,7 +41,13 @@ is in Python. It's also now in R thanks to \code{\link{ua_parse}}. If you run in
 identified user agents, poke Oliver, since he's a maintainer on the ua-parser repository.
 }
 
-\section{Language integration}{
+\section{Namespace matching}{
+
+\code{\link{namespace_match}} allows you convert namespace numbers to localised names, or
+vice versa, handling the presence of namespaces in reader or editor data.
+}
+
+\section{Python integration}{
 
 Both geodata retrieval and user agent parsing are dependent on Python libraries, so this
 also contains a R-to-Python-to-R connector, \code{\link{rpy}}. This allows you to pipe
