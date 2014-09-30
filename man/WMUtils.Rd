@@ -44,7 +44,9 @@ identified user agents, poke Oliver, since he's a maintainer on the ua-parser re
 \section{Namespace matching}{
 
 \code{\link{namespace_match}} allows you convert namespace numbers to localised names, or
-vice versa, handling the presence of namespaces in reader or editor data.
+vice versa, handling the presence of namespaces in reader or editor data. The dataset is
+also made available as \code{\link{namespace_names}}, or rebuildable via
+\code{\link{namespace_match_generator}}.
 }
 
 \section{Python integration}{
