@@ -36,7 +36,7 @@ geo_tz <- function(ips){
   ips[nchar(ips) > 39] <- ""
   
   #Call rpy
-  results <- rpy(x = ips, script = file.path(find.package("WMUtils"),"geo_tz.py", conduit = "text"))
+  results <- rpy(x = ips, script = file.path(find.package("WMUtils"),"geo_tz.py"))
   
   #Mark invalid entriees
   results[is.na(results)] <- "Invalid"
