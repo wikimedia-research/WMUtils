@@ -40,4 +40,4 @@ for entry in ip_list:
       output.append("Invalid\n")
 
 #Write out
-generic_output(name = args.output, x = output)
+io_defs.generic_output(name = args.output, x = output)
