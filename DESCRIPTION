@@ -1,7 +1,7 @@
 Package: WMUtils
 Type: Package
 Title: Utilities for Wikimedia staffers
-Version: 1.0.2
+Version: 1.0.3
 Date: 2014-09-29
 Author: Oliver Keyes
 Maintainer: Oliver Keyes <okeyes@wikimedia.org>

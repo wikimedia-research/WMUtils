@@ -66,9 +66,12 @@ namespace_match <- function(x, code = "enwiki", language = NULL, project_type = 
     #We have to loop, because merge() doesn't preserve the original order. Bah.
     for(i in seq_along(output)){
       
-      output[i] <- namespace_names$name[namespace_names$namespace == x[i]]
-      
+      try({
+      output[i] <- namespace_names$namespace[namespace_names$name == x[i]]
+      }, silent = TRUE)
     }
+    
+    output[!x %in% namespace_names$name] <- "No local name"
     
   } else {
     
@@ -78,9 +81,13 @@ namespace_match <- function(x, code = "enwiki", language = NULL, project_type = 
     #We have to loop, because merge() doesn't preserve the original order. Bah.
     for(i in seq_along(output)){
       
-      output[i] <- namespace_names$namespace[namespace_names$name == x[i]]
-      
+      try({
+        output[i] <- namespace_names$name[namespace_names$namespace == x[i]]
+      }, silent = TRUE)
     }
+    
+    output[!x %in% namespace_names$namespace] <- NA
+
   }
   
   #Either way, return
