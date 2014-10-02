@@ -40,6 +40,11 @@
 #'R objects into Python, run an arbitrary Python script over them, and pipe the results back into
 #'R, using TSVs, .txts or JSON blobs as the intermediary.
 #'
+#'@section Dependencies:
+#'Everything has dependencies; WMUtils is weird in that its primary dependencies are Python modules.
+#'Specifically, it needs \href{https://github.com/tobie/ua-parser}{tobie's ua-parser} and
+#'\href{https://pypi.python.org/pypi/pygeoip}{pygeoip}.
+#'
 #'@author Oliver Keyes <okeyes@@wikimedia.org>
 #'@docType package
 #'@name WMUtils
