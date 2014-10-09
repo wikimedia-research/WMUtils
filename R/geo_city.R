@@ -17,8 +17,9 @@
 #'
 #'@author Oliver Keyes <okeyes@@wikimedia.org>
 #'
-#'@seealso \code{\link{geo_country}} for country-level identification and \code{\link{geo_tz}}
-#'for tzdata-compatible timezone identification.
+#'@seealso \code{\link{geo_country}} for country-level identification, \code{\link{geo_tz}}
+#'for tzdata-compatible timezone identification and \code{\link{geo_netspeed}} for connection
+#'type detection.
 #'@export
 
 geo_city <- function(ips){

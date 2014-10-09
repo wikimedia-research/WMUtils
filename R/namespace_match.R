@@ -53,7 +53,7 @@ namespace_match <- function(x, code = "enwiki", language = NULL, project_type = 
     
   } else {
     
-    namespace_names <- namespace_names[namespace_names$language == language & namespace_names$project == project,]
+    namespace_names <- namespace_names[namespace_names$language == language & namespace_names$project == project_type,]
     
   }
   

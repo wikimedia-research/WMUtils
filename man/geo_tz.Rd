@@ -24,7 +24,8 @@ limitation is that accuracy
 Oliver Keyes <okeyes@wikimedia.org>
 }
 \seealso{
-\code{\link{geo_city}} for city-level identification and \code{\link{geo_country}}
-for country-level identification.
+\code{\link{geo_city}} for city-level identification, \code{\link{geo_country}}
+for country-level identification and \code{\link{geo_netspeed}} for connection
+type detection.
 }
 

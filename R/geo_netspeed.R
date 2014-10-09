@@ -1,31 +1,32 @@
 #'@title
-#'Country-level geolocation
+#'Connection type detection
 #'
 #'@description
-#'\code{geo_country} geolocates IP addresses to the country level, providing the
-#'\href{https://en.wikipedia.org/wiki/ISO_3166-2}{ISO 3166-2} code for the resulting country.
+#'\code{geo_netspeed} provides connection types for the provided IP address(es)
 #'It uses (in order) \href{http://dev.maxmind.com/geoip/}{MaxMind's binary geolocation database}
 #'and \href{https://github.com/maxmind/GeoIP2-python}{the associated Python API}, with
 #'\code{\link{rpy}} as a connector. The Python API is required for it to work.
 #'
+#'Unlike the other geo-related functions, \code{geo_netspeed} does not currently support IPv6
+#'
 #'@param ips a vector of IP addresses
 #'
-#'@return a vector of country names. NULL or invalid responses from the API will be replaced with the string "Invalid".
+#'@return a vector of connection categories. NULL or invalid responses from the API will be replaced with
+#'the string "Invalid".
 #'
 #'@author Oliver Keyes <okeyes@@wikimedia.org>
 #'
 #'@seealso \code{\link{geo_city}} for city-level identification, \code{\link{geo_tz}}
-#'for tzdata-compatible timezone identification and \code{\link{geo_netspeed}} for connection
-#'type detection.
+#'for tzdata-compatible timezone identification, or \code{\link{geo_country}} for country-level geolocation.
 #'@export
 
-geo_country <- function(ips){
+geo_netspeed <- function(ips){
   
   #If it's bigger than 2m, split and recursively call
   if(length(ips) > 2000000){
     
     ips <- split(ips, ceiling(seq_along(ips)/2000000))
-    results <- unlist(lapply(ips, geo_country))
+    results <- unlist(lapply(ips, geo_netspeed))
     names(results) <- NULL
     return(results)
     
@@ -36,11 +37,10 @@ geo_country <- function(ips){
   ips[nchar(ips) > 39] <- ""
   
   #Call rpy
-  results <- rpy(x = ips, script = file.path(find.package("WMUtils"),"geo_country.py"), conduit = "text")
+  results <- rpy(x = ips, script = file.path(find.package("WMUtils"),"geo_netspeed.py"), conduit = "text")
   
   #Mark invalid results
   results[is.na(results)] <- "Invalid"
-  results[results %in% c("EU","AP","A1","A2","O1", "")] <- "Invalid"
   
   #Return
   return(results)

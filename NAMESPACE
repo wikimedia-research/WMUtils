@@ -2,6 +2,7 @@
 
 export(geo_city)
 export(geo_country)
+export(geo_netspeed)
 export(geo_tz)
 export(global_query)
 export(hive_query)
