@@ -4,9 +4,19 @@
 #' @title
 #' session_count
 #' @description
-#' Recursive session counting function
+#' Session counting function
+#' 
+#' @param x a vector of intertime values
+#' 
+#' @param local_minimum the threshold (in seconds) to split out a new session on. Set to 3600
+#' by default.
+#' 
+#' @details
+#' \code{session_count} takes a vector of intertime values (generated via \code{\link{intertimes}},
+#' or in any other way you see fit) and returns the total number of sessions within that dataset.
+#' It's implimented in C++, providing a (small) increase in speed over the R equivalent.
 #' @export
-session_count <- function(x, local_minimum) {
+session_count <- function(x, local_minimum = 3600L) {
     .Call('WMUtils_session_count', PACKAGE = 'WMUtils', x, local_minimum)
 }
 

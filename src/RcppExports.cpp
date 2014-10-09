@@ -6,7 +6,7 @@
 using namespace Rcpp;
 
 // session_count
-int session_count(NumericVector x, int local_minimum);
+int session_count(NumericVector x, int local_minimum = 3600);
 RcppExport SEXP WMUtils_session_count(SEXP xSEXP, SEXP local_minimumSEXP) {
 BEGIN_RCPP
     SEXP __sexp_result;

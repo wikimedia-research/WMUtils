@@ -3,9 +3,20 @@
 \alias{session_count}
 \title{session_count}
 \usage{
-session_count(x, local_minimum)
+session_count(x, local_minimum = 3600L)
+}
+\arguments{
+\item{x}{a vector of intertime values}
+
+\item{local_minimum}{the threshold (in seconds) to split out a new session on. Set to 3600
+by default.}
 }
 \description{
-Recursive session counting function
+Session counting function
+}
+\details{
+\code{session_count} takes a vector of intertime values (generated via \code{\link{intertimes}},
+or in any other way you see fit) and returns the total number of sessions within that dataset.
+It's implimented in C++, providing a (small) increase in speed over the R equivalent.
 }
 
