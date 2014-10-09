@@ -1,0 +1,4 @@
+Version 1.1.0
+-------------------------------------------------------------------------
+*Add Rcpp integration
+*Add intertimes() and session_count(), basic functions for working with sessions.
