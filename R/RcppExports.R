@@ -15,6 +15,9 @@
 #' \code{session_count} takes a vector of intertime values (generated via \code{\link{intertimes}},
 #' or in any other way you see fit) and returns the total number of sessions within that dataset.
 #' It's implimented in C++, providing a (small) increase in speed over the R equivalent.
+#' 
+#' @seealso
+#' \code{\link{intertimes}}, for generating inter-time values.
 #' @export
 session_count <- function(x, local_minimum = 3600L) {
     .Call('WMUtils_session_count', PACKAGE = 'WMUtils', x, local_minimum)

@@ -19,4 +19,7 @@ Session counting function
 or in any other way you see fit) and returns the total number of sessions within that dataset.
 It's implimented in C++, providing a (small) increase in speed over the R equivalent.
 }
+\seealso{
+\code{\link{intertimes}}, for generating inter-time values.
+}
 

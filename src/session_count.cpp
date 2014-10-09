@@ -16,6 +16,9 @@ using namespace Rcpp;
 //' \code{session_count} takes a vector of intertime values (generated via \code{\link{intertimes}},
 //' or in any other way you see fit) and returns the total number of sessions within that dataset.
 //' It's implimented in C++, providing a (small) increase in speed over the R equivalent.
+//' 
+//' @seealso
+//' \code{\link{intertimes}}, for generating inter-time values.
 //' @export
 // [[Rcpp::export]]
 int session_count(NumericVector x, int local_minimum = 3600) {
