@@ -49,5 +49,7 @@
 #'@docType package
 #'@name WMUtils
 #'@import RMySQL data.table
+#'@importFrom Rcpp evalCpp
+#'@useDynLib WMUtils
 #'@aliases WMUtils WMUtils-package
 NULL
