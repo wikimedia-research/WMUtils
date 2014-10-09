@@ -18,6 +18,7 @@ having sorted the timestamps from earliest to latest.
 }
 \seealso{
 \code{\link{session_count}} - take a set of intertime periods and work out how many sessions
-they represent.
+they represent - or \code{\link{session_length}}, which works out the approximate length
+(in seconds) of each session.
 }
 

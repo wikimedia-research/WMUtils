@@ -21,7 +21,9 @@ cpp_intertimes <- function(timestamps) {
 #' It's implimented in C++, providing a (small) increase in speed over the R equivalent.
 #' 
 #' @seealso
-#' \code{\link{intertimes}}, for generating inter-time values.
+#' \code{\link{intertimes}}, for generating inter-time values,or \code{\link{session_length}} for
+#' session length, in seconds.
+#' 
 #' @export
 session_count <- function(x, local_minimum = 3600L) {
     .Call('WMUtils_session_count', PACKAGE = 'WMUtils', x, local_minimum)
