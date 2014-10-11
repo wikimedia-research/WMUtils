@@ -6,14 +6,14 @@ def generic_input(name):
   
   #Open connection
   file_con = open(name = name, mode = "r")
-
+  
   #Read in, handling invalid rows as we go
   for line in file_con:
     try:
       output_list.append(line)
     except:
       output_list.append("")
-
+  
   #Close
   file_con.close()
   
