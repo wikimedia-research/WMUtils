@@ -15,6 +15,12 @@
 #'
 #'@param ... other arguments to pass to read.delim.
 #'
+#'@section escaping:
+#'\code{hive_query} works by running the query you provide through the CLI via a system() call.
+#'As a result, single escapes for meaningful characters (such as quotes) within the query will not work:
+#'R will interpret them only as escaping that character /within R/. Double escaping (\\\) is thus necessary,
+#'in the same way that it is for regular expressions.
+#'
 #'@return a data.frame containing the results of the query, or a boolean TRUE if the user has chosen
 #'to write straight to file.
 #'
