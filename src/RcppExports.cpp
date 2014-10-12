@@ -36,3 +36,19 @@ BEGIN_RCPP
     return __sexp_result;
 END_RCPP
 }
+// session_length
+NumericVector session_length(NumericVector intertimes, int local_minimum = 3600);
+RcppExport SEXP WMUtils_session_length(SEXP intertimesSEXP, SEXP local_minimumSEXP) {
+BEGIN_RCPP
+    SEXP __sexp_result;
+    {
+        Rcpp::RNGScope __rngScope;
+        Rcpp::traits::input_parameter< NumericVector >::type intertimes(intertimesSEXP );
+        Rcpp::traits::input_parameter< int >::type local_minimum(local_minimumSEXP );
+        NumericVector __result = session_length(intertimes, local_minimum);
+        PROTECT(__sexp_result = Rcpp::wrap(__result));
+    }
+    UNPROTECT(1);
+    return __sexp_result;
+END_RCPP
+}

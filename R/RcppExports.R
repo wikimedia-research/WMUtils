@@ -29,3 +29,35 @@ session_count <- function(x, local_minimum = 3600L) {
     .Call('WMUtils_session_count', PACKAGE = 'WMUtils', x, local_minimum)
 }
 
+#'@title
+#'session_length
+#'
+#'@description
+#'Session counting function
+#' 
+#'@param timestamps a vector of inter-time values.
+#' 
+#'@param local_minimum the threshold (in seconds) to split out a new session on. Set to 3600
+#' by default.
+#' 
+#'@details
+#'\code{session_length} takes a vector of intertime values (generated via \code{\link{intertimes}},
+#'or in any other way you see fit), splits them into sessions, and calculates the approximate
+#'length (in seconds) of each session. It's implemented in C++ since, even with the hinkiness
+#'of my C++, it's still several OoM faster than the equivalent R (recursion in R is dumb).
+#'
+#'@section Warning:
+#'Unlike \code{\link{intertime}} or \code{\link{session_count}}, the methodology here has not been
+#'settled on; the internal workings of this function can and probably will change.
+#'
+#'@return a vector of session length counts, in seconds.
+#' 
+#'@seealso
+#'\code{\link{intertimes}}, for generating inter-time values, and \code{\link{session_count}} for
+#'simply counting the number of sessions.
+#' 
+#'@export
+session_length <- function(intertimes, local_minimum = 3600L) {
+    .Call('WMUtils_session_length', PACKAGE = 'WMUtils', intertimes, local_minimum)
+}
+
