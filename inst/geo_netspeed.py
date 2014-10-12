@@ -11,6 +11,7 @@ args = parser.parse_args()
 
 #Read in MaxMind binary files, storing in memory for speed
 netspeed_db = pygeoip.GeoIP(filename = "/usr/share/GeoIP/GeoIPNetSpeedCell.dat", flags = 1)
+netspeed_backup = pygeoip.GeoIP(filename = "/usr/share/GeoIP/GeoIPNetSpeed.dat", flags = 1)
 
 #Read in input
 ip_list = io_defs.generic_input(name = args.input)

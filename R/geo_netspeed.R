@@ -41,6 +41,7 @@ geo_netspeed <- function(ips){
   
   #Mark invalid results
   results[is.na(results)] <- "Invalid"
+  results[results == "Unknown"] <- "Invalid"
   
   #Return
   return(results)

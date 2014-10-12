@@ -1,3 +1,8 @@
+Version 1.2.1
+*session_length introduced, implemented in C++;
+*Documentation around hive_query escaping improved;
+*Bugfix in session_count around variable names;
+
 Version 1.1.0
 -------------------------------------------------------------------------
 *Integrate with the MaxMind netspeed database
