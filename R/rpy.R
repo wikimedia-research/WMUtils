@@ -10,6 +10,8 @@
 #'
 #'@param conduit whether you would like txt, tsv or json as the transfer medium (see "integrating with a Python script)
 #'
+#'@param python3 whether to use Python 3 or not. Set to FALSE by default for script compatibility.
+#'
 #'@param ... any other arguments to pass to the Python script
 #'
 #'@details
@@ -43,7 +45,7 @@
 #'@importFrom jsonlite toJSON fromJSON
 #'@export
 
-rpy <- function(x, script, conduit = "text", ...){
+rpy <- function(x, script, conduit = "text", python3 = FALSE, ...){
   
   #Select appropriate functions
   rpy_funs <- rpy_selector(conduit)
@@ -55,8 +57,14 @@ rpy <- function(x, script, conduit = "text", ...){
   #Write out
   rpy_funs$write(object = x, filename = input_file)
   
+  #Check python version
+  python_v <- "python"
+  if(python3){
+    python_v <- "python3"
+  }
+  
   #Run script
-  ignore <- system(command = paste("python", script, "-i", input_file, "-o", output_file, ...), intern = TRUE)
+  ignore <- system(command = paste(python_v, script, "-i", input_file, "-o", output_file, ...), intern = TRUE)
   
   #Grab results
   tryCatch(expr = {

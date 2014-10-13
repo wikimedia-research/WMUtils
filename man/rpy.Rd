@@ -3,7 +3,7 @@
 \alias{rpy}
 \title{R-to-Python-to-R conduit}
 \usage{
-rpy(x, script, conduit = "text", ...)
+rpy(x, script, conduit = "text", python3 = FALSE, ...)
 }
 \arguments{
 \item{x}{the R object to transfer to python}
@@ -11,6 +11,8 @@ rpy(x, script, conduit = "text", ...)
 \item{script}{the file location of the Python script.}
 
 \item{conduit}{whether you would like txt, tsv or json as the transfer medium (see "integrating with a Python script)}
+
+\item{python3}{whether to use Python 3 or not. Set to FALSE by default for script compatibility.}
 
 \item{...}{any other arguments to pass to the Python script}
 }

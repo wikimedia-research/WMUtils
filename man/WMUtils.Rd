@@ -41,6 +41,13 @@ is in Python. It's also now in R thanks to \code{\link{ua_parse}}. If you run in
 identified user agents, poke Oliver, since he's a maintainer on the ua-parser repository.
 }
 
+\section{Session analysis}{
+
+For session analysis, WMUtils contains \code{\link{intertimes}}, \code{\link{session_count}}
+and \code{\link{session_length}}, all implemented in C++ for speed (improvements in some cases)
+are up to three orders of magnitude. R handles recursion really poorly).
+}
+
 \section{Namespace matching}{
 
 \code{\link{namespace_match}} allows you convert namespace numbers to localised names, or
@@ -53,7 +60,7 @@ also made available as \code{\link{namespace_names}}, or rebuildable via
 
 Both geodata retrieval and user agent parsing are dependent on Python libraries, so this
 also contains a R-to-Python-to-R connector, \code{\link{rpy}}. This allows you to pipe
-R objects into Python, run an arbitrary Python script over them, and pipe the results back into
+R objects into Python (2 or 3), run an arbitrary Python script over them, and pipe the results back into
 R, using TSVs, .txts or JSON blobs as the intermediary.
 }
 
