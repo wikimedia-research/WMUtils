@@ -18,7 +18,7 @@ log_strptime <- function(x){
   
   #Handle field overflows; strptime will overflow if it's too long
   x <- iconv(x, to = "UTF-8")
-  x[nchar(x) > 23] <- NA
+  x[nchar(x) > 19] <- NA
   
   #Convert and return
   return(strptime(x, format = "%Y-%m-%dT%H:%M:%S", tz = "UTC"))

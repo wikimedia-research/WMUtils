@@ -13,7 +13,7 @@
 mw_strptime <- function(x){
   
   #Handle field overflows; strptime will overflow if it's too long
-  x[nchar(x) > 30] <- NA
+  x[nchar(x) > 14] <- NA
   
   #Convert and retun
   return(strptime(x, format = "%Y%m%d%H%M%S", tz = "UTC"))
