@@ -1,7 +1,7 @@
 #'@title timestamp handling for MediaWiki
 #'@description Format timestamps from our MediaWiki dbs as POSIXlt timestamps.
 #'
-#'@param x a vector containing timestamps
+#'@param x a vector containing full (14-character) MediaWiki timestamps
 #'
 #'@return a vector of POSIXlt timestamps
 #'

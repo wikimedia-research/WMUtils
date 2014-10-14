@@ -6,7 +6,7 @@
 mw_strptime(x)
 }
 \arguments{
-\item{x}{a vector containing timestamps}
+\item{x}{a vector containing full (14-character) MediaWiki timestamps}
 }
 \value{
 a vector of POSIXlt timestamps
