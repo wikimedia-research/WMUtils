@@ -53,7 +53,7 @@
 #'@author Oliver Keyes <okeyes@@wikimedia.org>
 #'@docType package
 #'@name WMUtils
-#'@import RMySQL data.table
+#'@import RMySQL data.table parallel
 #'@importFrom Rcpp evalCpp
 #'@useDynLib WMUtils
 #'@aliases WMUtils WMUtils-package
