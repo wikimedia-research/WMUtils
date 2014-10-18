@@ -24,6 +24,9 @@
 #'@return a data.frame containing the results of the query, or a boolean TRUE if the user has chosen
 #'to write straight to file.
 #'
+#'@seealso \code{\link{log_strptime}} for converting the "dt" column in the webrequests table to POSIXlt,
+#'and \code{\link{mysql_query}} and \code{\link{global_query}} for querying our MySQL databases.
+#'
 #'@export
 hive_query <- function(query, file = NULL, dt = TRUE, ...){
   

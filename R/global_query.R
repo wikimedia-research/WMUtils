@@ -15,6 +15,7 @@
 #'
 #'@seealso \code{\link{mysql_query}} for querying an individual db, \code{\link{mw_strptime}}
 #'for converting MediaWiki timestamps into POSIXlt timestamps.
+#'
 #'@export
 
 global_query <- function(query, project_type = "all", dt = TRUE){

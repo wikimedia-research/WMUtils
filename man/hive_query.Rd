@@ -31,4 +31,8 @@ As a result, single escapes for meaningful characters (such as quotes) within th
 R will interpret them only as escaping that character /within R/. Double escaping (\\\) is thus necessary,
 in the same way that it is for regular expressions.
 }
+\seealso{
+\code{\link{log_strptime}} for converting the "dt" column in the webrequests table to POSIXlt,
+and \code{\link{mysql_query}} and \code{\link{global_query}} for querying our MySQL databases.
+}
 
