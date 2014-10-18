@@ -25,8 +25,8 @@
 #'@author Oliver Keyes <okeyes@@wikimedia.org>
 #'
 #'@seealso
-#'\code{\link{log_strptime}} for handling the log timestamp format and \code{\link{hive_query}}
-#'for querying the unsampled RequestLogs.
+#'\code{\link{log_strptime}} for handling the log timestamp format, \code{\link{log_sieve}} for filtering
+#'the sampled logs to "pageviews", and \code{\link{hive_query}} for querying the unsampled RequestLogs.
 #'
 #'@return a data.frame containing the sampled logs of the day you asked for.
 #'
