@@ -24,6 +24,17 @@
 #'@return a data.frame containing the results of the query, or a boolean TRUE if the user has chosen
 #'to write straight to file.
 #'
+#'@section handling our hadoop/hive setup:
+#'
+#'The \code{webrequests} table is documented
+#'\href{https://wikitech.wikimedia.org/wiki/Analytics/Cluster/Hive}{on Wikitech}, which also provides
+#'\href{https://wikitech.wikimedia.org/wiki/Analytics/Cluster/Hive/Queries}{a set of example
+#'queries}.
+#'
+#'When it comes to manipulating the rows with Java before they get to you, Nuria has written a
+#'\href{https://wikitech.wikimedia.org/wiki/Analytics/Cluster/Hive/QueryUsingUDF}{brief tutorial on loading UDFs}
+#'which should help if you want to engage in that; the example provided is a user agent parser, allowing you to
+#'get the equivalent of \code{\link{ua_parse}}'s output further upstream.
 #'@seealso \code{\link{log_strptime}} for converting the "dt" column in the webrequests table to POSIXlt,
 #'and \code{\link{mysql_query}} and \code{\link{global_query}} for querying our MySQL databases.
 #'
