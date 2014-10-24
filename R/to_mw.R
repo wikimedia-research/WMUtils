@@ -13,8 +13,8 @@
 #'
 #'@seealso
 #'\code{\link{mysql_query}} and \code{\link{global_query}} for querying our MySQL databases,
-#'\code{\link{mw_strptime}} for the same operation in reverse, and \code{\link{to_hive}} for
-#'the equivalent operation for our Hive datastore date/times.
+#'\code{\link{mw_strptime}} for the same operation in reverse, and \code{\link{to_log}} for
+#'the equivalent operation for our Hive datastore or sampled log date/times.
 #'
 #'@export
 to_mw <- function(timestamp){

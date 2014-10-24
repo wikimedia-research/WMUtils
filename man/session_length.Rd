@@ -6,10 +6,10 @@
 session_length(intertimes, local_minimum = 3600L)
 }
 \arguments{
+\item{intertimes}{a vector of inter-time values.}
+
 \item{local_minimum}{the threshold (in seconds) to split out a new session on. Set to 3600
 by default.}
-
-\item{timestamps}{a vector of inter-time values.}
 }
 \value{
 a vector of session length counts, in seconds.

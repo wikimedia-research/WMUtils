@@ -8,7 +8,7 @@ using namespace Rcpp;
 //'@description
 //'Session counting function
 //' 
-//'@param timestamps a vector of inter-time values.
+//'@param intertimes a vector of inter-time values.
 //' 
 //'@param local_minimum the threshold (in seconds) to split out a new session on. Set to 3600
 //' by default.
