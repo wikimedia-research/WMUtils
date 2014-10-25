@@ -13,6 +13,8 @@
 #'@return a character vector of "Phone", "Tablet" or "Other"
 #'
 #'@seealso \code{\link{ua_parse}} for user agent parsing.
+#'
+#'@export
 device_classifier <- function(devices){
   
   #Load device classes
