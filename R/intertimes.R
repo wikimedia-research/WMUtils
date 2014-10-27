@@ -18,7 +18,7 @@
 intertimes <- function(timestamps){
   
   #Check input type. If it's a timestamp, numericise it
-  if(sum(c("POSIXct","POSIXlt" %in% class(timestamps)))){
+  if(sum(c("POSIXct","POSIXlt") %in% class(timestamps))){
     
     timestamps <- as.numeric(timestamps)
     
