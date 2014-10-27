@@ -76,7 +76,6 @@ int session_count(NumericVector x, int local_minimum = 3600) {
   return count;
 }
 
-
 //'@title
 //'session_length
 //'
