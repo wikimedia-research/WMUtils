@@ -27,17 +27,21 @@ keysplit <- function(obj, key_col, pieces = round(detectCores()/4)){
     obj <- as.data.table(obj)
   }
   
+  #Set names. This is dumb because data.tables and their expression evaluation == dumb.
+  setnames(obj, key_col, "uuid")
+  
   #Grab unique keys and randomly sort them
-  uniques <- unique(x = obj[,,key_col])
+  uniques <- unique(x = obj[,eval(quote(uuid))])
   uniques <- sample(x = uniques, size = length(uniques))
   
   #Construct a data.table containing the random uniques and a randomly generated seed.
   uniques <- data.table(col1 = uniques,
                         group = rep_len(x = 1:pieces, length.out = length(uniques)))
-  setnames(x = uniques, old = 1, new = key_col)
+  setnames(x = uniques, old = 1, new = "uuid")
   
   #Merge it into obj
-  obj <- merge(x = obj, y = uniques, all.x = TRUE, by = key_col)
+  obj <- merge(x = obj, y = uniques, all.x = TRUE, by = "uuid")
+  setnames(obj, "uuid", key_col)
   out_obj <- split(x = obj, f = obj$group)
   
   #Kill group
