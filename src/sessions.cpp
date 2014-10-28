@@ -11,7 +11,7 @@ NumericVector numeric_vector_expander(NumericVector x, int to_insert, bool start
   NumericVector holding_out(1);
   
   //If the existing vector's first value is zero, sod it, just return to_insert as a NumericVector
-  if(x.size() == 1 & x[0] == 0){
+  if((x.size() == 1) & (x[0] == 0)){
     holding_out[0] = to_insert;
   //Otherwise...
   } else {
@@ -218,7 +218,7 @@ NumericVector session_pages(NumericVector intertimes, int local_minimum = 3600) 
     }
     
     //If there has been a value > intertime_period, we need to pop things on again right at the end.
-    if(output.size() > 1 | output[0] > 1){
+    if((output.size() > 1) | (output[0] > 1)){
       
       output = numeric_vector_expander(output, pages, true);
         

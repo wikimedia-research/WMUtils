@@ -5,15 +5,17 @@
 
 using namespace Rcpp;
 
-// cpp_intertimes
-NumericVector cpp_intertimes(NumericVector timestamps);
-RcppExport SEXP WMUtils_cpp_intertimes(SEXP timestampsSEXP) {
+// numeric_vector_expander
+NumericVector numeric_vector_expander(NumericVector x, int to_insert, bool start = false);
+RcppExport SEXP WMUtils_numeric_vector_expander(SEXP xSEXP, SEXP to_insertSEXP, SEXP startSEXP) {
 BEGIN_RCPP
     SEXP __sexp_result;
     {
         Rcpp::RNGScope __rngScope;
-        Rcpp::traits::input_parameter< NumericVector >::type timestamps(timestampsSEXP );
-        NumericVector __result = cpp_intertimes(timestamps);
+        Rcpp::traits::input_parameter< NumericVector >::type x(xSEXP );
+        Rcpp::traits::input_parameter< int >::type to_insert(to_insertSEXP );
+        Rcpp::traits::input_parameter< bool >::type start(startSEXP );
+        NumericVector __result = numeric_vector_expander(x, to_insert, start);
         PROTECT(__sexp_result = Rcpp::wrap(__result));
     }
     UNPROTECT(1);
@@ -46,6 +48,37 @@ BEGIN_RCPP
         Rcpp::traits::input_parameter< NumericVector >::type intertimes(intertimesSEXP );
         Rcpp::traits::input_parameter< int >::type local_minimum(local_minimumSEXP );
         NumericVector __result = session_length(intertimes, local_minimum);
+        PROTECT(__sexp_result = Rcpp::wrap(__result));
+    }
+    UNPROTECT(1);
+    return __sexp_result;
+END_RCPP
+}
+// session_pages
+NumericVector session_pages(NumericVector intertimes, int local_minimum = 3600);
+RcppExport SEXP WMUtils_session_pages(SEXP intertimesSEXP, SEXP local_minimumSEXP) {
+BEGIN_RCPP
+    SEXP __sexp_result;
+    {
+        Rcpp::RNGScope __rngScope;
+        Rcpp::traits::input_parameter< NumericVector >::type intertimes(intertimesSEXP );
+        Rcpp::traits::input_parameter< int >::type local_minimum(local_minimumSEXP );
+        NumericVector __result = session_pages(intertimes, local_minimum);
+        PROTECT(__sexp_result = Rcpp::wrap(__result));
+    }
+    UNPROTECT(1);
+    return __sexp_result;
+END_RCPP
+}
+// cpp_intertimes
+NumericVector cpp_intertimes(NumericVector timestamps);
+RcppExport SEXP WMUtils_cpp_intertimes(SEXP timestampsSEXP) {
+BEGIN_RCPP
+    SEXP __sexp_result;
+    {
+        Rcpp::RNGScope __rngScope;
+        Rcpp::traits::input_parameter< NumericVector >::type timestamps(timestampsSEXP );
+        NumericVector __result = cpp_intertimes(timestamps);
         PROTECT(__sexp_result = Rcpp::wrap(__result));
     }
     UNPROTECT(1);
