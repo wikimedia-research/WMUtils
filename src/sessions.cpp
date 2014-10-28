@@ -18,23 +18,23 @@ NumericVector numeric_vector_expander(NumericVector x, int to_insert, bool start
   } else {//Otherwise...
     
     //Create new vector
-    NumericVector holding_out(existing_size+1);
+    NumericVector holding_out((existing_size+1));
     
     //If we need to append to_insert to the start, cool! Otherwise, the end.
     if(start){
       
       holding_out[0] = to_insert;
-      holding_out[seq(1,existing_size)] = x;
+      holding_out[seq(1,(existing_size))] = x;
       
     } else {
       
-      holding_out[seq(0,existing_size-1)] = x;
+      holding_out[seq(0,(existing_size-1))] = x;
       holding_out[existing_size] = to_insert;
     }
+    
+    //Return
+    return holding_out;
   }
-  
-  //Return
-  return holding_out;
   
 }
 //' @title
