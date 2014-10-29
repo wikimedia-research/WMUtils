@@ -57,6 +57,23 @@ session_length <- function(intertimes, local_minimum = 3600L, average_intertime 
     .Call('WMUtils_session_length', PACKAGE = 'WMUtils', intertimes, local_minimum, average_intertime)
 }
 
+#'@title session_pages
+#'@description count the number of pages in a session (or multiple sessions)
+#'
+#'@details \code{session_pages} counts the number of pages in a session, or in multiple
+#'sessions, based on a provided numeric vector of intertime values, which can be
+#'generated via \code{\link{intertimes}}.
+#'
+#'@param intertimes a vector of intertime values.
+#'
+#'@param local_minimum the threshold at which to split a series of intertime values into
+#'multiple sessions. Set to 3600 seconds (1 hour) by default.
+#'
+#'@seealso \code{\link{intertimes}} for generating intertime values, \code{\link{session_length}}
+#'for session length, and \code{\link{session_count}} for the number of distinct sessions represented
+#'by a series of intertime values.
+#'
+#'@export
 session_pages <- function(intertimes, local_minimum = 3600L) {
     .Call('WMUtils_session_pages', PACKAGE = 'WMUtils', intertimes, local_minimum)
 }

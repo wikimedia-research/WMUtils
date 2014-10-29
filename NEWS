@@ -2,7 +2,7 @@ Version 1.4.0
 -------------------------------------------------------------------------
 *hive_query documentation now includes pointers to Wikitech docs around Hadoop/Hive/HDFS generally.
 *log_strptime and mw_strptime now have functions that operate in the other direction, as to_log and to_mw.
-*extraneous call in geo_netspeed.py removed
+*extraneous call in geo_netspeed.py removed.
 *hive_range() added, to automatically compute a valid WHERE clause for partitioning over years/months/days.
 *device_classifier() added to enable device classification; devices.RData added as the underlying data source.
 *Full unit tests for timestamp and session handling.
