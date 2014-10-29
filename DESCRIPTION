@@ -7,10 +7,14 @@ Author: Oliver Keyes
 Maintainer: Oliver Keyes <okeyes@wikimedia.org>
 Description: Geolocation, user agent parsing and more!
 License: MIT + file LICENSE
-Depends: jsonlite,
-         RMySQL,
-         data.table
-Imports: Rcpp (>= 0.11.3)
+Depends:
+    jsonlite,
+    RMySQL,
+    data.table,
+    lubridate
+Imports:
+    Rcpp (>= 0.11.3)
 LinkingTo: Rcpp
 BugReports: https://github.com/Ironholds/WMUtils/issues
-Suggests: testthat
+Suggests:
+    testthat

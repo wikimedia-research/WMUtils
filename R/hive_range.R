@@ -18,8 +18,6 @@
 #'\code{\link{hive_query}} for querying hive, and \code{\link{to_log}} and \code{\link{log_strptime}} for
 #'handling hive date/time objects.
 #'
-#'@importFrom lubridate year month day ceiling_date
-#'
 #'@export
 hive_range <- function(start_ts, end_ts){
   
@@ -31,20 +29,20 @@ hive_range <- function(start_ts, end_ts){
   }
   
   #If they're within a month of each other, construct
-  if(lubridate::ceiling_date(start_ts,"month") > end_ts){
+  if(ceiling_date(start_ts,"month") > end_ts){
     
-    output <- paste("WHERE year =",lubridate::year(start_ts),"AND month =",lubridate::month(start_ts),"AND day BETWEEN",lubridate::day(start_ts),"AND",lubridate::day(end_ts), "AND dt BETWEEN",paste0("'",to_log(start_ts),"'"),"AND",paste0("'",to_log(end_ts),"'"))
+    output <- paste("WHERE year =",year(start_ts),"AND month =",month(start_ts),"AND day BETWEEN",day(start_ts),"AND",day(end_ts), "AND dt BETWEEN",paste0("'",to_log(start_ts),"'"),"AND",paste0("'",to_log(end_ts),"'"))
     
   } else {
     
     #If they're within a year of each other, construct
-    if(lubridate::ceiling_date(start_ts,"year") > end_ts){
+    if(ceiling_date(start_ts,"year") > end_ts){
       
-      output <- paste("Where year =",lubridate::year(start_ts),"AND month BETWEEN",lubridate::month(start_ts),"AND",lubridate::month(end_ts), "AND dt BETWEEN",paste0("'",to_log(start_ts),"'"),"AND",paste0("'",to_log(end_ts),"'"))
+      output <- paste("Where year =",year(start_ts),"AND month BETWEEN",month(start_ts),"AND",month(end_ts), "AND dt BETWEEN",paste0("'",to_log(start_ts),"'"),"AND",paste0("'",to_log(end_ts),"'"))
       
     } else {
       
-      output <- paste("Where year BETWEEN",lubridate::year(start_ts),"AND",lubridate::year(end_ts),"AND dt BETWEEN",paste0("'",to_log(start_ts),"'"),"AND",paste0("'",to_log(end_ts),"'"))
+      output <- paste("Where year BETWEEN",year(start_ts),"AND",year(end_ts),"AND dt BETWEEN",paste0("'",to_log(start_ts),"'"),"AND",paste0("'",to_log(end_ts),"'"))
       
     }
   }
