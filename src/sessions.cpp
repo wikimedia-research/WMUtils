@@ -134,7 +134,7 @@ NumericVector session_length(NumericVector intertimes, int local_minimum = 3600,
     for(int i = 0; i < intertimes.size(); i++) {
     
       //If the value is less than the local minimum, include in the sum
-      if(intertimes[i] < local_minimum){
+      if(intertimes[i] <= local_minimum){
       
         session_length += intertimes[i];
       
