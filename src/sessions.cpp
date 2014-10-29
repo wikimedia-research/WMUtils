@@ -3,40 +3,33 @@
 using namespace Rcpp;
 
 //Generalised NumericVector expander
-// [[Rcpp::export]]
-NumericVector numeric_vector_expander(NumericVector x, int to_insert, bool start = false) {
+NumericVector numeric_vector_expander(NumericVector x, int to_insert) {
   
   //Calculate existing vector's size, create dummy output
   int existing_size = x.size();
-  NumericVector holding_out(1);
   
   //If the existing vector's first value is zero, sod it, just return to_insert as a NumericVector
   if( (existing_size == 0) | ((existing_size == 1) & (x[0] == 0))){
     
+    NumericVector holding_out(1);
     holding_out[0] = to_insert;
+    return holding_out;
     
   } else {//Otherwise...
     
-    //Create new vector
-    NumericVector holding_out((existing_size+1));
+    //Create new vector, which is existing_size+1 in length
+    NumericVector holding_out(existing_size+1);
     
-    //If we need to append to_insert to the start, cool! Otherwise, the end.
-    if(start){
-      
-      holding_out[0] = to_insert;
-      holding_out[seq(1,(existing_size))] = x;
-      
-    } else {
-      
-      holding_out[seq(0,(existing_size-1))] = x;
-      holding_out[existing_size] = to_insert;
-    }
+    //Insert the existing values, then pop the new one on the end
+    holding_out[seq(0,(existing_size-1))] = x;
+    holding_out[existing_size] = to_insert;
     
     //Return
     return holding_out;
   }
   
 }
+
 //' @title
 //' session_count
 //' @description
@@ -221,7 +214,7 @@ NumericVector session_pages(NumericVector intertimes, int local_minimum = 3600) 
     //If there has been a value > intertime_period, we need to pop things on again right at the end.
     if((output.size() > 1) | (output[0] > 1)){
       
-      output = numeric_vector_expander(output, pages, true);
+      output = numeric_vector_expander(output, pages);
         
     } else {
       
