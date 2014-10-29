@@ -1,10 +1,19 @@
+Version 1.4.0
+-------------------------------------------------------------------------
+*hive_query documentation now includes pointers to Wikitech docs around Hadoop/Hive/HDFS generally.
+*log_strptime and mw_strptime now have functions that operate in the other direction, as to_log and to_mw.
+*extraneous call in geo_netspeed.py removed
+*hive_range() added, to automatically compute a valid WHERE clause for partitioning over years/months/days.
+*device_classifier() added to enable device classification; devices.RData added as the underlying data source.
+*Full unit tests for timestamp and session handling.
+
 Version 1.3.0
 -------------------------------------------------------------------------
 *"python3" option added to rpy
 *Documentation around session analysis added to the main vignette.
 *log_strptime now sanitises strings >19 characters long, rather than >23
 *mw_strptime now sanitises strings >14 characters long, rather than >30
-*Functions to aid in parallel processing added, including keysplit() to turn a dataframe into an mclapplyable object.
+*Functions to aid in parallel processing added, including keysplit() to turn a data.table into an mclapplyable object.
 *log_sieve, implementing the current prototype new pageviews definition, included.
 
 Version 1.2.1

@@ -90,3 +90,42 @@ test_that("session_count handles multiple sessions correctly", {
   
 })
 
+test_that("session_pages handles 1-intertime vectors correctly", {
+  
+  #Example event(s)
+  events <- c(12)
+  
+  #Test resulting values
+  expect_that(session_pages(events), equals(2))
+  
+})
+
+test_that("session_pages handles 2-intertime vectors correctly", {
+  
+  #Example event(s)
+  events <- c(12,14)
+  
+  #Test resulting values
+  expect_that(session_pages(events), equals(3))
+  
+})
+
+test_that("session_pages handles multi-session vectors correctly", {
+  
+  #Example event(s)
+  events <- c(12,3900,4)
+  
+  #Test resulting values
+  expect_that(session_pages(events), equals(c(2,2)))
+  
+})
+
+test_that("session_pages handles multi-session vectors with sequentially above-threshold values correctly", {
+  
+  #Example event(s)
+  events <- c(12,3900,3900)
+  
+  #Test resulting values
+  expect_that(session_pages(events), equals(c(2,1,1)))
+  
+})
