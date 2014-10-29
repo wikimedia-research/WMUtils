@@ -3,12 +3,16 @@
 \alias{session_length}
 \title{session_length}
 \usage{
-session_length(intertimes, local_minimum = 3600L)
+session_length(intertimes, local_minimum = 3600L, average_intertime = 430L)
 }
 \arguments{
 \item{intertimes}{a vector of inter-time values.}
 
 \item{local_minimum}{the threshold (in seconds) to split out a new session on. Set to 3600
+by default.}
+
+\item{average_intertime}{the average time between events within a session, used to handle missing values
+(time associated with the first request in a series of intertime pairs, for example). Set to 430 seconds
 by default.}
 }
 \value{
@@ -22,11 +26,6 @@ Session counting function
 or in any other way you see fit), splits them into sessions, and calculates the approximate
 length (in seconds) of each session. It's implemented in C++ since, even with the hinkiness
 of my C++, it's still several OoM faster than the equivalent R (recursion in R is dumb).
-}
-\section{Warning}{
-
-Unlike \code{\link{intertime}} or \code{\link{session_count}}, the methodology here has not been
-settled on; the internal workings of this function can and probably will change.
 }
 \seealso{
 \code{\link{intertimes}}, for generating inter-time values, and \code{\link{session_count}} for

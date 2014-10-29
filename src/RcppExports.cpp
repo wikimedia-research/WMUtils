@@ -5,23 +5,6 @@
 
 using namespace Rcpp;
 
-// numeric_vector_expander
-NumericVector numeric_vector_expander(NumericVector x, int to_insert, bool start = false);
-RcppExport SEXP WMUtils_numeric_vector_expander(SEXP xSEXP, SEXP to_insertSEXP, SEXP startSEXP) {
-BEGIN_RCPP
-    SEXP __sexp_result;
-    {
-        Rcpp::RNGScope __rngScope;
-        Rcpp::traits::input_parameter< NumericVector >::type x(xSEXP );
-        Rcpp::traits::input_parameter< int >::type to_insert(to_insertSEXP );
-        Rcpp::traits::input_parameter< bool >::type start(startSEXP );
-        NumericVector __result = numeric_vector_expander(x, to_insert, start);
-        PROTECT(__sexp_result = Rcpp::wrap(__result));
-    }
-    UNPROTECT(1);
-    return __sexp_result;
-END_RCPP
-}
 // session_count
 int session_count(NumericVector x, int local_minimum = 3600);
 RcppExport SEXP WMUtils_session_count(SEXP xSEXP, SEXP local_minimumSEXP) {
@@ -39,15 +22,16 @@ BEGIN_RCPP
 END_RCPP
 }
 // session_length
-NumericVector session_length(NumericVector intertimes, int local_minimum = 3600);
-RcppExport SEXP WMUtils_session_length(SEXP intertimesSEXP, SEXP local_minimumSEXP) {
+NumericVector session_length(NumericVector intertimes, int local_minimum = 3600, int average_intertime = 430);
+RcppExport SEXP WMUtils_session_length(SEXP intertimesSEXP, SEXP local_minimumSEXP, SEXP average_intertimeSEXP) {
 BEGIN_RCPP
     SEXP __sexp_result;
     {
         Rcpp::RNGScope __rngScope;
         Rcpp::traits::input_parameter< NumericVector >::type intertimes(intertimesSEXP );
         Rcpp::traits::input_parameter< int >::type local_minimum(local_minimumSEXP );
-        NumericVector __result = session_length(intertimes, local_minimum);
+        Rcpp::traits::input_parameter< int >::type average_intertime(average_intertimeSEXP );
+        NumericVector __result = session_length(intertimes, local_minimum, average_intertime);
         PROTECT(__sexp_result = Rcpp::wrap(__result));
     }
     UNPROTECT(1);
