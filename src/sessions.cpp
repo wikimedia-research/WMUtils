@@ -177,10 +177,8 @@ NumericVector session_pages(NumericVector intertimes, int local_minimum = 3600) 
     if(intertimes[0] >= local_minimum){
       
       //Create holding object, assign values to it, replace output
-      NumericVector hold(2);
-      hold[0] = 1;
-      hold[1] = 1;
-      output = hold;
+      output[0] = 1;
+      output = numeric_vector_expander(output,1);
       
     } else {
       
