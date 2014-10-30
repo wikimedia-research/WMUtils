@@ -27,11 +27,12 @@ keysplit <- function(obj, key_col, pieces = round(detectCores()/4)){
     obj <- as.data.table(obj)
   }
   
-  #Set names. This is dumb because data.tables and their expression evaluation == dumb.
-  setnames(obj, key_col, "keysplit_key_val_internal")
+  #Set names. This is dumb because data.tables and their expression evaluation == dumb
+  to_use <- copy(obj)
+  setnames(to_use, key_col, "keysplit_key_val_internal")
   
   #Grab unique keys and randomly sort them
-  uniques <- unique(x = obj[,eval(quote(keysplit_key_val_internal))])
+  uniques <- unique(x = to_use[,eval(quote(keysplit_key_val_internal))])
   uniques <- sample(x = uniques, size = length(uniques))
   
   #Construct a data.table containing the random uniques and a randomly generated seed.
@@ -39,10 +40,10 @@ keysplit <- function(obj, key_col, pieces = round(detectCores()/4)){
                         group = rep_len(x = 1:pieces, length.out = length(uniques)))
   setnames(x = uniques, old = 1, new = "keysplit_key_val_internal")
   
-  #Merge it into obj
-  obj <- merge(x = obj, y = uniques, all.x = TRUE, by = "keysplit_key_val_internal")
-  setnames(obj, "keysplit_key_val_internal", key_col)
-  out_obj <- split(x = obj, f = obj$group)
+  #Merge it into to_use
+  to_use <- merge(x = to_use, y = uniques, all.x = TRUE, by = "keysplit_key_val_internal")
+  setnames(to_use, "keysplit_key_val_internal", key_col)
+  out_obj <- split(x = to_use, f = to_use$group)
   
   #Kill group
   out_obj <- lapply(out_obj, function(x){return(x[,"group" := NULL])})
