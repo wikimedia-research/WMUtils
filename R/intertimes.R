@@ -10,9 +10,10 @@
 #'already converted them into seconds), or either MediaWiki or RequestLog timestamps.
 #'
 #'@seealso
-#'\code{\link{session_count}} - take a set of intertime periods and work out how many sessions
-#'they represent - or \code{\link{session_length}}, which works out the approximate length
-#'(in seconds) of each session.
+#'\code{\link{session_count}}, which takes a set of intertime periods and work out how many sessions
+#'they represent, \code{\link{session_length}}, which works out the approximate length
+#'(in seconds) of each session, or \code{\link{session_pages}}, which works out how many pages
+#'are represented (split into sessions) by a series of intertime values.
 #'
 #'@export
 intertimes <- function(timestamps){

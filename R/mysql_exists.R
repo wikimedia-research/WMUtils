@@ -13,8 +13,8 @@
 #'
 #'@author Oliver Keyes <okeyes@@wikimedia.org>
 #'
-#'@seealso \code{\link{mysql_query}} for reading from the same range of databases, or \code{\link{mysql_write}}
-#'for writing to them.
+#'@seealso \code{\link{mysql_query}} for reading from the same range of databases, \code{\link{mysql_write}}
+#'for writing to them, or \code{\link{mysql_delete}} for removing rows that match a set of conditions.
 #'
 #'@export
 

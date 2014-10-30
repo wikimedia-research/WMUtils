@@ -25,6 +25,8 @@ analytics-store.eqiad.wmnet.
 Oliver Keyes <okeyes@wikimedia.org>
 }
 \seealso{
-\code{\link{mysql_query}} for reading from the same range of databases.
+\code{\link{mysql_query}} for reading from the same range of databases, \code{\link{mysql_delete}}
+for removing rows from a table that match a set of conditions, or \code{\link{mysql_exists}}
+for checking the existence of a table.
 }
 

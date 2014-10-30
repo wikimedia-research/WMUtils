@@ -12,7 +12,8 @@
 #'@return a vector of POSIXlt timestamps
 #'
 #'@seealso \code{\link{hive_query}} for querying the unsampled logs, \code{\link{sampled_logs}}
-#'for querying the sampled logs, and \code{\link{mw_strptime}} for parsing MediaWiki timestamps.
+#'for querying the sampled logs, \code{\link{parse_uuids}} for parsing app unique IDs out of requestlog URLs,
+#'and \code{\link{mw_strptime}} for parsing MediaWiki timestamps.
 #'
 #'@export
 log_strptime <- function(x){

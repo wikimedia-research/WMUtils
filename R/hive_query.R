@@ -36,6 +36,7 @@
 #'which should help if you want to engage in that; the example provided is a user agent parser, allowing you to
 #'get the equivalent of \code{\link{ua_parse}}'s output further upstream.
 #'@seealso \code{\link{log_strptime}} for converting the "dt" column in the webrequests table to POSIXlt,
+#'\code{\link{parse_uuids}} for parsing app unique IDs out of requestlog URLs,
 #'and \code{\link{mysql_query}} and \code{\link{global_query}} for querying our MySQL databases.
 #'
 #'@export

@@ -17,7 +17,9 @@
 #'
 #'@seealso \code{\link{global_query}} for querying multiple "production" databases in
 #'analytics-store.eqiad.wmnet with a common query, \code{\link{mw_strptime}} for converting
-#'MediaWiki timestamps into POSIXlt timestamps.
+#'MediaWiki timestamps into POSIXlt timestamps, \code{\link{mysql_delete}} for removing rows
+#'from a table that match a set of conditions, \code{\link{mysql_exists}} for checking the existence
+#'of a table, or \code{\link{mysql_write}} for writing to a table.
 #'
 #'@export
 
