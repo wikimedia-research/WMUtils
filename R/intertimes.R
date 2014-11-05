@@ -18,6 +18,11 @@
 #'@export
 intertimes <- function(timestamps){
   
+  #How many timestamps do we have? If <2, return NA
+  if(length(timestamps) < 2){
+    return(NA)
+  }
+  
   #Check input type. If it's a timestamp, numericise it
   if(sum(c("POSIXct","POSIXlt") %in% class(timestamps))){
     
