@@ -28,7 +28,8 @@ mysql_write <- function(x, db, table_name, ...){
   #Open a connection to the db
   con <- dbConnect(drv = "MySQL",
                    host = "analytics-store.eqiad.wmnet",
-                   dbname = db)
+                   dbname = db,
+                   default.file = "/etc/mysql/conf.d/analytics-research-client.cnf")
   
   #Write
   result <- dbWriteTable(conn = con,

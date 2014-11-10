@@ -25,7 +25,8 @@ mysql_delete <- function(db, table, conditional = NULL){
   #Create connection
   con <- dbConnect(drv = "MySQL",
                    host = "analytics-store.eqiad.wmnet",
-                   dbname = db)
+                   dbname = db,
+                   default.file = "/etc/mysql/conf.d/analytics-research-client.cnf")
   
   #Send query
   result <- dbSendQuery(con, paste("delete FROM", table, conditional))

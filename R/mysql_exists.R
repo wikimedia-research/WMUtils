@@ -23,7 +23,8 @@ mysql_exists <- function(db, table_name){
   #Create a connector
   con <- dbConnect(drv = "MySQL",
                    host = "analytics-store.eqiad.wmnet",
-                   dbname = db)
+                   dbname = db,
+                   default.file = "/etc/mysql/conf.d/analytics-research-client.cnf")
   
   #Grab the results and close off
   table_exists <- dbExistsTable(conn = con, name = table_name)

@@ -28,7 +28,8 @@ mysql_query <- function(query, db, dt = TRUE){
   #Open connection to the MySQL DB
   con <- dbConnect(drv = "MySQL",
                    host = "analytics-store.eqiad.wmnet",
-                   dbname = db)
+                   dbname = db,
+                   default.file = "/etc/mysql/conf.d/analytics-research-client.cnf")
   
   #Query
   to_fetch <- dbSendQuery(con, query)
