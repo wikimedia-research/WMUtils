@@ -8,6 +8,7 @@ Version 1.5.0
 *mysql_*() functions now use the centralised config file at /etc/mysql/conf.d/analytics-research-client.cnf for usernames and passwords.
 *hive_query() now used RJDBC.
 
+Version 1.4.0
 -------------------------------------------------------------------------
 *hive_query documentation now includes pointers to Wikitech docs around Hadoop/Hive/HDFS generally.
 *log_strptime and mw_strptime now have functions that operate in the other direction, as to_log and to_mw.
