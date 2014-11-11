@@ -18,7 +18,8 @@
 #'@export
 log_strptime <- function(x){
   
-  #Handle field overflows; strptime will overflow if it's too long
+  #Handle field overflows; strptime will overflow if it's too long.
+  #In addition, historical timestamps counted ms.
   x <- iconv(x, to = "UTF-8")
   x[nchar(x) > 19] <- substring(x[nchar(x) > 19],1,19)
   

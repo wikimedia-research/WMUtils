@@ -67,8 +67,9 @@ log_sieve <- function(log_data){
   #Exclude internal requests
   log_data <- log_data[!grepl(x = log_data$user_agent, pattern = "^MediaWiki/1\\.", useBytes = TRUE, perl = TRUE)]
   
-  #Exclude special pages
+  #Exclude special pages and searches
   log_data <- log_data[!grepl(x = log_data$URL, pattern = "Special:", useBytes = TRUE, fixed = TRUE),]
+  log_data <- log_data[!grepl(x = log_data$URL, pattern = "index.php?search", useBytes = TRUE, fixed = TRUE),]
   
   #Normalise timestamps and eliminate entries with invalid ones
   pos_stamps <- log_strptime(log_data$timestamp)

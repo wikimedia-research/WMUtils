@@ -7,22 +7,13 @@
 #'
 #'@param query a query, or the location of a .hql file containing a query.
 #'
-#'@param file a file name. If this is provided, the results of the query will be written straight
-#'there, and a boolean TRUE returned. If not provided (it's NULL by default), the results of the query
-#'will be returned as a data.frame
+#'@param db the database to use. Set to wmf_raw (which contains the webrequest table) by default.
+#'
+#'@param user your hive username (normally your stat100* username)
 #'
 #'@param dt Whether to return it as a data.table or not.
 #'
-#'@param ... other arguments to pass to read.delim.
-#'
-#'@section escaping:
-#'\code{hive_query} works by running the query you provide through the CLI via a system() call.
-#'As a result, single escapes for meaningful characters (such as quotes) within the query will not work:
-#'R will interpret them only as escaping that character /within R/. Double escaping (\\\) is thus necessary,
-#'in the same way that it is for regular expressions.
-#'
-#'@return a data.frame containing the results of the query, or a boolean TRUE if the user has chosen
-#'to write straight to file.
+#'@return a data.frame or data.table containing the results of the query.
 #'
 #'@section handling our hadoop/hive setup:
 #'
@@ -39,63 +30,46 @@
 #'\code{\link{parse_uuids}} for parsing app unique IDs out of requestlog URLs,
 #'and \code{\link{mysql_query}} and \code{\link{global_query}} for querying our MySQL databases.
 #'
+#'@import RJDBC
+#'
 #'@export
-hive_query <- function(query, file = NULL, dt = TRUE, ...){
+hive_query <- function(query, db = "wmf_raw", user, dt = TRUE){
   
-  #If the user wants it passed straight to R...
-  if(is.null(file)){
-    
-    #Create temp file
-    file <- tempfile(pattern = "file", fileext = ".tsv")
-    
-    #Note
-    to_R <- TRUE
-  
+  #If the query is a file, retrieve it
+  if(grepl(x = query, pattern = "\\.hql$")){
+    suppressWarnings(expr = {
+      query <- paste(readLines(query), collapse = "")
+    })
   }
   
-  #Run query. If the query is /not/ a file, make it one
-  if(!grepl(x = query, pattern = "\\.hql$")){
-    
-    query_file <- tempfile(fileext = ".hql")
-    cat(query, file = query_file)
-    query <- query_file
+  #Initialise the Java environment
+  .jinit()
+  .jaddClassPath(c(list.files("/usr/lib/hadoop/", full.names = TRUE),
+                   list.files("/usr/lib/hive/lib/", full.names = TRUE)))
+  
+  #Connect
+  drv <- JDBC("org.apache.hive.jdbc.HiveDriver", "/usr/lib/hive/lib/hive-jdbc.jar")
+  con <- dbConnect(drv = drv, url = paste0("jdbc:hive2://analytics1027.eqiad.wmnet:10000/",db),
+                    user = user)
+  
+  #Add JSonSerDe; it's going to error, but that's okay
+  try(expr = {
+    dbSendQuery(con, "ADD JAR /usr/lib/hive-hcatalog/share/hcatalog/hive-hcatalog-core-0.12.0-cdh5.0.2.jar")
+  }, silent = TRUE)
+  
+  #Query, retrieve
+  to_fetch <- dbSendQuery(con, query)
+  data <- fetch(res = to_fetch, n = -1)
+  
+  #Close connection
+  dbDisconnect(con)
+  
+  #Do we want this as a data table?
+  if(dt){
+    data <- as.data.table(data)
   }
   
-  #Run
-  system(paste("export HADOOP_HEAPSIZE=1024 && hive -f", query, ">", file))
-  
-  #If the user wanted the data provided..
-  if(exists("to_R")){
-    
-    #Read in data. Try fread, fall back to read.delim
-    tryclass <- try(expr = {
-      
-      data <- fread(input = file, sep = "\t", showProgress = FALSE)
-      
-    }, silent = TRUE)
-    if("try-error" %in% class(tryclass)){
-         
-      data <- read.delim(file = file, header = TRUE, as.is = TRUE, quote = "", ...)
-      
-    }
-    
-    #Remove the file
-    file.remove(file)
-    
-    #Make it into an object of the appropriate class, and return
-    if(dt){
-      
-      data <- as.data.table(data)
-      return(data)
-      
-    }
-    
-    data <- as.data.frame(data)
-    return(data)
-    
-  }
-  
-  #If the data should not be provided, return TRUE
-  return(TRUE)
+  #Return
+  return(data)
   
 }

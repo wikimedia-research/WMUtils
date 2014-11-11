@@ -3,35 +3,24 @@
 \alias{hive_query}
 \title{Run a query against the WMF hive instance}
 \usage{
-hive_query(query, file = NULL, dt = TRUE, ...)
+hive_query(query, db = "wmf_raw", user, dt = TRUE)
 }
 \arguments{
 \item{query}{a query, or the location of a .hql file containing a query.}
 
-\item{file}{a file name. If this is provided, the results of the query will be written straight
-there, and a boolean TRUE returned. If not provided (it's NULL by default), the results of the query
-will be returned as a data.frame}
+\item{db}{the database to use. Set to wmf_raw (which contains the webrequest table) by default.}
+
+\item{user}{your hive username (normally your stat100* username)}
 
 \item{dt}{Whether to return it as a data.table or not.}
-
-\item{...}{other arguments to pass to read.delim.}
 }
 \value{
-a data.frame containing the results of the query, or a boolean TRUE if the user has chosen
-to write straight to file.
+a data.frame or data.table containing the results of the query.
 }
 \description{
 \code{hive_query} is a simple wrapper around the command line that makes queries
 against our Hive/Hadoop infrastructure more convenient.
 }
-\section{escaping}{
-
-\code{hive_query} works by running the query you provide through the CLI via a system() call.
-As a result, single escapes for meaningful characters (such as quotes) within the query will not work:
-R will interpret them only as escaping that character /within R/. Double escaping (\\\) is thus necessary,
-in the same way that it is for regular expressions.
-}
-
 \section{handling our hadoop/hive setup}{
 
 
