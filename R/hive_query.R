@@ -13,6 +13,8 @@
 #'
 #'@param dt Whether to return it as a data.table or not.
 #'
+#'@param heapsize the HADOOP_HEAPSIZE to use. 1024 by default.
+#'
 #'@return a data.frame or data.table containing the results of the query.
 #'
 #'@section handling our hadoop/hive setup:
@@ -33,7 +35,13 @@
 #'@import RJDBC
 #'
 #'@export
-hive_query <- function(query, db = "wmf_raw", user, dt = TRUE){
+hive_query <- function(query, db = "wmf_raw", user, dt = TRUE, heapsize = 1024){
+  
+  #If there's no heapsize set, set.
+  
+  if(Sys.getenv("HADOOP_HEAPSIZE") != heapsize){
+    Sys.setenv(HADOOP_HEAPSIZE = heapsize)
+  }
   
   #If the query is a file, retrieve it
   if(grepl(x = query, pattern = "\\.hql$")){

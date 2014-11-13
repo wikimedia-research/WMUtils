@@ -3,7 +3,7 @@
 \alias{hive_query}
 \title{Run a query against the WMF hive instance}
 \usage{
-hive_query(query, db = "wmf_raw", user, dt = TRUE)
+hive_query(query, db = "wmf_raw", user, dt = TRUE, heapsize = 1024)
 }
 \arguments{
 \item{query}{a query, or the location of a .hql file containing a query.}
@@ -13,6 +13,8 @@ hive_query(query, db = "wmf_raw", user, dt = TRUE)
 \item{user}{your hive username (normally your stat100* username)}
 
 \item{dt}{Whether to return it as a data.table or not.}
+
+\item{heapsize}{the HADOOP_HEAPSIZE to use. 1024 by default.}
 }
 \value{
 a data.frame or data.table containing the results of the query.
