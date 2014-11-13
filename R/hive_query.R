@@ -38,7 +38,6 @@
 hive_query <- function(query, db = "wmf_raw", user, dt = TRUE, heapsize = 1024){
   
   #If there's no heapsize set, set.
-  
   if(Sys.getenv("HADOOP_HEAPSIZE") != heapsize){
     Sys.setenv(HADOOP_HEAPSIZE = heapsize)
   }
