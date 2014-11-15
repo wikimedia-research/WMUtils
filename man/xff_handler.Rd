@@ -9,9 +9,16 @@ xff_handler(ips)
 \item{ips}{a vector of IP chains}
 }
 \value{
-a vector of either the last IP in a chain, or the IP if no chain was present
+a vector of either the last IP in a chain, or the IP if no chain was present.
 }
 \description{
 extracts the last IP address from a chain of IPs reported through the x_forwarded_for field
+}
+\details{
+our x_forwarded_for fields contain not just single IP addresses, but sometimes /chains/ of IP addresses,
+where users have gone through multiple levels of proxying. \code{xff_handler} extracts the earliest IP address in
+such chains or, when a chain is not present, simply returns the (only) IP found. It is called in the various
+geolocation functions in WMUtils, but may also be useful for extracting IPs in the case of (for example)
+generating pseudo-unique fingerprints.
 }
 
