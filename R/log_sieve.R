@@ -50,7 +50,7 @@ log_sieve <- function(log_data){
                                      "application/json; charset=utf-8"),]
   
   #Limit to 'production' sites
-  log_data <- log_data[grepl(x = log_data$URL, pattern = "((commons|meta|species)\\.((m|zero)\\.)?wikimedia\\.)|(wik(tionary|isource|ibooks|ivoyage|iversity|iquote|inews|ipedia|idata)\\.)",
+  log_data <- log_data[grepl(x = log_data$URL, pattern = "((commons|meta|species)\\.((m|mobile|wap|zero)\\.)?wikimedia\\.)|(wik(tionary|isource|ibooks|ivoyage|iversity|iquote|inews|ipedia|idata)\\.)",
                      perl = TRUE, useBytes = TRUE),]
   
   #Exclude non-app API hits.
