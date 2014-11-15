@@ -4,20 +4,31 @@
 \title{host_handler}
 \usage{
 host_handler(urls, strict = TRUE)
+
+host_handler(urls, strict = TRUE)
 }
 \arguments{
-\item{urls}{a vector of URLs}
+\item{urls}{a character vector of URLs}
 
 \item{strict}{whether or not to extract org handles; set to TRUE by default. This is mostly useful for referer
 parsing.}
+
+\item{urls}{a vector of URLs}
 }
 \value{
+a vector of hostnames, or "Unknown" if the hostname was invalid
+
 a vector of hostnames or organisational handles.
 }
 \description{
+\code{host_handler} is a domain-neutral host extractor for URLs, excluding generic prefixes (http, https, www)
+and paths/queries.
+
 extract the host from a URL
 }
 \details{
+extracts the hostname, TLD and subdomains from a generic URL
+
 \code{host_handler} extracts the host from a URL and, if asked, also strictly filters the resulting hosts,
 extracting general organisational handles (for example "Google", or "Reddit").
 }

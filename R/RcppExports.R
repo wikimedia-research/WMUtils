@@ -82,6 +82,22 @@ cpp_intertimes <- function(timestamps) {
     .Call('WMUtils_cpp_intertimes', PACKAGE = 'WMUtils', timestamps)
 }
 
+#'@title host_handler
+#'@details extracts the hostname, TLD and subdomains from a generic URL
+#'
+#'@description
+#'\code{host_handler} is a domain-neutral host extractor for URLs, excluding generic prefixes (http, https, www)
+#'and paths/queries.
+#'
+#'@param urls a character vector of URLs
+#'
+#'@return a vector of hostnames, or "Unknown" if the hostname was invalid
+#'
+#'@export
+host_handler <- function(urls) {
+    .Call('WMUtils_host_handler', PACKAGE = 'WMUtils', urls)
+}
+
 #'@title xff_handler
 #'@description extracts the last IP address from a chain of IPs reported through the x_forwarded_for field
 #'

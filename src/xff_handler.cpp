@@ -26,17 +26,17 @@ std::vector< std::string > xff_handler(std::vector< std::string > ips) {
   for(int i = 0; i < input_length; i++) {
     
     //Identify where ", " appears
-    std::size_t found = ips[i].rfind(", ");
+    std::size_t last_loc = ips[i].rfind(", ");
     
     //If it doesn't, no sequence - return the ip
-    if(found == -1){
+    if(last_loc == -1){
       
       output[i] = ips[i];
     
     //Otherwise, return the sequence /after/ the last match.
     } else {
       
-      output[i] = ips[i].substr(found+2);
+      output[i] = ips[i].substr(last_loc+2);
       
     }
   }
