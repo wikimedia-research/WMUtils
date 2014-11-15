@@ -82,3 +82,13 @@ cpp_intertimes <- function(timestamps) {
     .Call('WMUtils_cpp_intertimes', PACKAGE = 'WMUtils', timestamps)
 }
 
+#'@title xff_handler
+#'@description extracts the last IP address from a chain of IPs reported through the x_forwarded_for field
+#'
+#'@param ips a vector of IP chains
+#'
+#'@return a vector of either the last IP in a chain, or the IP if no chain was present
+xff_handler <- function(ips) {
+    .Call('WMUtils_xff_handler', PACKAGE = 'WMUtils', ips)
+}
+

@@ -32,6 +32,9 @@ geo_tz <- function(ips){
     return(results)
   }
   
+  #Handle possible sequences of IPs due to x_forwarded_for
+  ips <- xff_handler(ips)
+  
   #Handle invalid IPs
   ips <- iconv(ips, to = "UTF-8")
   ips[nchar(ips) > 39] <- ""

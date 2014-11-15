@@ -69,3 +69,18 @@ BEGIN_RCPP
     return __sexp_result;
 END_RCPP
 }
+// xff_handler
+std::vector< std::string > xff_handler(std::vector< std::string > ips);
+RcppExport SEXP WMUtils_xff_handler(SEXP ipsSEXP) {
+BEGIN_RCPP
+    SEXP __sexp_result;
+    {
+        Rcpp::RNGScope __rngScope;
+        Rcpp::traits::input_parameter< std::vector< std::string > >::type ips(ipsSEXP );
+        std::vector< std::string > __result = xff_handler(ips);
+        PROTECT(__sexp_result = Rcpp::wrap(__result));
+    }
+    UNPROTECT(1);
+    return __sexp_result;
+END_RCPP
+}

@@ -10,7 +10,6 @@
 #'limitation is that accuracy
 #'\href{http://www.maxmind.com/en/city_accuracy}{varies on a per-country basis}.
 #'
-#'
 #'@param ips a vector of IP addresses
 #'
 #'@return a vector of city names. NULL or invalid responses from the API will be replaced with the string "Invalid".
@@ -32,6 +31,9 @@ geo_city <- function(ips){
     names(results) <- NULL
     return(results)
   }
+  
+  #Handle possible sequences of IPs due to x_forwarded_for
+  ips <- xff_handler(ips)
   
   #Handle invalid IPs
   ips <- iconv(ips, to = "UTF-8")
