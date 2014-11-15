@@ -22,11 +22,11 @@ std::string url_filter(std::string url) {
     url = url.substr(0, path_start);
     
     //Check for www, remove if present
-    std::size_t www = url.rfind("www");
+    std::size_t www = url.rfind("www.");
     
     //If it's present
     if(www != -1){
-      url = url.substr(www);
+      url = url.substr(www+4);
     }
     
   }
