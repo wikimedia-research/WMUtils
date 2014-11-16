@@ -5,6 +5,21 @@
 
 using namespace Rcpp;
 
+// parse_uuids
+std::vector< std::string > parse_uuids(std::vector< std::string > urls);
+RcppExport SEXP WMUtils_parse_uuids(SEXP urlsSEXP) {
+BEGIN_RCPP
+    SEXP __sexp_result;
+    {
+        Rcpp::RNGScope __rngScope;
+        Rcpp::traits::input_parameter< std::vector< std::string > >::type urls(urlsSEXP );
+        std::vector< std::string > __result = parse_uuids(urls);
+        PROTECT(__sexp_result = Rcpp::wrap(__result));
+    }
+    UNPROTECT(1);
+    return __sexp_result;
+END_RCPP
+}
 // session_count
 int session_count(NumericVector x, int local_minimum = 3600);
 RcppExport SEXP WMUtils_session_count(SEXP xSEXP, SEXP local_minimumSEXP) {

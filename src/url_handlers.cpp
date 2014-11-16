@@ -64,5 +64,3 @@ std::vector< std::string > host_handler(std::vector< std::string > urls) {
   //Return
   return output;
 }
-
-//'@title project_extractor

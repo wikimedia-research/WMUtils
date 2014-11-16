@@ -3,7 +3,7 @@
 \alias{parse_uuids}
 \title{parse_uuids}
 \usage{
-parse_uuids(url_strings)
+parse_uuids(urls)
 }
 \arguments{
 \item{url_strings}{a vector of URLs from the request logs.}
