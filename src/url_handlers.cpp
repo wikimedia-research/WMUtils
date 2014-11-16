@@ -5,24 +5,23 @@ using namespace Rcpp;
 std::string url_filter(std::string url) {
   
   //Remove initial fields
-  std::size_t protocol = url.find_first_of("/"); //http(s)...
-  if(protocol == -1){
+  std::size_t protocol = url.find("://"); //http(s)...
+  if((protocol == -1) | (protocol > 6)){
     
-    //If that's not present, this is not a valid URL
+    //If that's not present, or isn't present at the /beginning/, this is not a valid URL
     url = "Unknown";
-  
   
   } else {
     
     //Otherwise, remove it
-    url = url.substr((protocol+2));
+    url = url.substr((protocol+3));
     
     //Limit to hostname
-    std::size_t path_start = url.find_first_of("/");
+    std::size_t path_start = url.find("/");
     url = url.substr(0, path_start);
     
     //Check for www, remove if present
-    std::size_t www = url.rfind("www.");
+    std::size_t www = url.find("www.");
     
     //If it's present
     if(www != -1){
