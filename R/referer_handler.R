@@ -10,14 +10,11 @@
 #'@export
 referer_handler <- function(urls){
   
-  #Iconv
-  urls <- iconv(urls, to = "UTF-8")
-  
   #Extract domain
   urls <- host_handler(urls)
   
   #Categorise
-  urls[grepl(x = urls, pattern = "((commons|meta|species)\\.((m|zero)\\.)?wikimedia\\.)|(wik(tionary|isource|ibooks|ivoyage|iversity|iquote|inews|ipedia|idata)\\.)",
+  urls[grepl(x = urls, pattern = "(wik(tionary|isource|ibooks|ivoyage|iversity|iquote|inews|ipedia|idata)\\.",
                  useBytes = TRUE, perl = TRUE)] <- "Internal"
   urls[grepl(x = urls, pattern = "google(usercontent)?.", perl = TRUE, useBytes = TRUE)] <- "Google"
   urls[grepl(x = urls, pattern = "yahoo.", fixed = TRUE)] <- "Yahoo"
@@ -33,6 +30,7 @@ referer_handler <- function(urls){
   urls[grepl(x = urls, pattern = "bing.", fixed = TRUE)] <- "Bing"
   urls[grepl(x = urls, pattern = "daum.", fixed = TRUE)] <- "Daum"
   urls[grepl(x = urls, pattern = "t.co", fixed = TRUE)] <- "Twitter"
+  urls[grepl(x = urls, pattern = "twitter.", fixed = TRUE)] <- "Twitter"
   urls[grepl(x = urls, pattern = "seznam.cz", fixed = TRUE)] <- "Seznam"
   urls[grepl(x = urls, pattern = "startpage.", fixed = TRUE)] <- "Startpage"
   urls[!urls %in% c("Internal","Google","Yahoo","Yandex","Baidu","Reddit","None",
