@@ -18,4 +18,7 @@ and paths/queries.
 \details{
 extracts the hostname, TLD and subdomains from a generic URL
 }
+\seealso{
+\code{\link{project_extractor}} for extracting Wikimedia language codes and projects.
+}
 

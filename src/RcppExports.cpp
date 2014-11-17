@@ -100,14 +100,29 @@ BEGIN_RCPP
 END_RCPP
 }
 // host_handler
-std::vector< std::string > host_handler(std::vector< std::string > urls);
+std::vector< std::string > host_handler(std::vector < std::string > urls);
 RcppExport SEXP WMUtils_host_handler(SEXP urlsSEXP) {
 BEGIN_RCPP
     SEXP __sexp_result;
     {
         Rcpp::RNGScope __rngScope;
-        Rcpp::traits::input_parameter< std::vector< std::string > >::type urls(urlsSEXP );
+        Rcpp::traits::input_parameter< std::vector < std::string > >::type urls(urlsSEXP );
         std::vector< std::string > __result = host_handler(urls);
+        PROTECT(__sexp_result = Rcpp::wrap(__result));
+    }
+    UNPROTECT(1);
+    return __sexp_result;
+END_RCPP
+}
+// project_extractor
+std::vector < std::string > project_extractor(std::vector < std::string > urls);
+RcppExport SEXP WMUtils_project_extractor(SEXP urlsSEXP) {
+BEGIN_RCPP
+    SEXP __sexp_result;
+    {
+        Rcpp::RNGScope __rngScope;
+        Rcpp::traits::input_parameter< std::vector < std::string > >::type urls(urlsSEXP );
+        std::vector < std::string > __result = project_extractor(urls);
         PROTECT(__sexp_result = Rcpp::wrap(__result));
     }
     UNPROTECT(1);

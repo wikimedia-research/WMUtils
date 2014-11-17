@@ -128,9 +128,29 @@ cpp_intertimes <- function(timestamps) {
 #'
 #'@return a vector of hostnames, or "Unknown" if the hostname was invalid
 #'
+#'@seealso \code{\link{project_extractor}} for extracting Wikimedia language codes and projects.
 #'@export
 host_handler <- function(urls) {
     .Call('WMUtils_host_handler', PACKAGE = 'WMUtils', urls)
+}
+
+#'@title project_extractor
+#'@description extracts language and project from a Wikimedia URL
+#'
+#'@details \code{project_extractor} takes Wikimedia URLs and extracts the language and project
+#'(for example, turning "https://en.wikipedia.org"" into "en.wikipedia"). It can handle both current
+#'and historic intermediary domains - zero, mobile, wap - and exclude them consistently.
+#'
+#'@param urls a vector of URLs
+#'
+#'@return a vector of language and project names, or "Unknown" if a URL cannot be parsed. In the event
+#'that a URL can be parsed but you've been silly enough to pass it a non-Wikimedia URL, it will simply
+#'return nonsense.
+#'
+#'@seealso \code{\link{host_handler}} for extracting hostnames generically.
+#'@export
+project_extractor <- function(urls) {
+    .Call('WMUtils_project_extractor', PACKAGE = 'WMUtils', urls)
 }
 
 #'@title xff_handler
