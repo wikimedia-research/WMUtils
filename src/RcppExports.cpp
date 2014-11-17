@@ -5,6 +5,21 @@
 
 using namespace Rcpp;
 
+// extract_mcc
+std::vector < std::string > extract_mcc(std::vector < std::string > x_analytics);
+RcppExport SEXP WMUtils_extract_mcc(SEXP x_analyticsSEXP) {
+BEGIN_RCPP
+    SEXP __sexp_result;
+    {
+        Rcpp::RNGScope __rngScope;
+        Rcpp::traits::input_parameter< std::vector < std::string > >::type x_analytics(x_analyticsSEXP );
+        std::vector < std::string > __result = extract_mcc(x_analytics);
+        PROTECT(__sexp_result = Rcpp::wrap(__result));
+    }
+    UNPROTECT(1);
+    return __sexp_result;
+END_RCPP
+}
 // parse_uuids
 std::vector< std::string > parse_uuids(std::vector< std::string > urls);
 RcppExport SEXP WMUtils_parse_uuids(SEXP urlsSEXP) {
