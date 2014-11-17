@@ -50,7 +50,7 @@ hive_query <- function(query, db = "wmf_raw", user, dt = TRUE, heapsize = 1024){
   }
   
   #Initialise the Java environment
-  .jinit()
+  .jinit(force.init = TRUE)
   .jaddClassPath(c(list.files("/usr/lib/hadoop/", full.names = TRUE),
                    list.files("/usr/lib/hive/lib/", full.names = TRUE)))
   
