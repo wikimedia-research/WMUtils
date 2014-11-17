@@ -59,16 +59,13 @@ hive_query <- function(query, db = "wmf_raw", user, dt = TRUE, heapsize = 1024){
   con <- dbConnect(drv = drv, url = paste0("jdbc:hive2://analytics1027.eqiad.wmnet:10000/",db),
                     user = user)
   
-  #Add JSonSerDe; it's going to error, but that's okay
-  try(expr = {
-    dbSendQuery(con, "ADD JAR /usr/lib/hive-hcatalog/share/hcatalog/hive-hcatalog-core-0.12.0-cdh5.0.2.jar")
-  }, silent = TRUE)
+  #Add JSonSerDe
+  dbSendUpdate(con, "ADD JAR /usr/lib/hive-hcatalog/share/hcatalog/hive-hcatalog-core-0.12.0-cdh5.0.2.jar")
   
-  #Query, retrieve
+  #Query, retrieve, clear, close
   to_fetch <- dbSendQuery(con, query)
   data <- fetch(res = to_fetch, n = -1)
-  
-  #Close connection
+  dbClearResult(to_fetch)
   dbDisconnect(con)
   
   #Do we want this as a data table?
