@@ -8,7 +8,7 @@ std::string url_filter(std::string url) {
   
   //Remove initial fields
   std::size_t protocol = url.find("://"); //http(s)...
-  if((protocol == -1) | (protocol > 6)){
+  if((protocol < 0) | (protocol > 6)){
     
     //If that's not present, or isn't present at the /beginning/, this is not a valid URL
     url = "Unknown";
@@ -26,7 +26,7 @@ std::string url_filter(std::string url) {
     std::size_t www = url.find("www.");
     
     //If it's present
-    if(www != -1){
+    if(www < 0){
       url = url.substr(www+4);
     }
     
@@ -167,7 +167,7 @@ std::vector< std::string > parse_uuids(std::vector< std::string > urls) {
     std::size_t ID_loc = urls[i].find("appInstallID=");
     
     //Does it exist?
-    if(ID_loc != -1){
+    if(ID_loc >= 0){
       
       //If so, extract the next 
       output[i] = urls[i].substr(ID_loc+13,ID_loc+49);
