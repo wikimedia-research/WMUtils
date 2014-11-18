@@ -41,6 +41,22 @@ c_geo_country <- function(ip_addresses) {
     .Call('WMUtils_c_geo_country', PACKAGE = 'WMUtils', ip_addresses)
 }
 
+#'@title c_geo_city
+#'@description geolocation to city-level, via C++
+#'@details HIGHLY EXPERIMENTAL. DO NOT USE. A connector to MaxMind's C API.
+#'@export
+c_geo_city <- function(ip_addresses) {
+    .Call('WMUtils_c_geo_city', PACKAGE = 'WMUtils', ip_addresses)
+}
+
+#'@title c_geo_region
+#'@description geolocation to region-level, via C++
+#'@details HIGHLY EXPERIMENTAL. DO NOT USE. A connector to MaxMind's C API.
+#'@export
+c_geo_region <- function(ip_addresses) {
+    .Call('WMUtils_c_geo_region', PACKAGE = 'WMUtils', ip_addresses)
+}
+
 #' @title
 #' session_count
 #' @description

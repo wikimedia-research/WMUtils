@@ -1,5 +1,6 @@
 #include <Rcpp.h>
 #include <GeoIP.h>
+#include <GeoIPCity.h>
 using namespace Rcpp;
 
 //Convert const char pointer to string
@@ -101,6 +102,106 @@ std::vector < std::string > c_geo_country (std::vector < std::string > ip_addres
       
       //Otherwise, do some hideous type conversion
       output[i] = const_pt_to_string(returnedCountry);
+    }
+
+  }
+  
+  //Return
+  return output;
+}
+
+//'@title c_geo_city
+//'@description geolocation to city-level, via C++
+//'@details HIGHLY EXPERIMENTAL. DO NOT USE. A connector to MaxMind's C API.
+//'@export
+// [[Rcpp::export]]
+std::vector < std::string > c_geo_city (std::vector < std::string > ip_addresses) {
+  
+  //Load the IPv4/6 files - it'll conveniently throw an error if that fails. Yay!
+  GeoIP *gi_4 = GeoIP_open("/usr/share/GeoIP/GeoIPCity.dat", GEOIP_MEMORY_CACHE);
+  GeoIP *gi_6 = GeoIP_open("/usr/share/GeoIP/GeoLiteCityv6.dat", GEOIP_MEMORY_CACHE);
+
+  //Handle XFFS
+  ip_addresses = xff_handler(ip_addresses);
+  
+  //Check input size, create output
+  int input_size = ip_addresses.size();
+  std::vector < std::string > output(input_size);
+  
+  //Holding object
+  GeoIPRecord *returned_record;
+  
+  //For each IP...
+  for(int i = 0; i < input_size; i++){
+    
+    //If it looks like an IPv4, run it through the IPv4 database
+    if(ip_addresses[i].find(".") >=0){
+      returned_record = GeoIP_record_by_name(gi_4, string_to_const_pt(ip_addresses[i]));
+    } else {
+      //Otherwise, IPv6
+      returned_record = GeoIP_record_by_name(gi_6, string_to_const_pt(ip_addresses[i]));
+    }
+    
+    //Either way, if it's NULL, save "Invalid"
+    if((returned_record == NULL) | (returned_record->city == NULL)){
+      
+      output[i] = "Invalid";
+      
+    } else {
+      
+      //Otherwise, do some hideous type conversion
+      output[i] = const_pt_to_string(returned_record->city);
+      
+    }
+
+  }
+  
+  //Return
+  return output;
+}
+
+//'@title c_geo_region
+//'@description geolocation to region-level, via C++
+//'@details HIGHLY EXPERIMENTAL. DO NOT USE. A connector to MaxMind's C API.
+//'@export
+// [[Rcpp::export]]
+std::vector < std::string > c_geo_region (std::vector < std::string > ip_addresses) {
+  
+  //Load the IPv4/6 files - it'll conveniently throw an error if that fails. Yay!
+  GeoIP *gi_4 = GeoIP_open("/usr/share/GeoIP/GeoIPCity.dat", GEOIP_MEMORY_CACHE);
+  GeoIP *gi_6 = GeoIP_open("/usr/share/GeoIP/GeoIPCity.dat", GEOIP_MEMORY_CACHE);
+
+  //Handle XFFS
+  ip_addresses = xff_handler(ip_addresses);
+  
+  //Check input size, create output
+  int input_size = ip_addresses.size();
+  std::vector < std::string > output(input_size);
+  
+  //Holding object
+  GeoIPRecord *returned_record;
+  
+  //For each IP...
+  for(int i = 0; i < input_size; i++){
+    
+    //If it looks like an IPv4, run it through the IPv4 database
+    if(ip_addresses[i].find(".") >=0){
+      returned_record = GeoIP_record_by_name(gi_4, string_to_const_pt(ip_addresses[i]));
+    } else {
+      //Otherwise, IPv6, which we cannot 
+      returned_record = GeoIP_record_by_addr_v6(gi_6, string_to_const_pt(ip_addresses[i]));
+    }
+    
+    //Either way, if it's NULL, save "Invalid"
+    if((returned_record == NULL) | (returned_record->region == NULL)){
+      
+      output[i] = "Invalid";
+      
+    } else {
+      
+      //Otherwise, do some hideous type conversion
+      output[i] = const_pt_to_string(returned_record->region);
+      
     }
 
   }
