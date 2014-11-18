@@ -35,6 +35,21 @@ BEGIN_RCPP
     return __sexp_result;
 END_RCPP
 }
+// xff_handler
+std::vector< std::string > xff_handler(std::vector< std::string > ips);
+RcppExport SEXP WMUtils_xff_handler(SEXP ipsSEXP) {
+BEGIN_RCPP
+    SEXP __sexp_result;
+    {
+        Rcpp::RNGScope __rngScope;
+        Rcpp::traits::input_parameter< std::vector< std::string > >::type ips(ipsSEXP );
+        std::vector< std::string > __result = xff_handler(ips);
+        PROTECT(__sexp_result = Rcpp::wrap(__result));
+    }
+    UNPROTECT(1);
+    return __sexp_result;
+END_RCPP
+}
 // session_count
 int session_count(NumericVector x, int local_minimum = 3600);
 RcppExport SEXP WMUtils_session_count(SEXP xSEXP, SEXP local_minimumSEXP) {
@@ -138,21 +153,6 @@ BEGIN_RCPP
         Rcpp::RNGScope __rngScope;
         Rcpp::traits::input_parameter< std::vector< std::string > >::type urls(urlsSEXP );
         std::vector< std::string > __result = parse_uuids(urls);
-        PROTECT(__sexp_result = Rcpp::wrap(__result));
-    }
-    UNPROTECT(1);
-    return __sexp_result;
-END_RCPP
-}
-// xff_handler
-std::vector< std::string > xff_handler(std::vector< std::string > ips);
-RcppExport SEXP WMUtils_xff_handler(SEXP ipsSEXP) {
-BEGIN_RCPP
-    SEXP __sexp_result;
-    {
-        Rcpp::RNGScope __rngScope;
-        Rcpp::traits::input_parameter< std::vector< std::string > >::type ips(ipsSEXP );
-        std::vector< std::string > __result = xff_handler(ips);
         PROTECT(__sexp_result = Rcpp::wrap(__result));
     }
     UNPROTECT(1);
