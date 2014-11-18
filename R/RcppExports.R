@@ -15,6 +15,10 @@ extract_mcc <- function(x_analytics) {
     .Call('WMUtils_extract_mcc', PACKAGE = 'WMUtils', x_analytics)
 }
 
+#'@title c_geo_country
+#'@description geolocation to country-level, via C++
+#'@details HIGHLY EXPERIMENTAL. A connector to MaxMind's C API.
+#'@export
 c_geo_country <- function(ip_addresses) {
     .Call('WMUtils_c_geo_country', PACKAGE = 'WMUtils', ip_addresses)
 }
