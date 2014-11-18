@@ -20,15 +20,15 @@ BEGIN_RCPP
     return __sexp_result;
 END_RCPP
 }
-// parse_uuids
-std::vector< std::string > parse_uuids(std::vector< std::string > urls);
-RcppExport SEXP WMUtils_parse_uuids(SEXP urlsSEXP) {
+// c_geo_country
+std::vector < std::string > c_geo_country(std::vector < std::string > ip_addresses);
+RcppExport SEXP WMUtils_c_geo_country(SEXP ip_addressesSEXP) {
 BEGIN_RCPP
     SEXP __sexp_result;
     {
         Rcpp::RNGScope __rngScope;
-        Rcpp::traits::input_parameter< std::vector< std::string > >::type urls(urlsSEXP );
-        std::vector< std::string > __result = parse_uuids(urls);
+        Rcpp::traits::input_parameter< std::vector < std::string > >::type ip_addresses(ip_addressesSEXP );
+        std::vector < std::string > __result = c_geo_country(ip_addresses);
         PROTECT(__sexp_result = Rcpp::wrap(__result));
     }
     UNPROTECT(1);
@@ -123,6 +123,21 @@ BEGIN_RCPP
         Rcpp::RNGScope __rngScope;
         Rcpp::traits::input_parameter< std::vector < std::string > >::type urls(urlsSEXP );
         std::vector < std::string > __result = project_extractor(urls);
+        PROTECT(__sexp_result = Rcpp::wrap(__result));
+    }
+    UNPROTECT(1);
+    return __sexp_result;
+END_RCPP
+}
+// parse_uuids
+std::vector< std::string > parse_uuids(std::vector< std::string > urls);
+RcppExport SEXP WMUtils_parse_uuids(SEXP urlsSEXP) {
+BEGIN_RCPP
+    SEXP __sexp_result;
+    {
+        Rcpp::RNGScope __rngScope;
+        Rcpp::traits::input_parameter< std::vector< std::string > >::type urls(urlsSEXP );
+        std::vector< std::string > __result = parse_uuids(urls);
         PROTECT(__sexp_result = Rcpp::wrap(__result));
     }
     UNPROTECT(1);

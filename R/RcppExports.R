@@ -15,25 +15,8 @@ extract_mcc <- function(x_analytics) {
     .Call('WMUtils_extract_mcc', PACKAGE = 'WMUtils', x_analytics)
 }
 
-#'@title parse_uuids
-#'@description parse App UUIDs out of requestlog URLs
-#'
-#'@details \code{parse_uuids} takes URLs from the request logs and parses through them hunting for
-#'the unique identifiers included in API requests by the Wikimedia Apps. These are then extracted and provided
-#'as a vector.
-#'
-#'In the event that a valid ID cannot be identified, the string "Invalid" is instead returned.
-#'
-#'@param url_strings a vector of URLs from the request logs.
-#'
-#'@return a vector of unique IDs, or the string "Invalid" where no valid ID could be identified.
-#'
-#'@seealso \code{\link{sampled_logs}} and \code{\link{hive_query}} for retrieving request logs;
-#'\code{\link{log_strptime}} for handling request log date/times.
-#'
-#'@export
-parse_uuids <- function(urls) {
-    .Call('WMUtils_parse_uuids', PACKAGE = 'WMUtils', urls)
+c_geo_country <- function(ip_addresses) {
+    .Call('WMUtils_c_geo_country', PACKAGE = 'WMUtils', ip_addresses)
 }
 
 #' @title
@@ -151,6 +134,27 @@ host_handler <- function(urls) {
 #'@export
 project_extractor <- function(urls) {
     .Call('WMUtils_project_extractor', PACKAGE = 'WMUtils', urls)
+}
+
+#'@title parse_uuids
+#'@description parse App UUIDs out of requestlog URLs
+#'
+#'@details \code{parse_uuids} takes URLs from the request logs and parses through them hunting for
+#'the unique identifiers included in API requests by the Wikimedia Apps. These are then extracted and provided
+#'as a vector.
+#'
+#'In the event that a valid ID cannot be identified, the string "Invalid" is instead returned.
+#'
+#'@param url_strings a vector of URLs from the request logs.
+#'
+#'@return a vector of unique IDs, or the string "Invalid" where no valid ID could be identified.
+#'
+#'@seealso \code{\link{sampled_logs}} and \code{\link{hive_query}} for retrieving request logs;
+#'\code{\link{log_strptime}} for handling request log date/times.
+#'
+#'@export
+parse_uuids <- function(urls) {
+    .Call('WMUtils_parse_uuids', PACKAGE = 'WMUtils', urls)
 }
 
 #'@title xff_handler
