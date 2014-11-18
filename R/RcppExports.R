@@ -15,14 +15,6 @@ extract_mcc <- function(x_analytics) {
     .Call('WMUtils_extract_mcc', PACKAGE = 'WMUtils', x_analytics)
 }
 
-#'@title c_geo_country
-#'@description geolocation to country-level, via C++
-#'@details HIGHLY EXPERIMENTAL. A connector to MaxMind's C API.
-#'@export
-c_geo_country <- function(ip_addresses) {
-    .Call('WMUtils_c_geo_country', PACKAGE = 'WMUtils', ip_addresses)
-}
-
 #'@title xff_handler
 #'@description extracts the last IP address from a chain of IPs reported through the x_forwarded_for field
 #'
@@ -39,6 +31,14 @@ c_geo_country <- function(ip_addresses) {
 #'@export
 xff_handler <- function(ips) {
     .Call('WMUtils_xff_handler', PACKAGE = 'WMUtils', ips)
+}
+
+#'@title c_geo_country
+#'@description geolocation to country-level, via C++
+#'@details HIGHLY EXPERIMENTAL. A connector to MaxMind's C API.
+#'@export
+c_geo_country <- function(ip_addresses) {
+    .Call('WMUtils_c_geo_country', PACKAGE = 'WMUtils', ip_addresses)
 }
 
 #' @title

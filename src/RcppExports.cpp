@@ -20,21 +20,6 @@ BEGIN_RCPP
     return __sexp_result;
 END_RCPP
 }
-// c_geo_country
-std::vector < std::string > c_geo_country(std::vector < std::string > ip_addresses);
-RcppExport SEXP WMUtils_c_geo_country(SEXP ip_addressesSEXP) {
-BEGIN_RCPP
-    SEXP __sexp_result;
-    {
-        Rcpp::RNGScope __rngScope;
-        Rcpp::traits::input_parameter< std::vector < std::string > >::type ip_addresses(ip_addressesSEXP );
-        std::vector < std::string > __result = c_geo_country(ip_addresses);
-        PROTECT(__sexp_result = Rcpp::wrap(__result));
-    }
-    UNPROTECT(1);
-    return __sexp_result;
-END_RCPP
-}
 // xff_handler
 std::vector< std::string > xff_handler(std::vector< std::string > ips);
 RcppExport SEXP WMUtils_xff_handler(SEXP ipsSEXP) {
@@ -44,6 +29,21 @@ BEGIN_RCPP
         Rcpp::RNGScope __rngScope;
         Rcpp::traits::input_parameter< std::vector< std::string > >::type ips(ipsSEXP );
         std::vector< std::string > __result = xff_handler(ips);
+        PROTECT(__sexp_result = Rcpp::wrap(__result));
+    }
+    UNPROTECT(1);
+    return __sexp_result;
+END_RCPP
+}
+// c_geo_country
+std::vector < std::string > c_geo_country(std::vector < std::string > ip_addresses);
+RcppExport SEXP WMUtils_c_geo_country(SEXP ip_addressesSEXP) {
+BEGIN_RCPP
+    SEXP __sexp_result;
+    {
+        Rcpp::RNGScope __rngScope;
+        Rcpp::traits::input_parameter< std::vector < std::string > >::type ip_addresses(ip_addressesSEXP );
+        std::vector < std::string > __result = c_geo_country(ip_addresses);
         PROTECT(__sexp_result = Rcpp::wrap(__result));
     }
     UNPROTECT(1);
