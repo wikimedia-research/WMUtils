@@ -33,28 +33,78 @@ xff_handler <- function(ips) {
     .Call('WMUtils_xff_handler', PACKAGE = 'WMUtils', ips)
 }
 
-#'@title c_geo_country
-#'@description geolocation to country-level, via C++
-#'@details HIGHLY EXPERIMENTAL. A connector to MaxMind's C API.
+#'@title geo_country
+#'@description Country-level geolocation
+#'
+#'@details
+#'\code{geo_country} geolocates IP addresses to the country level, providing the
+#'\href{https://en.wikipedia.org/wiki/ISO_3166-2}{ISO 3166-2} code for the resulting country.
+#'It uses \href{http://dev.maxmind.com/geoip/}{MaxMind's binary geolocation database}.
+#'
+#'@param ips a vector of IP addresses
+#'
+#'@return a vector of country names. NULL or invalid responses from the API will be replaced with the string "Invalid".
+#'
+#'@author Oliver Keyes <okeyes@@wikimedia.org>
+#'
+#'@seealso \code{\link{geo_city}} for city-level identification, \code{\link{geo_region}} for region-level,
+#'\code{\link{geo_tz}} for tzdata-compatible timezone identification and \code{\link{geo_netspeed}} for connection
+#'type detection.
+#'
 #'@export
-c_geo_country <- function(ip_addresses) {
-    .Call('WMUtils_c_geo_country', PACKAGE = 'WMUtils', ip_addresses)
+geo_country <- function(ip_addresses) {
+    .Call('WMUtils_geo_country', PACKAGE = 'WMUtils', ip_addresses)
 }
 
-#'@title c_geo_city
-#'@description geolocation to city-level, via C++
-#'@details HIGHLY EXPERIMENTAL. DO NOT USE. A connector to MaxMind's C API.
+#'@title geo_city
+#'@details City-level geolocation
+#'
+#'@description
+#'\code{geo_city} geolocates IPv4 and IPv6 addresses to provide city-level results, providing
+#'the English-language name for that city. It uses
+#'\href{http://dev.maxmind.com/geoip/}{MaxMind's binary geolocation database} - the only
+#'limitation is that accuracy
+#'\href{http://www.maxmind.com/en/city_accuracy}{varies on a per-country basis}.
+#'
+#'@param ips a vector of IP addresses. These will be processed through \code{xff_handler}
+#'before being run, so don't worry if they're a bit groaty.
+#'
+#'@return a vector of city names. NULL or invalid responses from the API will be replaced with the string "Invalid".
+#'
+#'@author Oliver Keyes <okeyes@@wikimedia.org>
+#'
+#'@seealso \code{\link{geo_country}} for country-level identification, \code{\link{geo_tz}}
+#'for tzdata-compatible timezone identification and \code{\link{geo_netspeed}} for connection
+#'type detection.
 #'@export
-c_geo_city <- function(ip_addresses) {
-    .Call('WMUtils_c_geo_city', PACKAGE = 'WMUtils', ip_addresses)
+geo_city <- function(ip_addresses) {
+    .Call('WMUtils_geo_city', PACKAGE = 'WMUtils', ip_addresses)
 }
 
-#'@title c_geo_region
-#'@description geolocation to region-level, via C++
-#'@details HIGHLY EXPERIMENTAL. DO NOT USE. A connector to MaxMind's C API.
+#'@title geo_region
+#'@details Region-level geolocation
+#'
+#'@description
+#'\code{geo_region} geolocates IPv4 and IPv6 addresses to provide region-level results, providing
+#'the English-language name for that region (or a digit-based name in the case that administrative
+#'districts in the pertinent nation do not have proper nouns). It uses
+#'\href{http://dev.maxmind.com/geoip/}{MaxMind's binary geolocation database} - the only
+#'limitation is that accuracy
+#'\href{http://www.maxmind.com/en/city_accuracy}{varies on a per-country basis}.
+#'
+#'@param ips a vector of IP addresses. These will be processed through \code{xff_handler}
+#'before being run, so don't worry if they're a bit groaty.
+#'
+#'@return a vector of region names. NULL or invalid responses from the API will be replaced with the string "Invalid".
+#'
+#'@author Oliver Keyes <okeyes@@wikimedia.org>
+#'
+#'@seealso \code{\link{geo_country}} for country-level identification, \code{\link{geo_city}} for city-level
+#'geolocation, \code{\link{geo_tz}} for tzdata-compatible timezone identification and \code{\link{geo_netspeed}}
+#'for connection type detection.
 #'@export
-c_geo_region <- function(ip_addresses) {
-    .Call('WMUtils_c_geo_region', PACKAGE = 'WMUtils', ip_addresses)
+geo_region <- function(ip_addresses) {
+    .Call('WMUtils_geo_region', PACKAGE = 'WMUtils', ip_addresses)
 }
 
 #' @title
