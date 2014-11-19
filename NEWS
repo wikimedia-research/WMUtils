@@ -1,3 +1,10 @@
+Version 1.6.0
+*parse_uuid, host_handler, geo_country and geo_city converted to C++ for added speed and much win
+*geo_region introduced, for region/state-level geolocation.
+*xff_handler introduced for handling XFF proxy chains
+*extract_mcc introduced to extract MCC codes from X-Analytics fields
+*project_extractor introduced for extracting projects (language_code.project) from Wikimedia URLs.
+
 Version 1.5.0
 -------------------------------------------------------------------------
 *parse_uuid() now included to parse the UUIDs the Wikipedia Apps include in their URLs.

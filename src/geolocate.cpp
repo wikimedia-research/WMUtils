@@ -122,6 +122,10 @@ std::vector < std::string > geo_country (std::vector < std::string > ip_addresse
     }
 
   }
+
+  //Delete files to save space
+  GeoIP_delete(gi_4);
+  GeoIP_delete(gi_6);
   
   //Return
   return output;
@@ -191,6 +195,10 @@ std::vector < std::string > geo_city (std::vector < std::string > ip_addresses) 
 
   }
   
+  //Delete files to save space
+  GeoIP_delete(gi_4);
+  GeoIP_delete(gi_6);
+  
   //Return
   return output;
 }
@@ -257,6 +265,90 @@ std::vector < std::string > geo_region (std::vector < std::string > ip_addresses
       }
     }
   }
+  
+  //Delete files to save space
+  GeoIP_delete(gi_4);
+  GeoIP_delete(gi_6);
+  
+  //Return
+  return output;
+}
+
+//'@title geo_tz
+//'@details tzdata-compatible timezone retrieval
+//'
+//'@description
+//'\code{geo_tz} returns the timezone, in a tzdata-compliant format, associated with an IPv4 IP address.
+//'This can then be used to (for example) localise server-side timestamps. It uses
+//'\href{http://dev.maxmind.com/geoip/}{MaxMind's binary geolocation database} - the only
+//'limitation is that accuracy
+//'\href{http://www.maxmind.com/en/city_accuracy}{varies on a per-country basis}.
+//'
+//'@param ips a vector of IP addresses. These will be processed through \code{xff_handler}
+//'before being run, so don't worry if they're a bit groaty.
+//'
+//'@return a vector of region names. NULL or invalid responses from the API will be replaced with the string "Invalid".
+//'
+//'@author Oliver Keyes <okeyes@@wikimedia.org>
+//'
+//'@seealso \code{\link{geo_country}} for country-level identification, \code{\link{geo_city}} for city-level
+//'geolocation, \code{\link{geo_region}} for region-compatible timezone identification and \code{\link{geo_netspeed}}
+//'for connection type detection.
+//'@export
+// [[Rcpp::export]]
+std::vector < std::string > geo_tz (std::vector < std::string > ip_addresses) {
+  
+  //Load the IPv4/6 files - it'll conveniently throw an error if that fails. Yay!
+  GeoIP *gi_4 = GeoIP_open("/usr/share/GeoIP/GeoIPCity.dat", GEOIP_MEMORY_CACHE);
+  GeoIP *gi_6 = GeoIP_open("/usr/share/GeoIP/GeoLiteCityv6.dat", GEOIP_MEMORY_CACHE);
+  
+  //Handle XFFS
+  ip_addresses = xff_handler(ip_addresses);
+  
+  //Check input size, create output
+  int input_size = ip_addresses.size();
+  std::vector < std::string > output(input_size);
+  
+  //Holding objects
+  GeoIPRecord *returned_record;
+  char * country_code;
+  char * region;
+  const char * holding;
+  
+  //For each IP...
+  for(int i = 0; i < input_size; i++){
+    
+    //If it looks like an IPv4, run it through the IPv4 database
+    if(ip_addresses[i].find(".") >=0){
+      returned_record = GeoIP_record_by_name(gi_4, string_to_const_pt(ip_addresses[i]));
+    } else {
+      //Otherwise, IPv6, which we cannot 
+      returned_record = GeoIP_record_by_name_v6(gi_6, string_to_const_pt(ip_addresses[i]));
+    }
+    
+    if(!returned_record){
+      output[i] = "Invalid";
+    } else {
+      
+      region = returned_record->region;
+      country_code = returned_record->country_code;
+      if(!region | !country_code){
+        output[i] = "Invalid";
+      } else {
+        holding = GeoIP_time_zone_by_country_and_region(country_code, region);
+        
+        if(!holding){
+          output[i] = "Invalid";
+        } else {
+          output[i] = const_pt_to_string(holding);
+        }
+      }
+    }
+  }
+  
+  //Delete files to save space
+  GeoIP_delete(gi_4);
+  GeoIP_delete(gi_6);
   
   //Return
   return output;

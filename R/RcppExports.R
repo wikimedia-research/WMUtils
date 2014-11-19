@@ -107,6 +107,31 @@ geo_region <- function(ip_addresses) {
     .Call('WMUtils_geo_region', PACKAGE = 'WMUtils', ip_addresses)
 }
 
+#'@title geo_tz
+#'@details tzdata-compatible timezone retrieval
+#'
+#'@description
+#'\code{geo_tz} returns the timezone, in a tzdata-compliant format, associated with an IPv4 IP address.
+#'This can then be used to (for example) localise server-side timestamps. It uses
+#'\href{http://dev.maxmind.com/geoip/}{MaxMind's binary geolocation database} - the only
+#'limitation is that accuracy
+#'\href{http://www.maxmind.com/en/city_accuracy}{varies on a per-country basis}.
+#'
+#'@param ips a vector of IP addresses. These will be processed through \code{xff_handler}
+#'before being run, so don't worry if they're a bit groaty.
+#'
+#'@return a vector of region names. NULL or invalid responses from the API will be replaced with the string "Invalid".
+#'
+#'@author Oliver Keyes <okeyes@@wikimedia.org>
+#'
+#'@seealso \code{\link{geo_country}} for country-level identification, \code{\link{geo_city}} for city-level
+#'geolocation, \code{\link{geo_region}} for region-compatible timezone identification and \code{\link{geo_netspeed}}
+#'for connection type detection.
+#'@export
+geo_tz <- function(ip_addresses) {
+    .Call('WMUtils_geo_tz', PACKAGE = 'WMUtils', ip_addresses)
+}
+
 #' @title
 #' session_count
 #' @description

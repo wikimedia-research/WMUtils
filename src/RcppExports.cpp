@@ -80,6 +80,21 @@ BEGIN_RCPP
     return __sexp_result;
 END_RCPP
 }
+// geo_tz
+std::vector < std::string > geo_tz(std::vector < std::string > ip_addresses);
+RcppExport SEXP WMUtils_geo_tz(SEXP ip_addressesSEXP) {
+BEGIN_RCPP
+    SEXP __sexp_result;
+    {
+        Rcpp::RNGScope __rngScope;
+        Rcpp::traits::input_parameter< std::vector < std::string > >::type ip_addresses(ip_addressesSEXP );
+        std::vector < std::string > __result = geo_tz(ip_addresses);
+        PROTECT(__sexp_result = Rcpp::wrap(__result));
+    }
+    UNPROTECT(1);
+    return __sexp_result;
+END_RCPP
+}
 // session_count
 int session_count(NumericVector x, int local_minimum = 3600);
 RcppExport SEXP WMUtils_session_count(SEXP xSEXP, SEXP local_minimumSEXP) {
