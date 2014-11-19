@@ -10,7 +10,8 @@ geo_tz(ip_addresses)
 before being run, so don't worry if they're a bit groaty.}
 }
 \value{
-a vector of region names. NULL or invalid responses from the API will be replaced with the string "Invalid".
+a vector of tzdata-compatible timezones. NULL or invalid responses from the API will be
+replaced with the string "Invalid".
 }
 \description{
 \code{geo_tz} returns the timezone, in a tzdata-compliant format, associated with an IPv4 IP address.

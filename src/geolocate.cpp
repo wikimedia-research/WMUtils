@@ -287,7 +287,8 @@ std::vector < std::string > geo_region (std::vector < std::string > ip_addresses
 //'@param ips a vector of IP addresses. These will be processed through \code{xff_handler}
 //'before being run, so don't worry if they're a bit groaty.
 //'
-//'@return a vector of region names. NULL or invalid responses from the API will be replaced with the string "Invalid".
+//'@return a vector of tzdata-compatible timezones. NULL or invalid responses from the API will be
+//'replaced with the string "Invalid".
 //'
 //'@author Oliver Keyes <okeyes@@wikimedia.org>
 //'
@@ -349,6 +350,63 @@ std::vector < std::string > geo_tz (std::vector < std::string > ip_addresses) {
   //Delete files to save space
   GeoIP_delete(gi_4);
   GeoIP_delete(gi_6);
+  
+  //Return
+  return output;
+}
+
+//'@title c_geo_netspeed
+//'@details tzdata-compatible timezone retrieval
+//'
+//'@description
+//'\code{geo_netspeed} provides connection types for the provided IP address(es). It uses
+//'\href{http://dev.maxmind.com/geoip/}{MaxMind's binary geolocation database} - the only
+//'limitation is that accuracy
+//'\href{http://www.maxmind.com/en/city_accuracy}{varies on a per-country basis}.
+//'
+//'@param ips a vector of IP addresses. These will be processed through \code{xff_handler}
+//'before being run, so don't worry if they're a bit groaty.
+//'
+//'@return a vector of connection types. NULL or invalid responses from the API will be replaced with the
+//'string "Unknown".
+//'
+//'@author Oliver Keyes <okeyes@@wikimedia.org>
+//'
+//'@seealso \code{\link{geo_country}} for country-level identification, \code{\link{geo_city}} for city-level
+//'geolocation, \code{\link{geo_region}} for region-compatible timezone identification and \code{\link{geo_netspeed}}
+//'for connection type detection.
+//'@export
+// [[Rcpp::export]]
+std::vector < std::string > geo_netspeed (std::vector < std::string > ip_addresses) {
+  
+  //Load the Netspeed file (there's no real v6 handling here yet. Womp womp.)
+  GeoIP *gi = GeoIP_open("/usr/share/GeoIP/GeoIPNetSpeedCell.dat", GEOIP_MEMORY_CACHE);
+  
+  //Handle XFFS
+  ip_addresses = xff_handler(ip_addresses);
+  
+  //Check input size, create output
+  int input_size = ip_addresses.size();
+  std::vector < std::string > output(input_size);
+  
+  //Holding object
+  char * speed;
+  
+  //For each IP...
+  for(int i = 0; i < input_size; i++){
+    
+    //Run it through the db
+    speed = GeoIP_name_by_name(gi, string_to_const_pt(ip_addresses[i]));
+    
+    if(!speed){
+      output[i] = "Unknown";
+    } else {
+      output[i] = const_pt_to_string(speed);
+    }
+  }
+  
+  //Delete files to save space
+  GeoIP_delete(gi);
   
   //Return
   return output;

@@ -120,7 +120,8 @@ geo_region <- function(ip_addresses) {
 #'@param ips a vector of IP addresses. These will be processed through \code{xff_handler}
 #'before being run, so don't worry if they're a bit groaty.
 #'
-#'@return a vector of region names. NULL or invalid responses from the API will be replaced with the string "Invalid".
+#'@return a vector of tzdata-compatible timezones. NULL or invalid responses from the API will be
+#'replaced with the string "Invalid".
 #'
 #'@author Oliver Keyes <okeyes@@wikimedia.org>
 #'
@@ -130,6 +131,31 @@ geo_region <- function(ip_addresses) {
 #'@export
 geo_tz <- function(ip_addresses) {
     .Call('WMUtils_geo_tz', PACKAGE = 'WMUtils', ip_addresses)
+}
+
+#'@title c_geo_netspeed
+#'@details tzdata-compatible timezone retrieval
+#'
+#'@description
+#'\code{geo_netspeed} provides connection types for the provided IP address(es). It uses
+#'\href{http://dev.maxmind.com/geoip/}{MaxMind's binary geolocation database} - the only
+#'limitation is that accuracy
+#'\href{http://www.maxmind.com/en/city_accuracy}{varies on a per-country basis}.
+#'
+#'@param ips a vector of IP addresses. These will be processed through \code{xff_handler}
+#'before being run, so don't worry if they're a bit groaty.
+#'
+#'@return a vector of connection types. NULL or invalid responses from the API will be replaced with the
+#'string "Unknown".
+#'
+#'@author Oliver Keyes <okeyes@@wikimedia.org>
+#'
+#'@seealso \code{\link{geo_country}} for country-level identification, \code{\link{geo_city}} for city-level
+#'geolocation, \code{\link{geo_region}} for region-compatible timezone identification and \code{\link{geo_netspeed}}
+#'for connection type detection.
+#'@export
+geo_netspeed <- function(ip_addresses) {
+    .Call('WMUtils_geo_netspeed', PACKAGE = 'WMUtils', ip_addresses)
 }
 
 #' @title
