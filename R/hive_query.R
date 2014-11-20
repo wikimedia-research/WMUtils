@@ -51,9 +51,10 @@ hive_query <- function(query, db = "wmf_raw", user, dt = TRUE, heapsize = 1024){
   
   #Initialise the Java environment
   .jinit(force.init = TRUE)
-  .jaddClassPath(c(list.files("/usr/lib/hadoop/", full.names = TRUE),
-                   list.files("/usr/lib/hive/lib/", full.names = TRUE)))
-  
+  .jaddClassPath(c(list.files("/usr/lib/hadoop/", full.names = TRUE, pattern = "\\.jar$"),
+                   list.files("/usr/lib/hive/lib/", full.names = TRUE, pattern = "\\.jar$"),
+                   list.files("/usr/lib/hadoop/lib", full.names = TRUE, pattern = "\\.jar$")))
+
   #Connect
   drv <- JDBC("org.apache.hive.jdbc.HiveDriver", "/usr/lib/hive/lib/hive-jdbc.jar")
   con <- dbConnect(drv = drv, url = paste0("jdbc:hive2://analytics1027.eqiad.wmnet:10000/",db),
@@ -64,9 +65,15 @@ hive_query <- function(query, db = "wmf_raw", user, dt = TRUE, heapsize = 1024){
   
   #Query, retrieve, clear, close
   to_fetch <- dbSendQuery(con, query)
-  data <- fetch(res = to_fetch, n = -1)
+  data <- try({
+    fetch(res = to_fetch, n = -1)
+  }, silent = TRUE)
   dbClearResult(to_fetch)
   dbDisconnect(con)
+  
+  if("try-error" %in% class(data)){
+    stop(data)
+  }
   
   #Do we want this as a data table?
   if(dt){
