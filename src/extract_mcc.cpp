@@ -24,11 +24,11 @@ std::vector < std::string > extract_mcc(std::vector < std::string > x_analytics)
     
     //Grab the zero location and, if it's present..
     std::size_t zero_loc = x_analytics[i].find("zero=");
-    if(zero_loc > -1){
+    if(zero_loc >= 0){
       
       holding = x_analytics[i].substr(zero_loc+5,7);
       
-      if(holding.find(";") > -1){
+      if(holding.find(";") >= 0){
         output[i] = holding.substr(0,6);
       } else {
         output[i] = holding;
