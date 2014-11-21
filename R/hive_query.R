@@ -7,9 +7,9 @@
 #'
 #'@param query a query, or the location of a .hql file containing a query.
 #'
-#'@param db the database to use. Set to wmf_raw (which contains the webrequest table) by default.
-#'
 #'@param user your hive username (normally your stat100* username)
+#'
+#'@param db the database to use. Set to wmf_raw (which contains the webrequest table) by default.
 #'
 #'@param dt Whether to return it as a data.table or not.
 #'
@@ -35,7 +35,7 @@
 #'@import RJDBC
 #'
 #'@export
-hive_query <- function(query, db = "wmf_raw", user, dt = TRUE, heapsize = 1024){
+hive_query <- function(query, user, db = "wmf_raw", dt = TRUE, heapsize = 1024){
   
   #If there's no heapsize set, set.
   if(Sys.getenv("HADOOP_HEAPSIZE") != heapsize){

@@ -3,14 +3,14 @@
 \alias{hive_query}
 \title{Run a query against the WMF hive instance}
 \usage{
-hive_query(query, db = "wmf_raw", user, dt = TRUE, heapsize = 1024)
+hive_query(query, user, db = "wmf_raw", dt = TRUE, heapsize = 1024)
 }
 \arguments{
 \item{query}{a query, or the location of a .hql file containing a query.}
 
-\item{db}{the database to use. Set to wmf_raw (which contains the webrequest table) by default.}
-
 \item{user}{your hive username (normally your stat100* username)}
+
+\item{db}{the database to use. Set to wmf_raw (which contains the webrequest table) by default.}
 
 \item{dt}{Whether to return it as a data.table or not.}
 
