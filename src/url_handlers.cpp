@@ -3,6 +3,24 @@
 #include <Rcpp.h>
 using namespace Rcpp;
 
+//Lowercase a string
+std::string str_tolower(std::string x){
+  
+  //Create output object
+  std::string output;
+  
+  //Loop
+  for(int i = 0; i < x.size(); i++){
+    
+    //For each character, lowercase and append
+    output += tolower(x[i]);
+    
+  }
+  
+  //Return
+  return output;
+}
+
 //URL filterer
 std::string url_filter(std::string url) {
   
@@ -22,11 +40,14 @@ std::string url_filter(std::string url) {
     std::size_t path_start = url.find("/");
     url = url.substr(0, path_start);
     
+    //Lowercase, now that we're relying on alpha characters
+    url = str_tolower(url);
+    
     //Check for www, remove if present
     std::size_t www = url.find("www.");
     
     //If it's present
-    if(www < 0){
+    if(www >= 0){
       url = url.substr(www+4);
     }
     
