@@ -8,9 +8,9 @@ std::string str_tolower(std::string x){
   
   //Create output object
   std::string output;
-  
+  string_size = x.size();
   //Loop
-  for(int i = 0; i < x.size(); i++){
+  for(int i = 0; i < string_size; i++){
     
     //For each character, lowercase and append
     output += tolower(x[i]);
