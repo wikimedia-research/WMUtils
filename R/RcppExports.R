@@ -239,6 +239,10 @@ cpp_intertimes <- function(timestamps) {
     .Call('WMUtils_cpp_intertimes', PACKAGE = 'WMUtils', timestamps)
 }
 
+c_ua_parse <- function(agents, regex_file) {
+    .Call('WMUtils_c_ua_parse', PACKAGE = 'WMUtils', agents, regex_file)
+}
+
 #'@title host_handler
 #'@details extracts the hostname, TLD and subdomains from a generic URL
 #'

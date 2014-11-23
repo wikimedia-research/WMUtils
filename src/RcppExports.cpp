@@ -174,6 +174,22 @@ BEGIN_RCPP
     return __sexp_result;
 END_RCPP
 }
+// c_ua_parse
+DataFrame c_ua_parse(std::vector < std::string > agents, std::string regex_file);
+RcppExport SEXP WMUtils_c_ua_parse(SEXP agentsSEXP, SEXP regex_fileSEXP) {
+BEGIN_RCPP
+    SEXP __sexp_result;
+    {
+        Rcpp::RNGScope __rngScope;
+        Rcpp::traits::input_parameter< std::vector < std::string > >::type agents(agentsSEXP );
+        Rcpp::traits::input_parameter< std::string >::type regex_file(regex_fileSEXP );
+        DataFrame __result = c_ua_parse(agents, regex_file);
+        PROTECT(__sexp_result = Rcpp::wrap(__result));
+    }
+    UNPROTECT(1);
+    return __sexp_result;
+END_RCPP
+}
 // host_handler
 std::vector< std::string > host_handler(std::vector < std::string > urls);
 RcppExport SEXP WMUtils_host_handler(SEXP urlsSEXP) {
