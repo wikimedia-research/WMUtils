@@ -8,7 +8,8 @@ std::string str_tolower(std::string x){
   
   //Create output object
   std::string output;
-  string_size = x.size();
+  int string_size = x.size();
+  
   //Loop
   for(int i = 0; i < string_size; i++){
     
