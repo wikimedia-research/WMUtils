@@ -21,6 +21,7 @@
 #'for removing rows from a table that match a set of conditions, or \code{\link{mysql_exists}}
 #'for checking the existence of a table.
 #'
+#'@importMethodsFrom RMySQL dbConnect dbWriteTable dbDisconnect
 #'@export
 
 mysql_write <- function(x, db, table_name, ...){

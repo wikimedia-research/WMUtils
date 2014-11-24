@@ -11,7 +11,6 @@ Depends:
     jsonlite,
     RMySQL,
     data.table,
-    lubridate,
     parallel,
     RJDBC
 Imports:

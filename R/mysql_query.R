@@ -21,6 +21,7 @@
 #'from a table that match a set of conditions, \code{\link{mysql_exists}} for checking the existence
 #'of a table, or \code{\link{mysql_write}} for writing to a table.
 #'
+#'@importMethodsFrom RMySQL dbConnect dbSendQuery dbDisconnect dbListResults dbClearResult fetch
 #'@export
 
 mysql_query <- function(query, db, dt = TRUE){

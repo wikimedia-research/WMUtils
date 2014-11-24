@@ -16,6 +16,7 @@
 #'@seealso \code{\link{mysql_query}} for reading from the same range of databases, \code{\link{mysql_write}}
 #'for writing to them, or \code{\link{mysql_delete}} for removing rows that match a set of conditions.
 #'
+#'@importMethodsFrom RMySQL dbConnect dbExistsTable dbDisconnect
 #'@export
 
 mysql_exists <- function(db, table_name){

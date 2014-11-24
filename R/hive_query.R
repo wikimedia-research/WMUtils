@@ -32,7 +32,9 @@
 #'\code{\link{parse_uuids}} for parsing app unique IDs out of requestlog URLs,
 #'and \code{\link{mysql_query}} and \code{\link{global_query}} for querying our MySQL databases.
 #'
-#'@import RJDBC
+#'@importMethodsFrom RJDBC dbConnect dbSendUpdate dbSendQuery dbDisconnect
+#'@importFrom RJDBC JDBC
+#'@importFrom DBI dbClearResult
 #'
 #'@export
 hive_query <- function(query, user, db = "wmf_raw", dt = TRUE, heapsize = 1024){
