@@ -3,11 +3,12 @@
 using namespace Rcpp;
 
 // Internal C function for parsing user agents.
+//'@export
 // [[Rcpp::export]]
-DataFrame c_ua_parse(std::vector < std::string > agents, std::string regex_file) {
+DataFrame c_ua_parse(std::vector < std::string > agents, std::string yaml_file_loc) {
   
   //Load regex file
-  ua_parser::Parser uap(regex_file);
+  ua_parser::Parser uap(yaml_file_loc);
   
   //Measure input size, create output objects
   int agents_size = agents.size();

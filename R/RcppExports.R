@@ -239,8 +239,9 @@ cpp_intertimes <- function(timestamps) {
     .Call('WMUtils_cpp_intertimes', PACKAGE = 'WMUtils', timestamps)
 }
 
-c_ua_parse <- function(agents, regex_file) {
-    .Call('WMUtils_c_ua_parse', PACKAGE = 'WMUtils', agents, regex_file)
+#'@export
+c_ua_parse <- function(agents, yaml_file_loc) {
+    .Call('WMUtils_c_ua_parse', PACKAGE = 'WMUtils', agents, yaml_file_loc)
 }
 
 #'@title host_handler

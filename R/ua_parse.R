@@ -1,46 +1,27 @@
-#' @title User agent parsing
-#' 
-#' @description
-#' \code{ua_parse} acts as a connector to
-#' \href{https://github.com/tobie/ua-parser}{tobie's ua-parser}, consuming a vector of user agents
+#' @title ua_parse
+#' @description user agent parsing
+#' @details
+#' \code{ua_parse} acts as a connector to the C++ implementation of
+#' \href{https://github.com/ua-parser/uap-cpp}{tobie's ua-parser}, consuming a vector of user agents
 #' and returning a data frame, with each field (see 'arguments') as a distinct column.
 #' 
 #' @param user_agents A vector of unparsed user agents
-#' @param fields The elements you'd like to return. Options are "device" (the device code, when known),
-#' "os" (the operating system, when known), "browser" (the browser), "major_version" (the major version of the browser)
-#' and minor_version (the minor version of the browser)
 #' 
 #' @author Oliver Keyes <okeyes@@wikimedia.org>
 #' 
-#' @return a data.frame containing the results of the UA parsing, with each field as a column.
+#' @return a data.frame containing the results of the UA parsing - the device, the operating system,
+#' the browser, and the browser's major and minor version numbers.
 #' 
 #' @export
-
-ua_parse <- function(user_agents, fields = c("device","os","browser","major_version","minor_version")){
+ua_parse <- function(user_agents){
   
-  #Sanitise
-  user_agents <- gsub(x = user_agents, pattern = "\"", replacement = "")
-  
-  #Handle big objects
-  if(length(user_agents) > 2000000){
-    
-    #If it's bigger than 2m, split and recursively call
-    uas <- split(user_agents, ceiling(seq_along(user_agents)/2000000))
-    ua_results <- lapply(uas, ua_parse, fields = fields)
-    ua_results <- do.call("rbind",ua_results)
-    return(ua_results)
-  }  
+  #Grab YAML file
+  yaml_file <- file.path(find.package("WMUtils"),"regexes.yaml")
   
   #Run
-  parsed_agents <- rpy(x = user_agents, script = file.path(find.package("WMUtils"),"ua_parse.py"), conduit = "tsv")
-  
-  #Handle NAs and name
-  parsed_agents[is.na(parsed_agents)] <- "Other"
-  names(parsed_agents) <- c("device","minor_version","major_version","os","browser")
-  
-  #Limit
-  parsed_agents <- parsed_agents[,fields]
+  parsed_agents <- c_ua_parse(user_agents, yaml_file)
   
   #Return
   return(parsed_agents)
+  
 }
