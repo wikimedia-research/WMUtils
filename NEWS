@@ -1,9 +1,13 @@
-Version 1.6.0
-*parse_uuid, host_handler, geo_country and geo_city converted to C++ for added speed and much win
-*geo_region introduced, for region/state-level geolocation.
+Version 2.0.0
+*All geolocation and user agent parsing functions converted to C++ for added speed.
+*geo_region introduced for region/state-level geolocation
+*parse_uuid and host_handler also converted to C++.
 *xff_handler introduced for handling XFF proxy chains
-*extract_mcc introduced to extract MCC codes from X-Analytics fields
+*extract_mcc introduced for extracing MCC codes from X-Analytics headers
 *project_extractor introduced for extracting projects (language_code.project) from Wikimedia URLs.
+*Better test coverage
+*Tweaks to log_sieve for a slightly more refined definition.
+*hive_range() and rpy deprecated and removed.
 
 Version 1.5.0
 -------------------------------------------------------------------------
