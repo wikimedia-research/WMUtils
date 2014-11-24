@@ -47,7 +47,7 @@ std::vector< std::string > xff_handler(std::vector< std::string > ips) {
     std::size_t last_loc = ips[i].rfind(", ");
     
     //If it doesn't, no sequence - return the ip
-    if(last_loc < 0){
+    if((signed int) last_loc != -1){
       
       output[i] = ips[i];
     
@@ -103,7 +103,7 @@ std::vector < std::string > geo_country (std::vector < std::string > ip_addresse
   for(int i = 0; i < input_size; i++){
     
     //If it looks like an IPv4, run it through the IPv4 database
-    if(ip_addresses[i].find(".") >=0){
+    if((signed int) ip_addresses[i].find(".") != -1){
       returnedCountry = GeoIP_country_code_by_addr(gi_4, string_to_const_pt(ip_addresses[i]));
     } else {
       //Otherwise, IPv6
@@ -247,7 +247,7 @@ std::vector < std::string > geo_region (std::vector < std::string > ip_addresses
   for(int i = 0; i < input_size; i++){
     
     //If it looks like an IPv4, run it through the IPv4 database
-    if(ip_addresses[i].find(".") >=0){
+    if((signed int) ip_addresses[i].find(".") != -1){
       returned_record = GeoIP_record_by_name(gi_4, string_to_const_pt(ip_addresses[i]));
     } else {
       //Otherwise, IPv6, which we cannot 
@@ -320,7 +320,7 @@ std::vector < std::string > geo_tz (std::vector < std::string > ip_addresses) {
   for(int i = 0; i < input_size; i++){
     
     //If it looks like an IPv4, run it through the IPv4 database
-    if(ip_addresses[i].find(".") >=0){
+    if((signed int) ip_addresses[i].find(".") != -1){
       returned_record = GeoIP_record_by_name(gi_4, string_to_const_pt(ip_addresses[i]));
     } else {
       //Otherwise, IPv6, which we cannot 

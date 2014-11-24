@@ -45,15 +45,14 @@ std::string url_filter(std::string url) {
     url = str_tolower(url);
     
     //Check for www, remove if present
-    std::size_t www = url.find("www.");
-    
+    std::size_t www_check = url.find("www.");
+
     //If it's present
-    if(www >= 0){
-      url = url.substr(www+4);
+    if((signed int) www_check != -1){
+      url = url.substr(www_check+4);
     }
     
   }
-  
   return url;
 }
 
@@ -189,7 +188,7 @@ std::vector< std::string > parse_uuids(std::vector< std::string > urls) {
     std::size_t ID_loc = urls[i].find("appInstallID=");
     
     //Does it exist?
-    if(ID_loc >= 0){
+    if((signed int) ID_loc != -1){
       
       //If so, extract the next 
       output[i] = urls[i].substr(ID_loc+13,ID_loc+49);
