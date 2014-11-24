@@ -18,6 +18,7 @@
 #'
 #'@return a list containing the results of FUN for each element of X.
 #'
+#'@importFrom parallel mclapply
 #'@export
 parlapply <- function(X, FUN, ...){
   
