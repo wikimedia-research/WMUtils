@@ -1,7 +1,7 @@
 #' @title ua_parse
 #' @description user agent parsing
 #' @details
-#' \code{ua_parse} acts as a connector to the C++ implementation of
+#' \code{ua_parse} is the R/C++ implementation of
 #' \href{https://github.com/ua-parser/uap-cpp}{tobie's ua-parser}, consuming a vector of user agents
 #' and returning a data frame, with each field (see 'arguments') as a distinct column.
 #' 
