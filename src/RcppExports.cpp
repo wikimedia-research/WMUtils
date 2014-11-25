@@ -110,6 +110,36 @@ BEGIN_RCPP
     return __sexp_result;
 END_RCPP
 }
+// extract_fields
+std::list < std::string > extract_fields(std::string fileline);
+RcppExport SEXP WMUtils_extract_fields(SEXP filelineSEXP) {
+BEGIN_RCPP
+    SEXP __sexp_result;
+    {
+        Rcpp::RNGScope __rngScope;
+        Rcpp::traits::input_parameter< std::string >::type fileline(filelineSEXP );
+        std::list < std::string > __result = extract_fields(fileline);
+        PROTECT(__sexp_result = Rcpp::wrap(__result));
+    }
+    UNPROTECT(1);
+    return __sexp_result;
+END_RCPP
+}
+// c_sampled_logs
+std::list < std::list < std::string > > c_sampled_logs(const char* filename);
+RcppExport SEXP WMUtils_c_sampled_logs(SEXP filenameSEXP) {
+BEGIN_RCPP
+    SEXP __sexp_result;
+    {
+        Rcpp::RNGScope __rngScope;
+        Rcpp::traits::input_parameter< const char* >::type filename(filenameSEXP );
+        std::list < std::list < std::string > > __result = c_sampled_logs(filename);
+        PROTECT(__sexp_result = Rcpp::wrap(__result));
+    }
+    UNPROTECT(1);
+    return __sexp_result;
+END_RCPP
+}
 // session_count
 int session_count(NumericVector x, int local_minimum = 3600);
 RcppExport SEXP WMUtils_session_count(SEXP xSEXP, SEXP local_minimumSEXP) {

@@ -3,14 +3,11 @@
 \alias{sampled_logs}
 \title{Retrieve data from the sampled logs}
 \usage{
-sampled_logs(file, dt = TRUE)
+sampled_logs(file)
 }
 \arguments{
 \item{file}{either the full name of a sampled log file, or the year/month/day of the log file you want,
 provided as YYYYMMDD}
-
-\item{dt}{whether to return the sampled logs as a data.table or not. Set to TRUE
-by default.}
 }
 \value{
 a data.frame containing the sampled logs of the day you asked for.
@@ -26,6 +23,9 @@ the daily dumps are not truncated at precisely the stroke of midnight; for the e
 you can expect to see some of the logs from 20140602 and be missing some from the 1st,
 which will be in 20140531. Slight fuzziness around date ranges may be necessary to get all the
 traffic you want.
+
+It does not return all the fields from the log file, merely the most useful ones - namely timestamp,
+ip_address, status_code, URL, mime_type, referer, x_forwarded, user_agent, lang and x_analytics.
 }
 \author{
 Oliver Keyes <okeyes@wikimedia.org>
