@@ -158,10 +158,6 @@ geo_netspeed <- function(ip_addresses) {
     .Call('WMUtils_geo_netspeed', PACKAGE = 'WMUtils', ip_addresses)
 }
 
-extract_fields <- function(fileline) {
-    .Call('WMUtils_extract_fields', PACKAGE = 'WMUtils', fileline)
-}
-
 c_sampled_logs <- function(filename) {
     .Call('WMUtils_c_sampled_logs', PACKAGE = 'WMUtils', filename)
 }

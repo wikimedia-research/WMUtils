@@ -14,13 +14,10 @@
 # limitations under the License.
 */
 
-
 #include <fstream>
 #include <boost/algorithm/string/replace.hpp>
 #include <yaml-cpp/yaml.h>
 #include "internal_ua_parser.h"
-
-
 
 namespace ua_parser {
 BrowserParser::BrowserParser(const YAML::Node &yaml_attributes) {

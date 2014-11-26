@@ -3,7 +3,6 @@
 #include <iostream>
 using namespace Rcpp;
 
-//[[Rcpp::export]]
 std::list < std::string > extract_fields(std::string fileline){
   
   //Construct a vector of the fields we want, and of the split results (and output)

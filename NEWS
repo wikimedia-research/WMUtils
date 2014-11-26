@@ -8,6 +8,7 @@ Version 2.0.0
 *Better test coverage
 *Tweaks to log_sieve for a slightly more refined definition.
 *hive_range() and rpy deprecated and removed.
+*sampled_logs() now (somewhat) C++ based.
 
 Version 1.5.0
 -------------------------------------------------------------------------
