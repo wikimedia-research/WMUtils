@@ -8,10 +8,8 @@ Maintainer: Oliver Keyes <okeyes@wikimedia.org>
 Description: Geolocation, user agent parsing and more!
 License: MIT + file LICENSE
 Depends:
-    jsonlite,
     RMySQL,
     data.table,
-    parallel,
     RJDBC
 Imports:
     Rcpp (>= 0.11.3)

@@ -9,6 +9,7 @@ Version 2.0.0
 *Tweaks to log_sieve for a slightly more refined definition.
 *hive_range() and rpy deprecated and removed.
 *sampled_logs() now (somewhat) C++ based.
+*rpy and parlapply removed.
 
 Version 1.5.0
 -------------------------------------------------------------------------
