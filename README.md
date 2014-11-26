@@ -27,12 +27,10 @@ values and turns them into the appropriate strings, or takes localised strings a
 numeric values.
 
 #####Geolocation
-Through the [pygeoip](https://github.com/appliedsec/pygeoip) library, and WMUtil's [rpy](https://github.com/Ironholds/WMUtils/blob/master/R/rpy.R)
-functionality, we can take IP addresses and geolocate them. [geo_country](https://github.com/Ironholds/WMUtils/blob/master/R/geo_country.R) localises to country level, and [geo_city](https://github.com/Ironholds/WMUtils/blob/master/R/geo_city.R) to city-level, while [geo_tz](https://github.com/Ironholds/WMUtils/blob/master/R/geo_tz.R) and [geo_netspeed](https://github.com/Ironholds/WMUtils/blob/master/R/geo_netspeed.R) retrieve a tzdata-compatible timezone and
-a connection type, respectively.
+Through the [MaxMind C API](https://github.com/maxmind/geoip-api-c), we can take IP addresses and geolocate them. [geo_country](https://github.com/Ironholds/WMUtils/blob/master/R/geo_country.R) localises to country level, and [geo_city](https://github.com/Ironholds/WMUtils/blob/master/R/geo_city.R) to city-level, while [geo_tz](https://github.com/Ironholds/WMUtils/blob/master/R/geo_tz.R) and [geo_netspeed](https://github.com/Ironholds/WMUtils/blob/master/R/geo_netspeed.R) retrieve a tzdata-compatible timezone and a connection type, respectively.
 
 #####User-agent parsing
-With the assistance of tobie's [ua-parser](https://github.com/tobie/ua-parser) library (specifically the Python port),
+With the assistance of tobie's [ua-parser](https://github.com/ua-parser/uap-cpp) library (specifically the C++ port),
 we can take user agents and use [ua_parse](https://github.com/Ironholds/WMUtils/blob/master/R/ua_parse.R) to localise
 them, retrieving the device, operating system, browser, and browser major/minor versions. This includes spider
 identification.
