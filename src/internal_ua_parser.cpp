@@ -32,8 +32,6 @@ BrowserParser::BrowserParser(const YAML::Node &yaml_attributes) {
     *pName >> overrides.minor;
 }
 
-
-
 Browser BrowserParser::Parse(const std::string &user_agent_string) {
   Browser browser;
   using namespace std;
@@ -97,7 +95,6 @@ OperatingSystem OperatingSystemParser::Parse(const std::string &user_agent_strin
     }
 
     // If the group is not found, use the override value even if it is blank
-
     if (overrides.major.empty()&&result.size()>2)
       os.major = result[2].str();
     else
@@ -169,7 +166,7 @@ static std::vector<ParserType> ParseYaml(const YAML::Node &yaml_regexes) {
 Parser::Parser(const std::string &yaml_file) {
   std::ifstream in(yaml_file.c_str());
   if (!in.good()) {
-    std::cerr << "Could not open YAML file" << yaml_file << std::endl;
+    throw std::range_error("Could not open YAML file");
     return;
   }
 
