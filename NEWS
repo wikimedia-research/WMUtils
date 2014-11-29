@@ -10,6 +10,7 @@ Version 2.0.0
 *hive_range() and rpy deprecated and removed.
 *sampled_logs() now (somewhat) C++ based.
 *rpy and parlapply removed.
+*Include the cryptohash() function.
 
 Version 1.5.0
 -------------------------------------------------------------------------

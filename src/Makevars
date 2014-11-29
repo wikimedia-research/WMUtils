@@ -1,2 +1,2 @@
-PKG_LIBS = -lGeoIP -lboost_regex -lboost_system -lyaml-cpp -lglog
+PKG_LIBS = -lssl -lcrypto -lGeoIP -lboost_regex -lboost_system -lyaml-cpp -lglog
 PKG_CXXFLAGS = -std=c++11

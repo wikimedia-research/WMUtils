@@ -5,6 +5,22 @@
 
 using namespace Rcpp;
 
+// c_cryptohash
+std::vector < std::string > c_cryptohash(std::vector < std::string > x, std::string algorithm);
+RcppExport SEXP WMUtils_c_cryptohash(SEXP xSEXP, SEXP algorithmSEXP) {
+BEGIN_RCPP
+    SEXP __sexp_result;
+    {
+        Rcpp::RNGScope __rngScope;
+        Rcpp::traits::input_parameter< std::vector < std::string > >::type x(xSEXP );
+        Rcpp::traits::input_parameter< std::string >::type algorithm(algorithmSEXP );
+        std::vector < std::string > __result = c_cryptohash(x, algorithm);
+        PROTECT(__sexp_result = Rcpp::wrap(__result));
+    }
+    UNPROTECT(1);
+    return __sexp_result;
+END_RCPP
+}
 // extract_mcc
 std::vector < std::string > extract_mcc(std::vector < std::string > x_analytics);
 RcppExport SEXP WMUtils_extract_mcc(SEXP x_analyticsSEXP) {
