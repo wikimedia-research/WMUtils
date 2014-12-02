@@ -1,13 +1,29 @@
 #include <Rcpp.h>
-#include <fstream>
 #include <iostream>
+#include <fstream>
+
 using namespace Rcpp;
 
-std::list < std::string > extract_fields(std::string fileline){
+struct requests {
+  
+  std::vector < std::string > timestamp;
+  std::vector < std::string > ip_address;
+  std::vector < std::string > status_code;
+  std::vector < std::string > URL;
+  std::vector < std::string > mime_type;
+  std::vector < std::string > referer;
+  std::vector < std::string > x_forwarded;
+  std::vector < std::string > user_agent;
+  std::vector < std::string > lang;
+  std::vector < std::string > x_analytics;
+  
+};
+
+std::vector < std::string > extract_fields(std::string fileline){
   
   //Construct a vector of the fields we want, and of the split results (and output)
   std::vector < int > wanted_fields = {2,4,5,8,10,11,12,13,14,15};
-  std::list < std::string > output;
+  std::vector < std::string > output;
   int indices = 0;
 
   //Until the string is empty...
@@ -44,14 +60,15 @@ std::list < std::string > extract_fields(std::string fileline){
 }
 
 // [[Rcpp::export]]
-std::list < std::list < std::string > > c_sampled_logs(const char* filename){
+DataFrame c_sampled_logs(const char* filename){
   
   //Temp objects
   std::string holding;
-  std::list < std::list < std::string > > output;
+  std::vector < std::string > filter_output;
+  requests request_hold;
   
   //Open connector and check
-  std::ifstream con(filename);
+  std::ifstream con(filename, std::ios_base::in | std::ios_base::binary);
   if(!con){
     throw std::range_error("File could not be opened.");
   }
@@ -61,10 +78,24 @@ std::list < std::list < std::string > > c_sampled_logs(const char* filename){
     
     getline(con, holding);
     if(!holding.empty()){
-      output.push_back(extract_fields(holding));
+      filter_output = extract_fields(holding);
+      request_hold.timestamp.push_back(filter_output[0]);
+      request_hold.ip_address.push_back(filter_output[1]);
+      request_hold.status_code.push_back(filter_output[2]);
+      request_hold.URL.push_back(filter_output[3]);
+      request_hold.mime_type.push_back(filter_output[4]);
+      request_hold.referer.push_back(filter_output[5]);
+      request_hold.x_forwarded.push_back(filter_output[6]);
+      request_hold.user_agent.push_back(filter_output[7]);
+      request_hold.lang.push_back(filter_output[8]);
+      request_hold.x_analytics.push_back(filter_output[9]);
     }
   }
   
-  //Return
-  return(output);
+  return DataFrame::create(_["timestamp"] = request_hold.timestamp, _["ip_address"] = request_hold.ip_address, _["status_code"] = request_hold.status_code,
+                         _["URL"] = request_hold.URL, _["mime_type"] = request_hold.mime_type, _["referer"] = request_hold.referer,
+                         _["x_forwarded"] = request_hold.x_forwarded, _["user_agent"] = request_hold.user_agent, _["lang"] = request_hold.lang,
+                         _["x_analytics"] = request_hold.x_analytics,
+                         _["stringsAsFactors"] = false);
+  
 }

@@ -62,10 +62,7 @@ sampled_logs <- function(file){
   
   #Remove temp file
   file.remove(output_file)
-  
-  #Turn into a data.frame
-  data <- data.frame(matrix(unlist(data), nrow = length(data), byrow = TRUE), stringsAsFactors = FALSE)
-  
+    
   #Turn into a data.table and return
   data <- as.data.table(data)
   setnames(data, 1:ncol(data), resultnames)

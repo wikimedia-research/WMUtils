@@ -127,14 +127,14 @@ BEGIN_RCPP
 END_RCPP
 }
 // c_sampled_logs
-std::list < std::list < std::string > > c_sampled_logs(const char* filename);
+DataFrame c_sampled_logs(const char* filename);
 RcppExport SEXP WMUtils_c_sampled_logs(SEXP filenameSEXP) {
 BEGIN_RCPP
     SEXP __sexp_result;
     {
         Rcpp::RNGScope __rngScope;
         Rcpp::traits::input_parameter< const char* >::type filename(filenameSEXP );
-        std::list < std::list < std::string > > __result = c_sampled_logs(filename);
+        DataFrame __result = c_sampled_logs(filename);
         PROTECT(__sexp_result = Rcpp::wrap(__result));
     }
     UNPROTECT(1);
