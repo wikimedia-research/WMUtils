@@ -107,7 +107,7 @@ std::vector < std::string > geo_country (std::vector < std::string > ip_addresse
       returnedCountry = GeoIP_country_code_by_addr(gi_4, string_to_const_pt(ip_addresses[i]));
     } else {
       //Otherwise, IPv6
-      returnedCountry = GeoIP_country_code_by_addr(gi_6, string_to_const_pt(ip_addresses[i]));
+      returnedCountry = GeoIP_country_code_by_addr_v6(gi_6, string_to_const_pt(ip_addresses[i]));
     }
     
     //Either way, if it's NULL, save "Invalid"
