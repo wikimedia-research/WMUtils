@@ -47,7 +47,7 @@ std::vector< std::string > xff_handler(std::vector< std::string > ips) {
     std::size_t last_loc = ips[i].rfind(", ");
     
     //If it doesn't, no sequence - return the ip
-    if((signed int) last_loc != -1){
+    if((signed int) last_loc == -1){
       
       output[i] = ips[i];
     
