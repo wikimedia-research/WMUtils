@@ -106,11 +106,7 @@ std::vector< std::string > host_handler(std::vector < std::string > urls) {
 std::vector < std::string > project_extractor(std::vector < std::string > urls){
   
   //Note possible options
-  std::set < std::string > subdomains;
-  subdomains.insert("mobile");
-  subdomains.insert("m");
-  subdomains.insert("wap");
-  subdomains.insert("zero");
+  std::set < std::string > subdomains = {"mobile","m","wap","zero"};
 
   //Grab size, construct an output vector and holding object
   int input_length = urls.size();
