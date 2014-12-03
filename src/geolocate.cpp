@@ -85,6 +85,9 @@ std::vector< std::string > xff_handler(std::vector< std::string > ips) {
 // [[Rcpp::export]]
 std::vector < std::string > geo_country (std::vector < std::string > ip_addresses) {
   
+  //Create a vector of invalid country codes
+  std::vector < std::string > invalid_codes = {"A1","A2","O1","EU","AP"};
+  
   //Load the IPv4/6 files - it'll conveniently throw an error if that fails. Yay!
   GeoIP *gi_4 = GeoIP_open("/usr/share/GeoIP/GeoIP.dat", GEOIP_MEMORY_CACHE);
   GeoIP *gi_6 = GeoIP_open("/usr/share/GeoIP/GeoIPv6.dat", GEOIP_MEMORY_CACHE);
@@ -95,6 +98,7 @@ std::vector < std::string > geo_country (std::vector < std::string > ip_addresse
   //Check input size, create output
   int input_size = ip_addresses.size();
   std::vector < std::string > output(input_size);
+  std::string holding;
   
   //Holding object
   const char *returnedCountry;
@@ -118,7 +122,14 @@ std::vector < std::string > geo_country (std::vector < std::string > ip_addresse
     } else {
       
       //Otherwise, do some hideous type conversion
-      output[i] = const_pt_to_string(returnedCountry);
+      holding = const_pt_to_string(returnedCountry);
+      
+      if(find(invalid_codes.begin(), invalid_codes.end(), holding) == invalid_codes.end()) {
+        output[i] = holding;
+      } else {
+        output[i] = "Invalid";
+      }
+      
     }
 
   }
