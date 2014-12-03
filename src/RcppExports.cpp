@@ -142,13 +142,13 @@ BEGIN_RCPP
 END_RCPP
 }
 // session_count
-int session_count(NumericVector x, int local_minimum = 3600);
+int session_count(std::vector < int > x, int local_minimum = 3600);
 RcppExport SEXP WMUtils_session_count(SEXP xSEXP, SEXP local_minimumSEXP) {
 BEGIN_RCPP
     SEXP __sexp_result;
     {
         Rcpp::RNGScope __rngScope;
-        Rcpp::traits::input_parameter< NumericVector >::type x(xSEXP );
+        Rcpp::traits::input_parameter< std::vector < int > >::type x(xSEXP );
         Rcpp::traits::input_parameter< int >::type local_minimum(local_minimumSEXP );
         int __result = session_count(x, local_minimum);
         PROTECT(__sexp_result = Rcpp::wrap(__result));
@@ -158,16 +158,16 @@ BEGIN_RCPP
 END_RCPP
 }
 // session_length
-NumericVector session_length(NumericVector intertimes, int local_minimum = 3600, int average_intertime = 430);
+std::vector < int > session_length(std::vector < int > intertimes, int local_minimum = 3600, int average_intertime = 430);
 RcppExport SEXP WMUtils_session_length(SEXP intertimesSEXP, SEXP local_minimumSEXP, SEXP average_intertimeSEXP) {
 BEGIN_RCPP
     SEXP __sexp_result;
     {
         Rcpp::RNGScope __rngScope;
-        Rcpp::traits::input_parameter< NumericVector >::type intertimes(intertimesSEXP );
+        Rcpp::traits::input_parameter< std::vector < int > >::type intertimes(intertimesSEXP );
         Rcpp::traits::input_parameter< int >::type local_minimum(local_minimumSEXP );
         Rcpp::traits::input_parameter< int >::type average_intertime(average_intertimeSEXP );
-        NumericVector __result = session_length(intertimes, local_minimum, average_intertime);
+        std::vector < int > __result = session_length(intertimes, local_minimum, average_intertime);
         PROTECT(__sexp_result = Rcpp::wrap(__result));
     }
     UNPROTECT(1);
@@ -175,15 +175,15 @@ BEGIN_RCPP
 END_RCPP
 }
 // session_pages
-NumericVector session_pages(NumericVector intertimes, int local_minimum = 3600);
+std::vector < int > session_pages(std::vector < int > intertimes, int local_minimum = 3600);
 RcppExport SEXP WMUtils_session_pages(SEXP intertimesSEXP, SEXP local_minimumSEXP) {
 BEGIN_RCPP
     SEXP __sexp_result;
     {
         Rcpp::RNGScope __rngScope;
-        Rcpp::traits::input_parameter< NumericVector >::type intertimes(intertimesSEXP );
+        Rcpp::traits::input_parameter< std::vector < int > >::type intertimes(intertimesSEXP );
         Rcpp::traits::input_parameter< int >::type local_minimum(local_minimumSEXP );
-        NumericVector __result = session_pages(intertimes, local_minimum);
+        std::vector < int > __result = session_pages(intertimes, local_minimum);
         PROTECT(__sexp_result = Rcpp::wrap(__result));
     }
     UNPROTECT(1);
@@ -191,14 +191,14 @@ BEGIN_RCPP
 END_RCPP
 }
 // cpp_intertimes
-NumericVector cpp_intertimes(NumericVector timestamps);
+std::vector < int > cpp_intertimes(std::vector < int > timestamps);
 RcppExport SEXP WMUtils_cpp_intertimes(SEXP timestampsSEXP) {
 BEGIN_RCPP
     SEXP __sexp_result;
     {
         Rcpp::RNGScope __rngScope;
-        Rcpp::traits::input_parameter< NumericVector >::type timestamps(timestampsSEXP );
-        NumericVector __result = cpp_intertimes(timestamps);
+        Rcpp::traits::input_parameter< std::vector < int > >::type timestamps(timestampsSEXP );
+        std::vector < int > __result = cpp_intertimes(timestamps);
         PROTECT(__sexp_result = Rcpp::wrap(__result));
     }
     UNPROTECT(1);

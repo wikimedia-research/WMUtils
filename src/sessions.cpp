@@ -2,34 +2,6 @@
 #include <Rcpp.h>
 using namespace Rcpp;
 
-//Generalised NumericVector expander
-NumericVector numeric_vector_expander(NumericVector x, int to_insert) {
-  
-  //Calculate existing vector's size, create dummy output
-  int existing_size = x.size();
-  
-  //If the existing vector's first value is zero, sod it, just return to_insert as a NumericVector
-  if( (existing_size == 0) | ((existing_size == 1) & (x[0] == 0))){
-    
-    NumericVector holding_out(1);
-    holding_out[0] = to_insert;
-    return holding_out;
-    
-  } else {//Otherwise...
-    
-    //Create new vector, which is existing_size+1 in length
-    NumericVector holding_out(existing_size+1);
-    
-    //Insert the existing values, then pop the new one on the end
-    holding_out[seq(0,(existing_size-1))] = x;
-    holding_out[existing_size] = to_insert;
-    
-    //Return
-    return holding_out;
-  }
-  
-}
-
 //' @title
 //' session_count
 //' @description
@@ -51,7 +23,7 @@ NumericVector numeric_vector_expander(NumericVector x, int to_insert) {
 //' 
 //' @export
 // [[Rcpp::export]]
-int session_count(NumericVector x, int local_minimum = 3600) {
+int session_count(std::vector < int > x, int local_minimum = 3600) {
   
   //Create output object
   int count = 1;
@@ -99,11 +71,11 @@ int session_count(NumericVector x, int local_minimum = 3600) {
 //' 
 //'@export
 // [[Rcpp::export]]
-NumericVector session_length(NumericVector intertimes, int local_minimum = 3600, int average_intertime = 430) {
+std::vector < int > session_length(std::vector < int > intertimes, int local_minimum = 3600, int average_intertime = 430) {
   
   //Declare output object
-  NumericVector output(1);
-  output[0] = average_intertime;
+  std::vector < int > output;
+  output.push_back(average_intertime);
   
   //If there's only one element...
   if(intertimes.size() == 1){
@@ -119,7 +91,7 @@ NumericVector session_length(NumericVector intertimes, int local_minimum = 3600,
       
       //If the value is greater than the local minimum, we have two sessions - and no way of extracting
       //the length of each. So, two sessions of average_intertime's duration.
-      output = numeric_vector_expander(output, average_intertime);
+      output.push_back(average_intertime);
       return output;
       
     }
@@ -128,7 +100,7 @@ NumericVector session_length(NumericVector intertimes, int local_minimum = 3600,
     
     //Create holding objects
     int session_length = average_intertime;
-    NumericVector output(1);
+    std::vector < int > output;
     
     //Loop. For each intertime value...
     for(int i = 0; i < intertimes.size(); i++) {
@@ -140,8 +112,8 @@ NumericVector session_length(NumericVector intertimes, int local_minimum = 3600,
       
       } else {
       
-        //If the value is greater, append the existing session_length value to output, then null it
-        output = numeric_vector_expander(output, session_length);
+        //If the value is greater, push_back the existing session_length value to output, then null it
+        output.push_back(session_length);
         session_length = average_intertime;
         
       }
@@ -153,7 +125,7 @@ NumericVector session_length(NumericVector intertimes, int local_minimum = 3600,
     //to the stack
     if((session_length > average_intertime) | (intertimes[(intertimes.size() - 1)] >= local_minimum)){
       
-      output = numeric_vector_expander(output, session_length);
+      output.push_back(session_length);
       
     }
     
@@ -182,25 +154,24 @@ NumericVector session_length(NumericVector intertimes, int local_minimum = 3600,
 //'
 //'@export
 // [[Rcpp::export]]
-NumericVector session_pages(NumericVector intertimes, int local_minimum = 3600) {
+std::vector < int > session_pages(std::vector < int > intertimes, int local_minimum = 3600) {
   
   //Declare output object
-  NumericVector output(1);
-  
+  std::vector < int > output;
+
   //If there's only one intertime, this is easy - one session, which is two pages.
   if(intertimes.size() == 1){
     
     //Unless the intertime is >= the local_minimum, in which case we're looking at two one-page sessions.
     if(intertimes[0] >= local_minimum){
       
-      //Create holding object, assign values to it, replace output
-      output[0] = 1;
-      output = numeric_vector_expander(output,1);
+      output.push_back(1);
+      output.push_back(1);
       
     } else {
       
       //Otherwise just rely on the existing "output"
-      output[0] = 2;
+      output.push_back(2);
       
     }
 
@@ -221,24 +192,15 @@ NumericVector session_pages(NumericVector intertimes, int local_minimum = 3600) 
       //Otherwise, pop pages on output and create a new entry
       } else {
         
-        output = numeric_vector_expander(output, pages);
+        output.push_back(pages);
         pages = 1;
         
       }
       
     }
-    
-    //If there has been a value > intertime_period, we need to pop things on again right at the end.
-    if((output.size() > 1) | (output[0] > 1)){
       
-      output = numeric_vector_expander(output, pages);
-        
-    } else {
-      
-      //Otherwise just add the pagecount for the "first" session.
-      output[0] = pages;
-      
-    }
+    output.push_back(pages);
+
   }
   
   return output;
@@ -246,13 +208,13 @@ NumericVector session_pages(NumericVector intertimes, int local_minimum = 3600) 
 }
 
 // [[Rcpp::export]]
-NumericVector cpp_intertimes(NumericVector timestamps) {
+std::vector < int > cpp_intertimes(std::vector < int > timestamps) {
   
   //Identify size of input object
   int input_size = timestamps.size();
   
   //Instantiate output object
-  NumericVector output(input_size-1);
+  std::vector < int > output(input_size-1);
   
   //Sort input
   std::sort(timestamps.begin(),timestamps.end());
@@ -261,7 +223,7 @@ NumericVector cpp_intertimes(NumericVector timestamps) {
   for(int i = 1; i < input_size;++i){
     
     //For each entry, the output value is [entry] minus [previous entry]
-    output[i-1] = (timestamps[i] - timestamps[i-1]);
+    output.push_back((timestamps[i] - timestamps[i-1]));
     
   }
   
