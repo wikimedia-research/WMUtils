@@ -243,8 +243,26 @@ session_pages <- function(intertimes, local_minimum = 3600L) {
     .Call('WMUtils_session_pages', PACKAGE = 'WMUtils', intertimes, local_minimum)
 }
 
-cpp_intertimes <- function(timestamps) {
-    .Call('WMUtils_cpp_intertimes', PACKAGE = 'WMUtils', timestamps)
+#'@title intertimes
+#'
+#'@description calculate inter-time periods between timestamps
+#'
+#'@details
+#'\code{\link{intertimes}} takes a set of timestamps and generates the interval between them, in seconds,
+#'having sorted the timestamps from earliest to latest.
+#'
+#'@param timestamps a vector of second values. These can be extracted by converting
+#'POSIXlt or POSIXct timestamps into numeric elements through a call to \code{\link{as.numeric}}.
+#'
+#'@seealso
+#'\code{\link{session_count}}, which takes a set of intertime periods and work out how many sessions
+#'they represent, \code{\link{session_length}}, which works out the approximate length
+#'(in seconds) of each session, or \code{\link{session_pages}}, which works out how many pages
+#'are represented (split into sessions) by a series of intertime values.
+#'
+#'@export
+intertimes <- function(timestamps) {
+    .Call('WMUtils_intertimes', PACKAGE = 'WMUtils', timestamps)
 }
 
 #'@export

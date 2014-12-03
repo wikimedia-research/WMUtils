@@ -190,15 +190,15 @@ BEGIN_RCPP
     return __sexp_result;
 END_RCPP
 }
-// cpp_intertimes
-std::vector < int > cpp_intertimes(std::vector < int > timestamps);
-RcppExport SEXP WMUtils_cpp_intertimes(SEXP timestampsSEXP) {
+// intertimes
+std::vector < int > intertimes(std::vector < int > timestamps);
+RcppExport SEXP WMUtils_intertimes(SEXP timestampsSEXP) {
 BEGIN_RCPP
     SEXP __sexp_result;
     {
         Rcpp::RNGScope __rngScope;
         Rcpp::traits::input_parameter< std::vector < int > >::type timestamps(timestampsSEXP );
-        std::vector < int > __result = cpp_intertimes(timestamps);
+        std::vector < int > __result = intertimes(timestamps);
         PROTECT(__sexp_result = Rcpp::wrap(__result));
     }
     UNPROTECT(1);

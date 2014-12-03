@@ -207,23 +207,46 @@ std::vector < int > session_pages(std::vector < int > intertimes, int local_mini
   
 }
 
+//'@title intertimes
+//'
+//'@description calculate inter-time periods between timestamps
+//'
+//'@details
+//'\code{\link{intertimes}} takes a set of timestamps and generates the interval between them, in seconds,
+//'having sorted the timestamps from earliest to latest.
+//'
+//'@param timestamps a vector of second values. These can be extracted by converting
+//'POSIXlt or POSIXct timestamps into numeric elements through a call to \code{\link{as.numeric}}.
+//'
+//'@seealso
+//'\code{\link{session_count}}, which takes a set of intertime periods and work out how many sessions
+//'they represent, \code{\link{session_length}}, which works out the approximate length
+//'(in seconds) of each session, or \code{\link{session_pages}}, which works out how many pages
+//'are represented (split into sessions) by a series of intertime values.
+//'
+//'@export
 // [[Rcpp::export]]
-std::vector < int > cpp_intertimes(std::vector < int > timestamps) {
+std::vector < int > intertimes(std::vector < int > timestamps) {
   
-  //Identify size of input object
+  //Identify size of input object, create output
   int input_size = timestamps.size();
+  std::vector < int > output;
   
-  //Instantiate output object
-  std::vector < int > output(input_size-1);
-  
-  //Sort input
-  std::sort(timestamps.begin(),timestamps.end());
-  
-  //Loop over the data
-  for(int i = 1; i < input_size;++i){
+  //If inpute size is 1, return -1
+  if(input_size == 1){
+    output.push_back(-1);
+  } else {
     
-    //For each entry, the output value is [entry] minus [previous entry]
-    output.push_back((timestamps[i] - timestamps[i-1]));
+    //Otherwise, sort input
+    std::sort(timestamps.begin(),timestamps.end());
+  
+    //Loop over the data
+    for(int i = 1; i < input_size;++i){
+      
+      //For each entry, the output value is [entry] minus [previous entry]
+      output.push_back((timestamps[i] - timestamps[i-1]));
+      
+    }
     
   }
   

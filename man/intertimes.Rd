@@ -6,8 +6,8 @@
 intertimes(timestamps)
 }
 \arguments{
-\item{timestamps}{a vector of timestamps. These can be POSIXlt, POSIXct, numeric/integer (if you've
-already converted them into seconds), or either MediaWiki or RequestLog timestamps.}
+\item{timestamps}{a vector of second values. These can be extracted by converting
+POSIXlt or POSIXct timestamps into numeric elements through a call to \code{\link{as.numeric}}.}
 }
 \description{
 calculate inter-time periods between timestamps
