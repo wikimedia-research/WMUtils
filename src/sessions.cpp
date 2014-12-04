@@ -25,15 +25,27 @@ using namespace Rcpp;
 // [[Rcpp::export]]
 int session_count(std::vector < int > x, int local_minimum = 3600) {
   
+  //Note object length
+  int length = x.size();
+  
   //Create output object
   int count = 1;
   
   //Loop.
-  for(int i = 0; i < x.size(); i++) {
+  for(int i = 0; i < length; i++) {
     
-    //If the value is greater than the local minimum, increment the count
+    //If the value is greater than the local minimum
     if(x[i] > local_minimum){
-      count ++;
+      
+      //If the next value is not (or this is the last value)
+      if(i+1 != length){
+        if(x[i+1] <= local_minimum){
+          //Increment
+          count ++;
+        }
+
+      }
+
     }
     
   }

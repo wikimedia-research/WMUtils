@@ -90,6 +90,16 @@ test_that("session_count handles multiple sessions correctly", {
   
 })
 
+test_that("session_count handles multiple sessions with multiple sequential >threshold events correctly", {
+  
+  #Example event(s)
+  events <- c(12,30,4000,4500,1)
+  
+  #Test resulting values
+  expect_that(session_count(events), equals(2))
+  
+})
+
 test_that("session_pages handles 1-intertime vectors correctly", {
   
   #Example event(s)
