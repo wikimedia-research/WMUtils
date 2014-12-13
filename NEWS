@@ -1,4 +1,4 @@
-Version 2.0.0
+Version 1.6.0
 *All geolocation and user agent parsing functions converted to C++ for added speed.
 *geo_region introduced for region/state-level geolocation
 *parse_uuid and host_handler also converted to C++.
@@ -11,6 +11,7 @@ Version 2.0.0
 *sampled_logs() now (somewhat) C++ based.
 *rpy and parlapply removed.
 *Include the cryptohash() function.
+*Intertimes() now C++-based.
 
 Version 1.5.0
 -------------------------------------------------------------------------

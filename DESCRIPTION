@@ -1,8 +1,8 @@
 Package: WMUtils
 Type: Package
 Title: Utilities for Wikimedia staffers
-Version: 1.5.0
-Date: 2014-11-11
+Version: 1.6.0
+Date: 2014-12-03
 Author: Oliver Keyes
 Maintainer: Oliver Keyes <okeyes@wikimedia.org>
 Description: Geolocation, user agent parsing and more!
