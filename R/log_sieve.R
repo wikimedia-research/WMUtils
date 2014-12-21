@@ -27,7 +27,7 @@ log_sieve <- function(log_data){
     
     #Is it an app request? Is it a pageview from the app?
     is_app <- grepl(x = x$user_agent, pattern = "WikipediaApp", fixed = TRUE, useBytes = TRUE)
-    is_pv <- grepl(x = x$URL, pattern = "sections=0", fixed = TRUE, useBytes = TRUE)
+    is_pv <- grepl(x = x$url, pattern = "sections=0", fixed = TRUE, useBytes = TRUE)
     x <- x[is_app & is_pv,]
     
     #Return
@@ -50,15 +50,15 @@ log_sieve <- function(log_data){
                                      "application/json; charset=utf-8"),]
   
   #Limit to 'production' sites
-  log_data <- log_data[grepl(x = log_data$URL, pattern = "((commons|meta|species)\\.((m|mobile|wap|zero)\\.)?wikimedia\\.)|(?<!wwww)\\.(wik(tionary|isource|ibooks|ivoyage|iversity|iquote|inews|ipedia|idata)\\.)",
+  log_data <- log_data[grepl(x = log_data$url, pattern = "((commons|meta|species)\\.((m|mobile|wap|zero)\\.)?wikimedia\\.)|(?<!wwww)\\.(wik(tionary|isource|ibooks|ivoyage|iversity|iquote|inews|ipedia|idata)\\.)",
                      perl = TRUE, useBytes = TRUE),]
   
   #Exclude non-app API hits.
-  is_api <- grepl(x = log_data$URL, pattern = "api.php", fixed = TRUE, useBytes = TRUE)
+  is_api <- grepl(x = log_data$url, pattern = "api.php", fixed = TRUE, useBytes = TRUE)
   log_data <- rbind(log_data[!is_api,], app_handler(log_data[is_api,]))
   
   #Limit to content directories
-  log_data <- log_data[grepl(x = log_data$URL, pattern = "(/zh(-(tw|cn|hant|mo|my|hans|hk|sg))?/|/sr(-(ec|el))?/|/wiki(/|\\?(cur|old)id=)|/w/|/\\?title=)",
+  log_data <- log_data[grepl(x = log_data$url, pattern = "(/zh(-(tw|cn|hant|mo|my|hans|hk|sg))?/|/sr(-(ec|el))?/|/wiki(/|\\?(cur|old)id=)|/w/|/\\?title=)",
                      useBytes = TRUE, perl = TRUE),]
   
   #Limit to successful requests
@@ -68,8 +68,8 @@ log_sieve <- function(log_data){
   log_data <- log_data[!grepl(x = log_data$user_agent, pattern = "^MediaWiki/1\\.", useBytes = TRUE, perl = TRUE)]
   
   #Exclude special pages and searches
-  log_data <- log_data[!grepl(x = log_data$URL, pattern = "Special:", useBytes = TRUE, fixed = TRUE),]
-  log_data <- log_data[!grepl(x = log_data$URL, pattern = "index.php?search", useBytes = TRUE, fixed = TRUE),]
+  log_data <- log_data[!grepl(x = log_data$url, pattern = "Special:", useBytes = TRUE, fixed = TRUE),]
+  log_data <- log_data[!grepl(x = log_data$url, pattern = "index.php?search", useBytes = TRUE, fixed = TRUE),]
   
   #Normalise timestamps and eliminate entries with invalid ones
   pos_stamps <- log_strptime(log_data$timestamp)
