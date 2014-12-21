@@ -17,7 +17,7 @@
 #'traffic you want.
 #'
 #'It does not return all the fields from the log file, merely the most useful ones - namely timestamp,
-#'ip_address, status_code, URL, mime_type, referer, x_forwarded, user_agent, lang and x_analytics.
+#'ip_address, status_code, url, mime_type, referer, x_forwarded, user_agent, lang and x_analytics.
 #'
 #'@author Oliver Keyes <okeyes@@wikimedia.org>
 #'
@@ -26,46 +26,47 @@
 #'app UUIDs from URLs, \code{\link{log_sieve}} for filtering the sampled logs to "pageviews",
 #'and \code{\link{hive_query}} for querying the unsampled RequestLogs.
 #'
-#'@return a data.frame containing the sampled logs of the day you asked for.
+#'@return a data.table containing the useful columns from the sampled logs of the day you asked for.
 #'
 #'@export
 sampled_logs <- function(file){
   
-  #Note result names
-  resultnames <- c("timestamp","ip_address","status_code","URL","mime_type",
-                   "referer","x_forwarded","user_agent","lang","x_analytics")
+  #parsers, column names
+  sampled_parsers <- list(skip_parser(),skip_parser(),character_parser(),skip_parser(),
+                          character_parser(),character_parser(),skip_parser(),skip_parser(),
+                          character_parser(),skip_parser(), character_parser(),character_parser(),
+                          character_parser(), character_parser(), character_parser(), character_parser())
+  
+  sampled_colnames <-   c("squid","sequence_no",
+                          "timestamp", "servicetime",
+                          "ip_address", "status_code",
+                          "reply_size", "request_method",
+                          "url", "squid_status",
+                          "mime_type", "referer",
+                          "x_forwarded", "user_agent",
+                          "lang", "x_analytics")
   
   #Check whether a file was provided, or a date. If a data, construct a filename
   if(!grepl(x =  file, pattern = "/")){
     #Construct file address
-    origin_path <- paste("/a/squid/archive/sampled/sampled-1000.tsv.log-",file,".gz", sep = "")
-  } else {
-    #Otherwise, use the filename provided
-    origin_path <- file
+    file <- paste("/a/squid/archive/sampled/sampled-1000.tsv.log-",file,".gz", sep = "")
   }
   
   #Create temp file
   output_file <- tempfile()
-  save_file <- paste(output_file,".gz", sep = "")
   
-  #Copy file to save_file and unzip
-  if(!file.copy(from = origin_path, to = save_file, overwrite = TRUE)){
-    
-    warning("The file ", origin_path, " could not be found")
-    return(NULL)
-    
-  }
-  system(paste("gunzip", save_file))
-  
+  #Copy and unzip
+  system(paste("gunzip -c", file, ">", output_file))
+
   #Read in
-  data <- c_sampled_logs(output_file)
+  data <- read_delim(output_file, quote = "", delim = "\t",
+                     parsers = sampled_parsers, col_names = sampled_colnames)
+    
   
   #Remove temp file
   file.remove(output_file)
     
-  #Turn into a data.table and return
-  data <- as.data.table(data)
-  setnames(data, 1:ncol(data), resultnames)
-  return(data)
+  #Return
+  return(as.data.table(data))
   
 }

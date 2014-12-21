@@ -46,6 +46,7 @@
 #'@docType package
 #'@name WMUtils
 #'@import data.table
+#'@import fastread
 #'@importFrom Rcpp evalCpp
 #'@useDynLib WMUtils
 #'@aliases WMUtils WMUtils-package

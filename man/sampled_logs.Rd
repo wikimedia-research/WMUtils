@@ -10,7 +10,7 @@ sampled_logs(file)
 provided as YYYYMMDD}
 }
 \value{
-a data.frame containing the sampled logs of the day you asked for.
+a data.table containing the useful columns from the sampled logs of the day you asked for.
 }
 \description{
 \code{sampled_logs} reads in and parses data from the 1:1000 sampled RequestLogs
@@ -25,7 +25,7 @@ which will be in 20140531. Slight fuzziness around date ranges may be necessary 
 traffic you want.
 
 It does not return all the fields from the log file, merely the most useful ones - namely timestamp,
-ip_address, status_code, URL, mime_type, referer, x_forwarded, user_agent, lang and x_analytics.
+ip_address, status_code, url, mime_type, referer, x_forwarded, user_agent, lang and x_analytics.
 }
 \author{
 Oliver Keyes <okeyes@wikimedia.org>

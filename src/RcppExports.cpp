@@ -20,21 +20,6 @@ BEGIN_RCPP
     return __sexp_result;
 END_RCPP
 }
-// c_sampled_logs
-DataFrame c_sampled_logs(const char* filename);
-RcppExport SEXP WMUtils_c_sampled_logs(SEXP filenameSEXP) {
-BEGIN_RCPP
-    SEXP __sexp_result;
-    {
-        Rcpp::RNGScope __rngScope;
-        Rcpp::traits::input_parameter< const char* >::type filename(filenameSEXP );
-        DataFrame __result = c_sampled_logs(filename);
-        PROTECT(__sexp_result = Rcpp::wrap(__result));
-    }
-    UNPROTECT(1);
-    return __sexp_result;
-END_RCPP
-}
 // c_ua_parse
 DataFrame c_ua_parse(std::vector < std::string > agents, std::string yaml_file_loc);
 RcppExport SEXP WMUtils_c_ua_parse(SEXP agentsSEXP, SEXP yaml_file_locSEXP) {

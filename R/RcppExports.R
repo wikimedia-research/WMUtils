@@ -15,10 +15,6 @@ extract_mcc <- function(x_analytics) {
     .Call('WMUtils_extract_mcc', PACKAGE = 'WMUtils', x_analytics)
 }
 
-c_sampled_logs <- function(filename) {
-    .Call('WMUtils_c_sampled_logs', PACKAGE = 'WMUtils', filename)
-}
-
 #'@export
 c_ua_parse <- function(agents, yaml_file_loc) {
     .Call('WMUtils_c_ua_parse', PACKAGE = 'WMUtils', agents, yaml_file_loc)
