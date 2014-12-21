@@ -37,14 +37,14 @@ sampled_logs <- function(file){
                           character_parser(),skip_parser(), character_parser(),character_parser(),
                           character_parser(), character_parser(), character_parser(), character_parser())
   
-  sampled_colnames <-   c("squid","sequence_no",
-                          "timestamp", "servicetime",
-                          "ip_address", "status_code",
-                          "reply_size", "request_method",
-                          "url", "squid_status",
-                          "mime_type", "referer",
-                          "x_forwarded", "user_agent",
-                          "lang", "x_analytics")
+  sampled_colnames <- c("squid","sequence_no",
+                        "timestamp", "servicetime",
+                        "ip_address", "status_code",
+                        "reply_size", "request_method",
+                        "url", "squid_status",
+                        "mime_type", "referer",
+                        "x_forwarded", "user_agent",
+                        "lang", "x_analytics")
   
   #Check whether a file was provided, or a date. If a data, construct a filename
   if(!grepl(x =  file, pattern = "/")){

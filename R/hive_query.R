@@ -39,6 +39,11 @@
 #'@export
 hive_query <- function(query, user, db = "wmf_raw", dt = TRUE, heapsize = 1024){
   
+  #If the query ends in a semicolon, DO NOT DO THAT
+  if(grepl(x = query, pattern = ";$")){
+    query <- substring(query,0,(nchar(query)-1))
+  }
+  
   #If there's no heapsize set, set.
   if(Sys.getenv("HADOOP_HEAPSIZE") != heapsize){
     Sys.setenv(HADOOP_HEAPSIZE = heapsize)
